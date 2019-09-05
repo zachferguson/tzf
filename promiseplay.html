@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+https://alligator.io/js/async-functions/
+https://medium.freecodecamp.org/a-practical-es6-guide-on-how-to-perform-http-requests-using-the-fetch-api-594c3d91a547
+-->
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Zach Ferguson - Home</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Tangerine|Coda' rel='stylesheet'>`
+        <!-- Place favicon.ico in the root directory -->
+        <!--
+		<link rel="stylesheet" href="css/bresume.css">
+		<link rel="stylesheet" href="css/zfsite.css">
+        <link rel="stylesheet" href="css/burgermenu.css">
+    -->
+	<script>
+	/*
+	//openweathermap API URL
+	let forecast = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat="
+
+	//Chuck Norris Jokes API URL
+	let randjoke = 'http://api.icndb.com/jokes/random?escape=javascript';
+
+	// call fetch with the API URL as an arguement
+	fetch(randjoke)
+
+		// convert the response to JSON - cnj is the variable name the returned data will be called
+		.then((cnj) => cnj.json())
+
+		// do some stuff with that JSON
+		.then(function(cnj) {
+			console.log(cnj);
+			console.log(cnj['value']['joke']);
+			document.getElementById('chuckJoke').innerHTML = cnj['value']['joke'];
+		})
+
+		//call the weather forecast
+		.then(function() {
+		  fetch(forecast)
+		    .then((wdata) => wdata.json())
+		    .then(function(wdata) {
+			    console.log(wdata);
+		    })
+		})
+
+		// oops something screwed up code
+		.catch(function() {
+			console.log("You screwed something up...");
+		});
+	*/
+	</script>
+	
+	<script>
+		/*
+		------- promise chain -------
+		const verifyUser = async function(username, password){
+		   try {
+			   const userInfo = await dataBase.verifyUser(username, password);
+			   const rolesInfo = await dataBase.getRoles(userInfo);
+			   const logStatus = await dataBase.logAccess(userInfo);
+			   return userInfo;
+		   }catch (e){
+			   //handle errors as needed
+		   }
+		};
+		*/
+		let forecast = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=";
+		let chuckjoke = 'http://api.icndb.com/jokes/random?escape=javascript';
+		console.log("entering second script");
+		
+		async function printChuck() {
+		  let weatherData = await fetch(forecast);
+		  console.log(weatherData.json());
+		  let msg = await fetch(chuckjoke);
+		  //let msgjson = msg.json();
+		  console.log(msg.json());
+		}
+		/*
+		let jokedata = async function(){
+			try{
+				console.log("trying...");
+				const data = await fetch(chuckjoke);
+				console.log("internal data log");
+				console.log(data['value']['joke']);
+				return data['value']['joke'];
+			}
+			catch(error){
+				console.log("error:", error);
+			}
+		};
+		console.log("external data log");
+		console.log(jokedata);
+		*/
+		printChuck();
+	</script>
+
+    </head>
+    <body>
+		<p id="chuckJoke"></p>
+		<p id="secondJoke"></p>
+		<p id="wd"></p>
+    </body>
+</html>

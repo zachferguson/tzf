@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- --------------------------------------------- -->			
+<!-- --------------- Document Block -------------- -->
+<!-- --------------------------------------------- -->
+		<!-- 	 Version: 
+ 				 Date:
+		-->
+
+		<!-- Clear button: enable save button
+			 Draw button: if statement to not enable save if array is full, add array count to function arguements
+			 New system message "Max numbers saved, clear or print..." appears when array is full and Draw is hit
+			 Limit number of includes/excludes selectable - all disabled when max reached
+			 Pick 2 max includes = 2, max excudes = 10 - max includes.
+<!-- --------------------------------------------- -->			
+<!-- --------------- End Document Block ---------- -->
+<!-- --------------------------------------------- -->
+
+<!-- --------------------------------------------- -->			
+<!-- --------------- Color Scheme ---------------- -->
+<!-- --------------------------------------------- -->
+
+<!-- --------------------------------------------- -->			
+<!-- --------------- End Color Scheme ------------ -->
+<!-- --------------------------------------------- -->
+
+<!-- --------------------------------------------- -->			
+<!-- --------------- Development Notes ----------- -->
+<!-- --------------------------------------------- -->
+
+<!-- Desktop Width = 960px and larger
+	  Laptop Width  = 768px upto 959px
+     Mobile Width  = 480px upto 767px -->
+
+<!-- --------------------------------------------- -->			
+<!-- --------------- End Development Notes ------- -->
+<!-- --------------------------------------------- -->
+
+		<title>Lottery Picker</title>
+	
+<!-- --------------------------------------------- -->			
+<!-- --------------- Includes Block -------------- -->
+<!-- --------------------------------------------- -->
+	<!-- Google Fonts -->
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Baloo Da">
+
+<!-- --------------------------------------------- -->			
+<!-- --------------- End Includes Block ---------- -->
+<!-- --------------------------------------------- -->
+
+		<style>
+
+/* ------------------------------------------------- */
+/* ------------------Grid Styles-------------- ----- */
+/* ------------------------------------------------- */
+
+
+
+
+			* {
+				margin:  0;
+				padding: 0;
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr 22.5fr 22.5fr 22.5fr 1fr;
+				grid-template-rows: 10% 10% 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 5%;
+				grid-template-areas:
+				". title title title title ."
+				". header header header header ."
+				". Pick2LabelCol Pick2BallsCol Pick2DisplayCol Pick2AdvertCol ."
+				". . Pick2SysMes Pick2SysMes . ."
+				". Pick3LabelCol Pick3BallsCol Pick3DisplayCol Pick3AdvertCol ."
+				". . Pick3SysMes Pick3SysMes . ."				
+				". Pick4LabelCol Pick4BallsCol Pick4DisplayCol Pick4AdvertCol ."
+				". . Pick4SysMes Pick4SysMes . ."
+				". Pick5LabelCol Pick5BallsCol Pick5DisplayCol Pick5AdvertCol ."
+				". . Pick5SysMes Pick5SysMes . ."			
+				". footer footer footer footer.";
+
+				grid-column-gap: 10px;
+  				grid-row-gap: 10px;	
+
+	
+				
+			}
+
+			.title {
+				grid-area: title;
+			}
+			
+			.header {
+				grid-area: header;			
+			}
+
+
+			
+			.Pick2LabelCol {
+				grid-area: Pick2LabelCol;
+				min-width: 120px;
+			}
+			
+			.Pick2BallsCol {
+				grid-area: Pick2BallsCol;
+				min-width: 325px;
+			}
+			
+			.Pick2DisplayCol {
+				grid-area: Pick2DisplayCol;
+			}
+			
+			.Pick2AdvertCol {
+				grid-area: Pick2AdvertCol;
+			}
+			
+			.Pick2SysMes {
+				grid-area: Pick2SysMes;
+				max-width:725px;			
+			}
+
+			.Pick3LabelCol {
+				grid-area: Pick3LabelCol;
+			}
+			
+			.Pick3BallsCol {
+				grid-area: Pick3BallsCol;
+			}
+			
+			.Pick3DisplayCol {
+				grid-area: Pick3DisplayCol;
+			}
+			
+			.Pick3AdvertCol {
+				grid-area: Pick3AdvertCol;
+			}
+			
+			.Pick3SysMes {
+				grid-area: Pick3SysMes;
+				max-width:725px;				
+			}
+			
+			
+			
+			.Pick4LabelCol {
+				grid-area: Pick4LabelCol;
+
+			}
+			
+			.Pick4BallsCol {
+				grid-area: Pick4BallsCol;
+				
+			}
+			
+			.Pick4DisplayCol {
+				grid-area: Pick4DisplayCol;
+			}
+			
+			.Pick4AdvertCol {
+				grid-area: Pick4AdvertCol;
+			}
+			
+			.Pick4SysMes {
+				grid-area: Pick4SysMes;
+				max-width:725px;				
+			}
+			
+			
+			.Pick5LabelCol {
+				grid-area: Pick5LabelCol;
+				max-width:725px;	
+
+			}
+			
+			.Pick5BallsCol {
+				grid-area: Pick5BallsCol;
+				
+			}
+			
+			.Pick5DisplayCol {
+				grid-area: Pick5DisplayCol;
+			}
+			
+			.Pick5AdvertCol {
+				grid-area: Pick5AdvertCol;
+			}
+			
+			.Pick5SysMes {
+				grid-area: Pick5SysMes;
+				max-width:725px;				
+			}
+			
+			.footer {
+				grid-area: footer;
+			}
+		
+
+
+<!-- Desktop Width = 960px and larger
+	  Laptop Width  = 768px upto 959px
+     Mobile Width  = 480px upto 767px 
+     
+     (min-device-width: 800px) 
+  and (max-device-width: 1280px)
+     -->
+
+/* ------------------------------------------------- */
+/* ------------------For Laptop Layout-------------- */
+/* ------------------------------------------------- */ 		
+	@media only screen and (max-width: 959px) {
+    body {
+ 		background-color: lightblue;
+    }
+    
+}	
+/* ------------------------------------------------- */
+/* ------------------End For Laptop Layout---------- */
+/* ------------------------------------------------- */ 	
+	
+/* ------------------------------------------------- */
+/* ------------------For Mobile Layout-------------- */
+/* ------------------------------------------------- */ 		
+
+	@media only screen and (max-width: 767px) {
+
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+				grid-template-areas:
+				"title"
+				"header"
+				"Pick2LabelCol"
+				"Pick2BallsCol"
+				"Pick2DisplayCol"
+				"Pick2SysMes"
+				"Pick2AdvertCol"
+				"Pick3LabelCol"
+				"Pick3BallsCol"
+				"Pick3DisplayCol"
+				"Pick3SysMes"
+				"Pick3AdvertCol"
+				"Pick4LabelCol"
+				"Pick4BallsCol"
+				"Pick4DisplayCol"
+				"Pick4SysMes"
+				"Pick4AdvertCol"
+				"Pick5LabelCol"
+				"Pick5BallsCol"
+				"Pick5DisplayCol"
+				"Pick5SysMes"
+				"Pick5AdvertCol"				
+				"footer";
+
+				grid-column-gap: 5px;
+  				grid-row-gap: 5px;	
+
+				height: 100vh;	
+			}
+
+    body {
+ 		min-width: 480px;
+ 		background-color: lightcoral;
+    }
+  
+}	
+/* ------------------------------------------------- */
+/* ------------------End For Mobile Layout---------- */
+/* ------------------------------------------------- */ 				
+
+/* ------------------------------------------------- */
+/* ------------------For Print Layout-------------- */
+/* ------------------------------------------------- */ 		
+		@media print {
+		
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-template-rows: 1fr 1fr 1fr 1fr;
+				grid-template-areas:
+				"header header header"
+				"Pick2LabelCol Pick2DisplayCol Pick2AdvertCol"
+				"Pick3LabelCol Pick3DisplayCol Pick3AdvertCol"				
+				"footer footer footer";
+			}
+	
+			#donate {
+				display: none;		
+			}	
+
+			.invBtn {
+				display: none;			
+			}	
+
+			#threeBallsGoDark {
+				display: none;		
+			} 
+
+
+		}
+	
+	
+	
+	
+	
+/* ------------------------------------------------- */
+/* ------------------End For Print Layout---------- */
+/* ------------------------------------------------- */ 		
+			
+/* ------------------------------------------------- */
+/* ------------------End Grid Styles---------------- */
+/* ------------------------------------------------- */
+
+/* ------------------------------------------------- */
+/* ------------------Block Styles------------------- */
+/* ------------------------------------------------- */
+		body {
+			background-color: #91e4fb;
+			color:#fb8c00;
+		}
+		
+		header {
+			background-color: #c9f1fd;
+			margin-bottom: 20px;
+		}
+/* ------------------------------------------------- */
+/* ------------------End Block Styles--------------- */
+/* ------------------------------------------------- */
+
+/* ------------------------------------------------- */
+/* ------------------Element Styles----------------- */
+/* ------------------------------------------------- */
+
+		.whiteOutputBalls {
+				height: 38px;
+				width:  38px;
+				
+				margin-left: 5px;
+				margin-top: 5px;				
+				
+				border-style: solid;
+				border-width: 1px;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				background-color: #ffffff;
+				color: #000000;
+		
+				float: left;
+		}
+		
+		.redOutputBalls {
+				height: 38px;
+				width:  38px;
+				
+				margin-left: 5px;
+				margin-top: 5px;					
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				background-color: #ed1414;
+				color: #ffffff;
+				
+				float: left;		
+		}
+
+	  .incExcluBalls {
+				height: 25px;
+				width:  25px;
+	
+				margin-left: 3px;
+						
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				outline: none;				
+				
+				background-color: #ffffff;
+				color: #000000;
+				
+				float: left;					
+		}
+		
+	.incBallSelected {
+				height: 25px;
+				width:  25px;
+	
+				margin-left: 3px;
+						
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				outline: none;				
+				
+				background-color: #00ff00;
+				color: #000000;
+				
+				float: left;		
+		}
+
+	.excluBallSelected {
+				height: 25px;
+				width:  25px;
+	
+				margin-left: 3px;
+						
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				outline: none;				
+				
+				background-color: #ff0000;
+				color: #000000;
+				
+				float: left;		
+		}
+		
+	.incExcluBallsDisabled {
+				height: 25px;
+				width:  25px;
+	
+				margin-left: 3px;
+						
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				outline: none;				
+				
+				background-color: #ffffff;
+				color: #000000;
+				opacity: 0.25;
+				
+				float: left;		
+		}
+
+	.incExcluLabels {
+				color: #000000;
+				font-family: Baloo Da;
+				font-size: 16px;
+				
+				margin-top: 10px;				
+				margin-bottom: 0px;				
+				
+				line-height: 20px;
+		}
+
+	.button {
+				height: 28px;
+				width: 70px; 					
+				
+				margin-left: 5px;
+				
+				border-style: solid;
+				border-width: 1px;
+				border-color: #000000;
+				-moz-border-radius: 4px;
+				-webkit-border-radius: 4px;
+				border-radius: 4px;
+				
+				outline: none;
+				
+				background-color: #e6e6e6;
+				color: #000000;
+				
+				
+	}
+
+	.buttonDisable {
+				opacity: 0.25;
+	
+	}
+
+	.pickOutArea {
+			height: 150px;
+			width:  255px;
+			overflow: auto;
+			
+			margin-bottom: 8px;			
+			
+			border-style: solid;
+			border-width: 1px;
+			border-color: #000000;
+			-moz-border-radius: 8px;
+			-webkit-border-radius: 8px;
+			border-radius: 8px;			
+			
+			font-size: 18px;
+			
+			background-color: #ffffff;
+			color: #000000;
+	}	
+	
+	.pickSysMes {
+			height: 75px;
+			
+			overflow: auto;
+			
+			margin-bottom: 100px;			
+			
+			border-style: solid;
+			border-width: 1px;
+			border-color: #000000;
+			-moz-border-radius: 8px;
+			-webkit-border-radius: 8px;
+			border-radius: 8px;			
+			
+			padding: 10px;			
+			
+			font-family: Baloo Da;
+			font-size: 18px;
+			line-height: 1;
+			
+			background-color: #ffffff;
+			color: #000000;
+	}	
+/* ------------------------------------------------- */
+/* ------------------End Element Styles------------- */
+/* ------------------------------------------------- */
+		#whyDonate {
+				font-family: Baloo Da;
+				font-size: 14px;
+				text-align: center;
+				color: #18446f;
+		}
+
+/* ------------------------------------------------- */
+/* ------------------Modifier Styles---------------- */
+/* ------------------------------------------------- */
+	
+		.BalooDa36 {
+				font-family: Baloo Da;
+				font-size: 36px;
+			}
+
+		.BalooDa25 {
+				font-family: Baloo Da;
+				font-size: 25px;
+			}
+			
+		.BalooDa20 {
+				font-family: Baloo Da;
+				font-size: 20px;
+			}
+		
+		.texShadow {
+			text-shadow: 2px 3px 0px #080808;
+			}	
+	
+		.grid div , .grid header {
+				border-style: none;
+				border-width: 1px;
+			}
+			
+		.vertHorText {			
+				text-align: center;
+				vertical-align: middle;
+				line-height: 100%;
+			}
+			
+
+/* ------------------------------------------------- */
+/* ------------------End Modifier Styles------------ */
+/* ------------------------------------------------- */
+
+		</style>
+
+	<script>
+	
+/* ------------------------------------------------- */
+/* ------------------Variable List------------------ */
+/* ------------------------------------------------- */
+	// pick 2 vars
+	var p2Inc = []; //
+	var p2Exc = []; //
+	var p2IncMax = 2;
+	var p2LottoBalls = ['p2o1', 'p2o2', 'p2ow']; //
+	var p2ControlButtons = ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'];
+	var p2IncludedBalls = ['p2i0', 'p2i1', 'p2i2', 'p2i3', 'p2i4', 'p2i5', 'p2i6', 'p2i7', 'p2i8', 'p2i9']; //
+	var p2ExcludedBalls = ['p2e0', 'p2e1', 'p2e2', 'p2e3', 'p2e4', 'p2e5', 'p2e6', 'p2e7', 'p2e8', 'p2e9']; //
+	var p2CurrentPicks = [];
+	var p2Saved = []; //
+	var p2SavedMax = 12;
+
+	// pick 3 vars
+	var p3Inc = []; //
+	var p3Exc = []; //
+	var p3IncMax = 3;
+	var p3LottoBalls = ['p3o1', 'p3o2', 'p3o3', 'p3ow']; //
+	var p3ControlButtons = ['btnMix3', 'btnDraw3', 'btnSave3', 'btnReset3']; //
+	var p3IncludedBalls = ['p3i0', 'p3i1', 'p3i2', 'p3i3', 'p3i4', 'p3i5', 'p3i6', 'p3i7', 'p3i8', 'p3i9']; //
+	var p3ExcludedBalls = ['p3e0', 'p3e1', 'p3e2', 'p3e3', 'p3e4', 'p3e5', 'p3e6', 'p3e7', 'p3e8', 'p3e9']; //
+	var p3CurrentPicks = [];
+	var p3Saved = []; //
+	var p3SavedMax = 9;
+
+	// pick 4 vars
+	var p4Inc = []; //
+	var p4Exc = []; //
+	var p4IncMax = 4;
+	var p4LottoBalls = ['p4o1', 'p4o2', 'p4o3', 'p4o4', 'p4ow']; //
+	var p4ControlButtons = ['btnMix4', 'btnDraw4', 'btnSave4', 'btnReset4']; //
+	var p4IncludedBalls = ['p4i0', 'p4i1', 'p4i2', 'p4i3', 'p4i4', 'p4i5', 'p4i6', 'p4i7', 'p4i8', 'p4i9']; //
+	var p4ExcludedBalls = ['p4e0', 'p4e1', 'p4e2', 'p4e3', 'p4e4', 'p4e5', 'p4e6', 'p4e7', 'p4e8', 'p4e9']; //
+	var p4CurrentPicks = [];
+	var p4Saved = []; //
+	var p4SavedMax = 9;
+
+	//pick 5 vars
+	var p5Inc = []; //
+	var p5Exc = []; //
+	var p5IncMax = 5;
+	var p5LottoBalls = ['p5o1', 'p5o2', 'p5o3', 'p5o4', 'p5o5', 'p5ow']; //
+	var p5ControlButtons = ['btnMix5', 'btnDraw5', 'btnSave5', 'btnReset5']; //
+	var p5IncludedBalls = ['p5i0', 'p5i1', 'p5i2', 'p5i3', 'p5i4', 'p5i5', 'p5i6', 'p5i7', 'p5i8', 'p5i9']; //
+	var p5ExcludedBalls = ['p5e0', 'p5e1', 'p5e2', 'p5e3', 'p5e4', 'p5e5', 'p5e6', 'p5e7', 'p5e8', 'p5e9']; //
+	var p5CurrentPicks = [];
+	var p5Saved = []; //
+	var p5SavedMax = 6;
+
+	var pubTo = [
+		['p2o1', false],
+		['p2o2', false],
+		['p2ow', false],
+		['p3o1', false],
+		['p3o2', false],
+		['p3o3', false],
+		['p3ow', false],
+		['p4o1', false],
+		['p4o2', false],
+		['p4o3', false],
+		['p4o4', false],
+		['p4ow', false],
+		['p5o1', false],
+		['p5o2', false],
+		['p5o3', false],
+		['p5o4', false],
+		['p5o5', false],
+		['p5ow', false]
+	];
+	
+	var sysTxtMes = ['<p>Click the Draw button to draw your numbers.</p>',
+						'<p>Click the Save button to save these numbers to the print list or</p><p>use the Reset button to clear this draw.</p>',
+					  	'<p>Click the Reset button to start over or the Mix button to use the same Incude/Exclude selections.</p><p>If your have all your numbers saved the Print button will print your numbers and </p><p>Clear button will clear the save numbers box.</p>',
+	                 	'<p>Choose balls from the Includes row for numbers you want in your draw.</p><p>Choose balls from the Excludes row for numbers you do not want in your draw.</p><p>Then hit the Mix button to start mixing the balls</p>',
+						'<p>There is no more room to save numbers.</p><p>The Clear button will erase the stored numbers so you can add this number.</p><p></p>'
+					];
+
+	// function randGen(numCount)    numcount = p_LottoBalls
+
+	// function funMix (numCount, btns) example arguements: ['p2o1', 'p2o2', 'p2ow'], ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2']
+
+	//function funReset (els, btns, incs, excs, arrInc, arrExc)
+		// example arguements:
+		// ['p2o1', 'p2o2', 'p2ow'],['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'],['p2i0', 'p2i1', 'p2i2', 'p2i3', 'p2i4', 'p2i5', 'p2i6', 'p2i7', 'p2i8', //'p2i9'],['p2e0', 'p2e1', 'p2e2', 'p2e3', 'p2e4', 'p2e5', 'p2e6', 'p2e7', 'p2e8', 'p2e9'], p2Inc, p2Exc
+
+	//function funInc (ballBtn, oppBtn, val, btns, arrInc, arrExc)
+		// example arguements:
+		// 'p2i0', 'p2e0', 0, ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'], p2Inc, p2Exc
+
+	//function funExc (ballBtn, oppBtn, val, btns, arrInc, arrExc)
+		// example arguements:
+		// 'p2e0', 'p2i0', 0, ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'], p2Inc, p2Exc
+
+	// p5Inc = []; //
+	// p5Exc = []; //
+	// p5LottoBalls = ['p5o1', 'p5o2', 'p5o3', 'p5o4', 'p5o5', 'p5ow']; //
+	// p5ControlBtns = ['btnMix5', 'btnDraw5', 'btnSave5', 'btnReset5']; //
+	// p5IncludedBalls = ['p5i0', 'p5i1', 'p5i2', 'p5i3', 'p5i4', 'p5i5', 'p5i6', 'p5i7', 'p5i8', 'p5i9']; //
+	// p5ExcludedBalls = ['p5e0', 'p5e1', 'p5e2', 'p5e3', 'p5e4', 'p5e5', 'p5e6', 'p5e7', 'p5e8', 'p5e9']; //
+	// pick5Saved = []; //
+
+
+/* ------------------------------------------------- */
+/* ------------------End Variable List-------------- */
+/* ------------------------------------------------- */	
+	
+/* ------------------------------------------------- */
+/* ------------------Function List------------------ */
+/* ------------------------------------------------- */
+/* serjsfunctions */
+
+	function runGenerator() {
+        intSet = setInterval(randGen, 100);
+	}
+
+	function randGen() {
+			for (var i = 0; i < pubTo.length; i++) {
+			    //console.log("pubTo[" + i + "]: " + pubTo[i]);
+				if (pubTo[i][1] == true) {
+					var randNum = Math.floor(Math.random() * (10));
+					console.log(pubTo[i][0] + " innerHTML set to " + randNum);
+					document.getElementById(pubTo[i][0]).innerHTML = randNum;
+					//console.log("element: " + pubTo[i][0] + " is " + pubTo[i][1]);
+				}
+			}
+	}
+
+	function funMix (ballList, btns, sysMesBox) {
+		// example arguements: ['p2o1', 'p2o2', 'p2ow'], ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2']
+		console.log("");
+		console.log("Mix function called. Vars:");
+		console.log("List of ball elements:");
+		console.log(ballList);
+		console.log("Buttons:");
+		console.log(btns);
+		console.log("pubTo before: " + pubTo);
+		for (var i = 0; i < pubTo.length; i++) {
+		    for (var x = 0; x < ballList.length; x++){
+		        if (ballList[x] == pubTo[i][0]) {
+		            pubTo[i][1] = true;
+				}
+			}
+		}
+		console.log("pubTo after: " + pubTo);
+		document.getElementById(btns[0]).disabled = true;
+		document.getElementById(btns[0]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[1]).disabled = false;
+		document.getElementById(btns[1]).className = "button BalooDa20"; /* if False */
+		document.getElementById(btns[2]).disabled = true;
+		document.getElementById(btns[2]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[3]).disabled = true;
+		document.getElementById(btns[3]).className = "button BalooDa20"; /* if False */
+		document.getElementById(sysMesBox).innerHTML = sysTxtMes[0];
+		}
+
+	function funDraw (numCount, btns, included, excluded, tempSave, sysMesBox) {
+		console.log("");
+		console.log("Draw function called. Vars:");
+		console.log("Ball list:");
+		console.log(numCount);
+		console.log("Buttons:");
+		console.log(btns);
+		console.log("Included numbers:");
+		console.log(included);
+		console.log("Excluded numbers:");
+		console.log();
+        for (var i = 0; i < pubTo.length; i++) {
+            for (var x = 0; x < numCount.length; x++){
+                if (numCount[x] == pubTo[i][0]) {
+                    pubTo[i][1] = false;
+                }
+            }
+        }
+		// example arguements: ['p2o1', 'p2o2', 'p2ow'], ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'], p2Inc, p2Exc
+		/*numCount: list of elements to publish random numbers to. included: list of numbers to include automatically. excluded: numbers that cannot be in the results*/
+		var generated = []; /*list of numbers to put to the html*/
+
+		/*push the items in the list of numbers that must be included to the generated list*/
+		for (var i = 0; i < included.length; i++) {
+			generated.push(included[i]);
+		}
+
+
+		var genLength = numCount.length - generated.length;
+
+		for (var i = 0; i < genLength;) {
+			var vRanNum = Math.floor(Math.random() * (10));
+				if (excluded.indexOf(vRanNum) == -1 ) {
+					generated.push(vRanNum);
+					i++
+				}
+			}
+		var tempList = [];  /*a list to receive the numbers from the genCopy list, but in random order (to randomize the numbers in the "included" list*/
+		var genCopy = [];  /*a temproary list to receive the values from the generated list*/
+
+		/*put items in the generated numbers list "generated" into the genCopy list, so genCopy contains the same values, but is a new list*/
+		for (item in generated) {
+			genCopy.push(generated[item]);
+		}
+
+		/*randomly place the generated numbers into a list*/
+		for (var i = 0; i < generated.length; i++) {
+			randNum = Math.floor(Math.random() * (genCopy.length - 1));
+			tempList.push(genCopy[randNum]);
+			genCopy.splice(randNum, 1);
+		}
+
+
+		generated = tempList; /*sets the generated numbers list to the value of the tempList with the same values randomly organized*/
+
+		/*iterate through the input list of html elements to publish to, and publish the random numbers to them*/
+		for (var i = 0; i < generated.length; i++) {
+			document.getElementById(numCount[i]).innerHTML = generated[i];
+		}
+
+		// add the current list of generated numbers to an outside array that can be accessed if user wishes to save 
+		tempSave.length = 0; // clear any previous values
+		tempSave.push(generated);  // set the numbers generated on clicking this draw button to the outside array
+
+		// set disabled and enabled buttons
+		document.getElementById(btns[0]).disabled = false;
+		document.getElementById(btns[0]).className = "button BalooDa20"; /* if False */
+		document.getElementById(btns[1]).disabled = true;
+		document.getElementById(btns[1]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[2]).disabled = false;
+		document.getElementById(btns[2]).className = "button BalooDa20"; /* if True */
+		document.getElementById(btns[3]).disabled = false;
+		document.getElementById(btns[3]).className = "button BalooDa20"; /* if False */
+		document.getElementById(sysMesBox).innerHTML = sysTxtMes[1];
+	}
+
+	function funReset (els, btns, incs, excs, arrInc, arrExc, currentPicks,sysMesBox) {
+		// example arguements:
+		// ['p2o1', 'p2o2', 'p2ow'],['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'],['p2i0', 'p2i1', 'p2i2', 'p2i3', 'p2i4', 'p2i5', 'p2i6', 'p2i7', 'p2i8', //'p2i9'],['p2e0', 'p2e1', 'p2e2', 'p2e3', 'p2e4', 'p2e5', 'p2e6', 'p2e7', 'p2e8', 'p2e9'], p2Inc, p2Exc
+		// reset all randomly generated balls to 0
+		for (var i = 0; i < els.length; i++) {
+			document.getElementById(els[i]).innerHTML = 0;
+		}
+		// reset enabled and disabled buttons
+		document.getElementById(btns[0]).disabled = false;
+		document.getElementById(btns[0]).className = "button BalooDa20"; /* if False */
+		document.getElementById(btns[1]).disabled = true;
+		document.getElementById(btns[1]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[2]).disabled = true;
+		document.getElementById(btns[2]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[3]).disabled = true;
+		document.getElementById(btns[3]).className = "button buttonDisable BalooDa20"; /* if True */
+		// reset css on included and excluded to neutral
+		for (var c = 0; c < incs.length; c++) {
+		    console.log("Resetting " + incs[c] + " and " + excs[c] + " classes.");
+			document.getElementById(incs[c]).className = "incExcluBalls BalooDa25";
+			document.getElementById(excs[c]).className = "incExcluBalls BalooDa25";
+		}
+		/*
+		for (var q = 0; q < incs.length; q++) {
+		    console.log("resetting " + excs[q] + " classes.")
+			document.getElementById(excs[q]).classList.remove("excluBallSelected incExcluBallsDisabled");
+			document.getElementById(excs[q]).className = "incExcluBalls BalooDa25";
+		}
+		*/
+		// reset included and excluded arrays
+		arrInc.length = 0;
+		arrExc.length = 0;
+		currentPicks.length = 0;
+		
+		document.getElementById(sysMesBox).innerHTML = sysTxtMes[3];
+	}
+
+	function funInc (ballBtn, oppBtn, val, btns, arrInc, arrExc, arrMax) {
+		console.log("");
+		console.log();
+		// example arguements:
+		// 'p2i0', 'p2e0', 0, ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'], p2Inc, p2Exc
+		// add ball value to the included list
+		if (arrInc.length <= arrMax) {
+
+			if (arrInc.indexOf(val) == -1) {
+				arrInc.push(val);
+			}
+
+			// change the class of the ball and the same value in excluded to the correct inclusion or exclusion class
+			document.getElementById(ballBtn).className = "incBallSelected BalooDa25";
+			document.getElementById(oppBtn).className = "incExcluBallsDisabled BalooDa25";
+			// if value is in the excluded list, remove it
+			if (arrExc.indexOf(val) !== -1) {
+				arrExc.splice(p2Exc.indexOf(val), 1);
+			}
+			// reset enabled and disabled buttons
+			document.getElementById(btns[0]).disabled = false;
+			document.getElementById(btns[0]).className = "button BalooDa20"; /* if False */
+			document.getElementById(btns[1]).disabled = false;
+			document.getElementById(btns[1]).className = "button BalooDa20"; /* if False */
+			document.getElementById(btns[2]).disabled = true;
+			document.getElementById(btns[2]).className = "button buttonDisable BalooDa20"; /* if True */
+			document.getElementById(btns[3]).disabled = false;
+			document.getElementById(btns[3]).className = "button BalooDa20"; /* if False */
+        }
+	}
+
+	function funExc (ballBtn, oppBtn, val, btns, arrInc, arrExc, arrMax) {
+		// example arguements:
+		// 'p2e0', 'p2i0', 0, ['btnMix2', 'btnDraw2', 'btnSave2', 'btnReset2'], p2Inc, p2Exc
+		if (arrExc.length <= 10 - arrMax) {
+
+			// add ball value to the excluded list
+			if (arrExc.indexOf(val) == -1) {
+				arrExc.push(val);
+
+			// change the class of the ball and the same value in included to the correct inclusion or exclusion class
+			document.getElementById(ballBtn).className = "excluBallSelected BalooDa25";
+			document.getElementById(oppBtn).className = "incExcluBallsDisabled BalooDa25";
+			// if value is in the excluded list, remove it
+			if (arrInc.indexOf(val) !== -1) {
+				arrInc.splice(arrInc.indexOf(val), 1);
+			}
+			// reset enabled and disabled buttons
+			document.getElementById(btns[0]).disabled = false;
+			document.getElementById(btns[0]).className = "button BalooDa20"; /* if False */
+			document.getElementById(btns[1]).disabled = false;
+			document.getElementById(btns[1]).className = "button BalooDa20"; /* if False */
+			document.getElementById(btns[2]).disabled = true;
+			document.getElementById(btns[2]).className = "button buttonDisable BalooDa20"; /* if True */
+			document.getElementById(btns[3]).disabled = false;
+			document.getElementById(btns[3]).className = "button BalooDa20"; /* if False */
+			}
+        }
+	}
+
+	function funSave (saveArr, btns, saveEl, currentPicks, sysMesBox) {
+		// sample input (p2Saved, p2ControlBtns, p2Display, p2CurrentPicks)
+		// saveArr - the array to save the current picks to
+		// saveBtn - the button element
+		// saveEl - the element to display saved values to
+		// currentPicks - the numbers that were drawn that will be saved on clicking the save button
+
+		saveArr.push(currentPicks);  // add the current numbers to the saved array (allows for more than one set of saved numbers)
+		// console.log("saved array: ", saveArr);
+		// console.log("current picks: ", currentPicks);
+		// publish the current saved list to the display element, in addition to previously saved number sets
+		var pickLength = currentPicks[0].length;
+		var contents = "";
+		console.log("currentPicks: " + typeof(currentPicks));
+		console.log(currentPicks);
+		console.log("WTF?!");
+		console.log("1: " + currentPicks[0][0]);
+		console.log("2: " + currentPicks[0][1]);
+		console.log("3: " + currentPicks[0][2]);
+		for (var z = 0; z < pickLength; z++) {
+			console.log("save loop entered, z = " + z);
+			if (z == pickLength - 1) {
+				console.log("last number in current picks: " + currentPicks[0][z]);
+				contents += "<span style ='color:red;'>" + currentPicks[0][z] + "</span> &nbsp; &nbsp; &nbsp;";
+				break;		
+			}
+			if (z < pickLength - 1) {
+				console.log("current number in currentPicks: " + currentPicks[0][z]);
+				contents += currentPicks[0][z] + ",";	
+			}		
+		}
+		
+		console.log("contents after loop: " + contents);
+		document.getElementById(saveEl).innerHTML += contents;
+
+		// reset enabled and disabled buttons
+		document.getElementById(btns[0]).disabled = false;
+		document.getElementById(btns[0]).className = "button BalooDa20"; /* if False */
+		document.getElementById(btns[1]).disabled = true;
+		document.getElementById(btns[1]).className = "button buttonDisable BalooDa20"; /* if False */
+		document.getElementById(btns[2]).disabled = true;
+		document.getElementById(btns[2]).className = "button buttonDisable BalooDa20"; /* if True */
+		document.getElementById(btns[3]).disabled = false;
+		document.getElementById(btns[3]).className = "button BalooDa20"; /* if False */
+		document.getElementById(sysMesBox).innerHTML = sysTxtMes[2];
+	}
+
+function funPrint() {
+    window.print();
+}
+
+function funClear(saveArray, saveEl, saveBtn) {
+	    document.getElementById(saveBtn).disabled = false;
+	document.getElementById(saveEl).innerHTML = "<p></p>";
+	saveArray.length = 0;
+}
+
+/* ------------------------------------------------- */
+/* ------------------End Function List-------------- */
+/* ------------------------------------------------- */
+
+	</script>
+	</head>
+<body onload="runGenerator()">
+		<div class="grid">
+			<div class="title"></div>
+
+
+<!-- serhead -->
+			<header class="header">
+				<div>
+					<div><p class="BalooDa36 texShadow" style="float: left;">LOTTERY PICKER</p></div>
+					<div id="donate" style="float: right; padding-top: .5em;">
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="644UTG6KV5MV4">
+						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>
+				<a href="whydonate_ver_083117.html"><p id="whyDonate">Why Donate?</p></a>
+					</div>							
+				</div>
+			</header>
+			
+	
+	
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- Start Pick 2 Block ---------------------- -->	
+<!-- -------------------------------------------------------------- -->			
+			<div class="Pick2LabelCol">		
+				<p class="BalooDa36 texShadow">Pick 2</p>			
+			</div>
+			
+			<div class="Pick2BallsCol  invBtn">
+ 				<div class="BalooDa36">  <!-- Pick 2 Balls Column -->
+ 		  			<div class="" > <!-- Pick2 Subcolumn 1 - Display Output Balls / Includes / Excludes -->  		 		
+ 		  				<div class="" style="float: left; width: 100%;">	<!-- Pick2 Subcolumn1, row1 - Display Output Balls -->		
+   			  			<div class="whiteOutputBalls BalooDa36"><p id="p2o1"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p2o2"class="vertHorText ">0</p></div>
+							<div class="redOutputBalls BalooDa36"><p id="p2ow" class="vertHorText ">0</p></div> 			
+    					</div> <!-- close Pick2 Subcolumn1, row1 - Display Output Balls -->
+    				   						   			
+ 	   				<div class="" style"clear: left;"> <!-- Pick2 Subcolumn 1, row 2 - Display Includes -->   			
+							<p class="incExcluLabels">Includes</p>
+							<button id="p2i0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i0', 'p2e0', 0, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">0</p></button>
+							<button id="p2i1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i1', 'p2e1', 1, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">1</p></button>
+							<button id="p2i2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i2', 'p2e2', 2, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">2</p></button>
+							<button id="p2i3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i3', 'p2e3', 3, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">3</p></button>
+							<button id="p2i4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i4', 'p2e4', 4, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">4</p></button>
+							<button id="p2i5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i5', 'p2e5', 5, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">5</p></button>
+							<button id="p2i6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i6', 'p2e6', 6, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">6</p></button>
+							<button id="p2i7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i7', 'p2e7', 7, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">7</p></button>
+							<button id="p2i8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i8', 'p2e8', 8, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">8</p></button>
+							<button id="p2i9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p2i9', 'p2e9', 9, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">9</p></button>
+   					</div> <!-- close Pick2 Subcolumn 1, row 2 - Display Includes -->
+   			
+      				<div class="" style="clear: left;"> <!-- Pick2 Subcolumn 1, row 3 - Display Excludes -->   			
+							<p class="incExcluLabels">Excludes</p>
+							<button id="p2e0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e0', 'p2i0', 0, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">0</p></button>
+							<button id="p2e1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e1', 'p2i1', 1, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">1</p></button>
+							<button id="p2e2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e2', 'p2i2', 2, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">2</p></button>
+							<button id="p2e3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e3', 'p2i3', 3, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">3</p></button>
+							<button id="p2e4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e4', 'p2i4', 4, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">4</p></button>
+							<button id="p2e5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e5', 'p2i5', 5, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">5</p></button>
+							<button id="p2e6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e6', 'p2i6', 6, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">6</p></button>
+							<button id="p2e7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e7', 'p2i7', 7, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">7</p></button>
+							<button id="p2e8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e8', 'p2i8', 8, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">8</p></button>
+							<button id="p2e9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p2e9', 'p2i9', 9, p2ControlButtons, p2Inc, p2Exc, p2IncMax)">9</p></button>
+   					</div> <!-- close Pick2 Subcolumn 1, row 3 - Display Excludes -->			 										
+					</div> <!-- close Pick2 Subcolumn 1 - Display Output Balls / Includes / Excludes -->
+
+					<div class=""> <!-- Pick 2 Subcolumn 2 - Display Buttons -->		
+						<div class="" style="clear: left; float: left;"><!-- Pick 2 Subcolumn 2, row 1 - Display Mix Button -->
+							<button id="btnMix2" class="button BalooDa20" onclick="funMix(p2LottoBalls, p2ControlButtons, 'pick2sysMes')">Mix</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 1 - Display Mix Button -->
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 2 Subcolumn 2, row 2 - Display Draw Button -->
+							<button id="btnDraw2" class="button buttonDisable BalooDa20" onclick="funDraw(p2LottoBalls, p2ControlButtons, p2Inc, p2Exc, p2CurrentPicks, 'pick2sysMes')">Draw</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 2 - Display Draw Button -->
+							
+						<div class=" negTopMargin" style="float: left;" ><!-- Pick 2 Subcolumn 2, row 3 - Display Save Button -->
+							<button id="btnSave2" class="button buttonDisable BalooDa20" onclick="funSave(p2Saved, p2ControlButtons, 'p2Display', p2CurrentPicks, 'pick2sysMes')">Save</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 3 - Display Save Button -->
+				
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 2 Subcolumn 2, row 4 - Display Reset Button -->
+							<button id="btnReset2" class="button buttonDisable BalooDa20" onclick="funReset(p2LottoBalls, p2ControlButtons, p2IncludedBalls, p2ExcludedBalls, p2Inc, p2Exc, p2CurrentPicks, 'pick2sysMes')">Reset</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 4 - Display Reset Button -->						
+					</div> <!-- close Pick 2 Subcolumn 2 - Display Buttons -->		
+			
+   			</div> <!-- close Pick 2 Balls Column -->						
+			</div>
+
+
+
+			<div class="Pick2DisplayCol BalooDa36">
+				  		<div class=""> <!-- Pick 2 Text Area, row 1 -->
+    			<div id="pick2Output" class="pickOutArea boxExpand"> <!-- Pick 2 Text Area -->
+    				<p>My numbers:</p>
+    				<p id="p2Display"> &nbsp; </p>
+    			</div> <!-- close Pick 2 Text Area -->
+    			<div class=""> <!-- Pick 2 TextArea Column, Button Column --> 
+ 					<div class="" > <!-- Display Print Button -->
+    					<button class="button BalooDa20 invBtn" style="clear: left; float: left;" onclick="funPrint('#pick2Output')">Print</button>
+    				</div> <!-- close Display Print Button -->
+    				<div class="negTopMargin" > <!-- Display Clear Button -->
+    					<button class="button BalooDa20 invBtn" style="float: left;" onclick="funClear(p2Saved, 'p2Display', 'btnSave2')">Clear</button>
+    				</div> <!-- close Display Clear Button -->
+    			</div> <!-- close Pick 2 TextArea Column, Button Column -->
+    		</div> <!-- close Pick 2 Text Area, row 1 -->
+			</div>
+			
+			
+		<div class="Pick2AdvertCol">Pick2AdvertCol</div>
+		<div id="pick2sysMes" class="Pick2SysMes pickSysMes "><p>Choose balls from the Includes row for numbers you want in your draw.</p>
+																				<p>Choose balls from the Excludes row for numbers you don't want in your draw.</p>
+																				<p>Then hit the Mix button to start mixing the balls</p>
+		</div>
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- End Pick 2 Block ------------------------ -->	
+<!-- -------------------------------------------------------------- -->		
+	
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- Start Pick 3 Block ---------------------- -->	
+<!-- -------------------------------------------------------------- -->
+
+		
+			<div class="Pick3LabelCol">		
+				<p class="BalooDa36 texShadow">Pick 3</p>			
+			</div>
+			<div class="Pick3BallsCol invBtn">
+ 				<div class="BalooDa36">  <!-- Pick 3 Balls Column -->
+ 		  			<div class="" > <!-- Pick3 Subcolumn 1 - Display Output Balls / Includes / Excludes -->  		 		
+ 		  				<div class="" style="float: left; width: 100%;">	<!-- Pick2 Subcolumn1, row1 - Display Output Balls -->		
+   			  			<div class="whiteOutputBalls BalooDa36"><p id="p3o1"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p3o2"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p3o3"class="vertHorText ">0</p></div>
+							<div class="redOutputBalls BalooDa36"><p id="p3ow" class="vertHorText ">0</p></div> 			
+    					</div> <!-- close Pick3 Subcolumn1, row1 - Display Output Balls -->
+    				   						   			
+ 	   				<div class="" style"clear: left;"> <!-- Pick3 Subcolumn 1, row 2 - Display Includes -->   			
+					<p class="incExcluLabels">Includes</p>
+						<button id="p3i0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i0', 'p3e0', 0, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">0</p></button>
+						<button id="p3i1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i1', 'p3e1', 1, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">1</p></button>
+						<button id="p3i2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i2', 'p3e2', 2, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">2</p></button>
+						<button id="p3i3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i3', 'p3e3', 3, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">3</p></button>
+						<button id="p3i4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i4', 'p3e4', 4, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">4</p></button>
+						<button id="p3i5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i5', 'p3e5', 5, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">5</p></button>
+						<button id="p3i6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i6', 'p3e6', 6, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">6</p></button>
+						<button id="p3i7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i7', 'p3e7', 7, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">7</p></button>
+						<button id="p3i8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i8', 'p3e8', 8, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">8</p></button>
+						<button id="p3i9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p3i9', 'p3e9', 9, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">9</p></button>
+					</div> <!-- close Pick2 Subcolumn 1, row 2 - Display Includes -->
+
+					<div class="" style="clear: left;"> <!-- Pick2 Subcolumn 1, row 3 - Display Excludes -->
+						<p class="incExcluLabels">Excludes</p>
+						<button id="p3e0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e0', 'p3i0', 0, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">0</p></button>
+						<button id="p3e1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e1', 'p3i1', 1, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">1</p></button>
+						<button id="p3e2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e2', 'p3i2', 2, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">2</p></button>
+						<button id="p3e3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e3', 'p3i3', 3, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">3</p></button>
+						<button id="p3e4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e4', 'p3i4', 4, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">4</p></button>
+						<button id="p3e5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e5', 'p3i5', 5, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">5</p></button>
+						<button id="p3e6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e6', 'p3i6', 6, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">6</p></button>
+						<button id="p3e7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e7', 'p3i7', 7, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">7</p></button>
+						<button id="p3e8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e8', 'p3i8', 8, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">8</p></button>
+						<button id="p3e9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p3e9', 'p3i9', 9, p3ControlButtons, p3Inc, p3Exc, p3IncMax)">9</p></button>
+  			</div> <!-- close Pick3 Subcolumn 1, row 3 - Display Excludes -->			 										
+					</div> <!-- close Pick3 Subcolumn 1 - Display Output Balls / Includes / Excludes -->
+
+					<div class="" > <!-- Pick 3 Subcolumn 2 - Display Buttons -->		
+						<div class="" style ="clear: left; float: left;"><!-- Pick 3 Subcolumn 2, row 1 - Display Mix Button -->
+						                                                     <!--  p2LottoBalls, p2ControlButtons, 'pick2sysMes'  -->
+					<button id="btnMix3" class="button BalooDa20" onclick="funMix(p3LottoBalls, p3ControlButtons, 'pick3sysMes')">Mix</button>
+				</div> <!-- close Pick 2 Subcolumn 2, row 1 - Display Mix Button -->
+				<div class="" style ="float: left;"><!-- Pick 3 Subcolumn 2, row 2 - Display Draw Button funDraw(p2LottoBalls, p2ControlButtons, p2Inc, p2Exc, p2CurrentPicks)-->
+					<button id="btnDraw3" class="button  buttonDisable BalooDa20" onclick="funDraw(p3LottoBalls, p3ControlButtons, p3Inc, p3Exc, p3CurrentPicks, 'pick3sysMes')">Draw</button>
+				</div> <!-- close Pick 3 Subcolumn 2, row 2 - Display Draw Button -->
+							
+				<div class="" style ="float: left;"><!-- Pick 3 Subcolumn 2, row 3 - Display Save Button -->
+					<button id="btnSave3" class="button buttonDisable BalooDa20" onclick="funSave(p3Saved, p3ControlButtons, 'p3Display', p3CurrentPicks, 'pick3sysMes')">Save</button>
+				</div> <!-- close Pick 3 Subcolumn 2, row 3 - Display Save Button -->
+				
+				<div class="" style ="float: left;"><!-- Pick 3 Subcolumn 2, row 4 - Display Reset Button -->
+					<button id="btnReset3" class="button buttonDisable BalooDa20" onclick="funReset(p3LottoBalls, p3ControlButtons, p3IncludedBalls, p3ExcludedBalls, p3Inc, p3Exc, p3CurrentPicks, 'pick3sysMes')">Reset</button>
+				</div> <!-- close Pick 3 Subcolumn 2, row 4 - Display Reset Button -->						
+					</div> <!-- close Pick 3 Subcolumn 2 - Display Buttons -->		
+			
+   			</div> <!-- close Pick 3 Balls Column -->						
+			</div>
+
+
+			<div class="Pick3DisplayCol BalooDa36 boxExpand">
+				  		<div class=""> <!-- Pick 3 Text Area, row 1 -->
+    			<div id="pick3Output" class="pickOutArea boxExpand"> <!-- Pick 3 Text Area -->
+    				<p>My numbers:</p>
+    				<p id="p3Display">&nbsp;</p>
+    			</div> <!-- close Pick 3 Text Area -->
+    			<div class=""> <!-- Pick 3 TextArea Column, Button Column --> 
+ 					<div class="" > <!-- Display Print Button -->
+    					<button class="button BalooDa20 invBtn" style="clear: left; float: left;" onclick="funPrint('#pick3Output')">Print</button>
+    				</div> <!-- close Display Print Button -->
+					<div class="negTopMargin" > <!-- Display Clear Button -->
+						<button class="button BalooDa20 invBtn" style="float: left;" onclick="funClear(p3Saved, 'p3Display', 'btnSave3')">Clear</button>
+					</div> <!-- close Display Clear Button -->
+    			</div> <!-- close Pick 3 TextArea Column, Button Column -->
+    		</div> <!-- close Pick 3 Text Area, row 1 -->
+			</div>
+			
+			
+		<div class="Pick3AdvertCol">Pick3AdvertCol</div>
+		<div id="pick3sysMes" class="Pick3SysMes pickSysMes "><p>Choose balls from the Includes row for numbers you want in your draw.</p>
+																				<p>Choose balls from the Excludes row for numbers you don't want in your draw.</p>
+																				<p>Then hit the Mix button to start mixing the balls</p>
+		</div>
+
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- End Pick 3 Block ------------------------ -->	
+<!-- -------------------------------------------------------------- -->		
+
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- Start Pick 4 Block ---------------------- -->	
+<!-- -------------------------------------------------------------- -->		
+			
+			<div class="Pick4LabelCol">		
+				<p class="BalooDa36 texShadow">Pick 4</p>			
+			</div>
+			
+			<div class="Pick4BallsCol  invBtn">
+ 				<div class="BalooDa36">  <!-- Pick 4 Balls Column -->
+ 		  			<div class="" > <!-- Pick4 Subcolumn 1 - Display Output Balls / Includes / Excludes -->  		 		
+ 		  				<div class="" style="float: left; width: 100%;">	<!-- Pick4 Subcolumn1, row1 - Display Output Balls -->		
+   			  			<div class="whiteOutputBalls BalooDa36"><p id="p4o1"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p4o2"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p4o3"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p4o4"class="vertHorText ">0</p></div>
+							<div class="redOutputBalls BalooDa36"><p id="p4ow" class="vertHorText ">0</p></div> 			
+    					</div> <!-- close Pick4 Subcolumn1, row1 - Display Output Balls -->
+    				   						   			
+ 	   				<div class="" style"clear: left;"> <!-- Pick4 Subcolumn 1, row 2 - Display Includes -->   			
+							<p class="incExcluLabels">Includes</p>
+							<button id="p4i0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i0', 'p4e0', 0, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">0</p></button>
+							<button id="p4i1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i1', 'p4e1', 1, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">1</p></button>
+							<button id="p4i2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i2', 'p4e2', 2, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">2</p></button>
+							<button id="p4i3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i3', 'p4e3', 3, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">3</p></button>
+							<button id="p4i4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i4', 'p4e4', 4, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">4</p></button>
+							<button id="p4i5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i5', 'p4e5', 5, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">5</p></button>
+							<button id="p4i6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i6', 'p4e6', 6, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">6</p></button>
+							<button id="p4i7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i7', 'p4e7', 7, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">7</p></button>
+							<button id="p4i8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i8', 'p4e8', 8, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">8</p></button>
+							<button id="p4i9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p4i9', 'p4e9', 9, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">9</p></button>
+   					</div> <!-- close Pick2 Subcolumn 1, row 2 - Display Includes -->
+   			
+      				<div class="" style="clear: left;"> <!-- Pick2 Subcolumn 1, row 3 - Display Excludes -->   			
+							<p class="incExcluLabels">Excludes</p>
+							<button id="p4e0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e0', 'p4i0', 0, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">0</p></button>
+							<button id="p4e1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e1', 'p4i1', 1, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">1</p></button>
+							<button id="p4e2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e2', 'p4i2', 2, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">2</p></button>
+							<button id="p4e3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e3', 'p4i3', 3, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">3</p></button>
+							<button id="p4e4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e4', 'p4i4', 4, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">4</p></button>
+							<button id="p4e5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e5', 'p4i5', 5, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">5</p></button>
+							<button id="p4e6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e6', 'p4i6', 6, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">6</p></button>
+							<button id="p4e7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e7', 'p4i7', 7, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">7</p></button>
+							<button id="p4e8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e8', 'p4i8', 8, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">8</p></button>
+							<button id="p4e9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p4e9', 'p4i9', 9, p4ControlButtons, p4Inc, p4Exc, p4IncMax)">9</p></button>
+   					</div> <!-- close Pick4 Subcolumn 1, row 3 - Display Excludes -->			 										
+					</div> <!-- close Pick4 Subcolumn 1 - Display Output Balls / Includes / Excludes -->
+
+					<div class=""> <!-- Pick 4 Subcolumn 2  - Display Buttons -->		
+						<div class="" style="clear: left; float: left;"><!-- Pick 4 Subcolumn 2, row 1 - Display Mix Button -->
+							<button id="btnMix4" class="button BalooDa20" onclick="funMix(p4LottoBalls, p4ControlButtons, 'pick4sysMes')">Mix</button>
+						</div> <!-- close Pick 4 Subcolumn 2, row 1 - Display Mix Button -->
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 4 Subcolumn 2, row 2 - Display Draw Button -->
+							<button id="btnDraw4" class="button buttonDisable BalooDa20" onclick="funDraw(p4LottoBalls, p4ControlButtons, p4Inc, p4Exc, p4CurrentPicks, 'pick4sysMes')">Draw</button>
+						</div> <!-- close Pick 4 Subcolumn 2, row 2 - Display Draw Button -->
+							
+						<div class=" negTopMargin" style="float: left;" ><!-- Pick 4 Subcolumn 2, row 3 - Display Save Button -->
+							<button id="btnSave4" class="button buttonDisable BalooDa20" onclick="funSave(p4Saved, p4ControlButtons, 'p4Display', p4CurrentPicks, 'pick4sysMes')">Save</button>
+						</div> <!-- close Pick 4 Subcolumn 2, row 3 - Display Save Button -->
+				
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 4 Subcolumn 2, row 4 - Display Reset Button -->
+							<button id="btnReset4" class="button buttonDisable BalooDa20" onclick="funReset(p4LottoBalls, p4ControlButtons, p4IncludedBalls, p4ExcludedBalls, p4Inc, p4Exc, p4CurrentPicks, 'pick4sysMes')">Reset</button>
+						</div> <!-- close Pick 4 Subcolumn 2, row 4 - Display Reset Button -->						
+					</div> <!-- close Pick 4 Subcolumn 2 - Display Buttons -->		
+			
+   			</div> <!-- close Pick 4 Balls Column -->						
+			</div>
+
+
+
+			<div class="Pick4DisplayCol BalooDa36">
+				  		<div class=""> <!-- Pick 4 Text Area, row 1 -->
+    			<div id="pick4Output" class="pickOutArea boxExpand"> <!-- Pick 4 Text Area -->
+    				<p>My numbers:</p>
+    				<p id="p4Display"> &nbsp; </p>
+    			</div> <!-- close Pick 4 Text Area -->
+    			<div class=""> <!-- Pick 4 TextArea Column, Button Column --> 
+ 					<div class="" > <!-- Display Print Button -->
+    					<button class="button BalooDa20 invBtn" style="clear: left; float: left;" onclick="funPrint('#pick4Output')">Print</button>
+    				</div> <!-- close Display Print Button -->
+    				<div class="negTopMargin" > <!-- Display Clear Button -->
+    					<button class="button BalooDa20 invBtn" style="float: left;" onclick="funClear(p4Saved, 'p4Display', 'btnSave4')">Clear</button>
+    				</div> <!-- close Display Clear Button -->
+    			</div> <!-- close Pick 4 TextArea Column, Button Column -->
+    		</div> <!-- close Pick 4 Text Area, row 1 -->
+			</div>
+			
+			
+		<div class="Pick4AdvertCol">Pick4AdvertCol</div>
+		<div id="pick4sysMes" class="Pick4SysMes pickSysMes "><p>Choose balls from the Includes row for numbers you want in your draw.</p>
+																				<p>Choose balls from the Excludes row for numbers you don't want in your draw.</p>
+																				<p>Then hit the Mix button to start mixing the balls</p>
+		</div>
+		
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- End Pick 4 Block ------------------------ -->	
+<!-- -------------------------------------------------------------- -->		
+	
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- Start Pick 5 Block ---------------------- -->	
+<!-- -------------------------------------------------------------- -->		
+			
+			<div class="Pick5LabelCol">		
+				<p class="BalooDa36 texShadow">Pick 5</p>			
+			</div>
+			
+			<div class="Pick5BallsCol  invBtn">
+ 				<div class="BalooDa36">  <!-- Pick 5 Balls Column -->
+ 		  			<div class="" > <!-- Pick5 Subcolumn 1 - Display Output Balls / Includes / Excludes -->  		 		
+ 		  				<div class="" style="float: left; width: 100%;">	<!-- Pick5 Subcolumn1, row1 - Display Output Balls -->		
+   			  			<div class="whiteOutputBalls BalooDa36"><p id="p5o1"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p5o2"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p5o3"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p5o4"class="vertHorText ">0</p></div>
+    						<div class="whiteOutputBalls BalooDa36"><p id="p5o5"class="vertHorText ">0</p></div>
+							<div class="redOutputBalls BalooDa36"><p id="p5ow" class="vertHorText ">0</p></div> 			
+    					</div> <!-- close Pick5 Subcolumn1, row1 - Display Output Balls -->
+    				   						   			
+ 	   				<div class="" style"clear: left;"> <!-- Pick5 Subcolumn 1, row 2 - Display Includes -->   			
+							<p class="incExcluLabels">Includes</p>
+							<button id="p5i0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i0', 'p5e0', 0, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">0</p></button>
+							<button id="p5i1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i1', 'p5e1', 1, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">1</p></button>
+							<button id="p5i2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i2', 'p5e2', 2, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">2</p></button>
+							<button id="p5i3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i3', 'p5e3', 3, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">3</p></button>
+							<button id="p5i4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i4', 'p5e4', 4, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">4</p></button>
+							<button id="p5i5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i5', 'p5e5', 5, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">5</p></button>
+							<button id="p5i6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i6', 'p5e6', 6, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">6</p></button>
+							<button id="p5i7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i7', 'p5e7', 7, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">7</p></button>
+							<button id="p5i8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i8', 'p5e8', 8, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">8</p></button>
+							<button id="p5i9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funInc('p5i9', 'p5e9', 9, p5ControlButtons, p5Inc, p5Exc, p5IncMax)">9</p></button>
+   					</div> <!-- close Pick5 Subcolumn 1, row 2 - Display Includes -->
+   			
+      				<div class="" style="clear: left;"> <!-- Pick5 Subcolumn 1, row 3 - Display Excludes -->   			
+							<p class="incExcluLabels">Excludes</p>
+							<button id="p5e0" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e0', 'p5i0', 0, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">0</p></button>
+							<button id="p5e1" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e1', 'p5i1', 1, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">1</p></button>
+							<button id="p5e2" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e2', 'p5i2', 2, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">2</p></button>
+							<button id="p5e3" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e3', 'p5i3', 3, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">3</p></button>
+							<button id="p5e4" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e4', 'p5i4', 4, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">4</p></button>
+							<button id="p5e5" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e5', 'p5i5', 5, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">5</p></button>
+							<button id="p5e6" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e6', 'p5i6', 6, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">6</p></button>
+							<button id="p5e7" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e7', 'p5i7', 7, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">7</p></button>
+							<button id="p5e8" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e8', 'p5i8', 8, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">8</p></button>
+							<button id="p5e9" class="incExcluBalls BalooDa25"><p class="vertHorText" onclick="funExc('p5e9', 'p5i9', 9, p4ControlButtons, p5Inc, p5Exc, p5IncMax)">9</p></button>
+   					</div> <!-- close Pick5 Subcolumn 1, row 3 - Display Excludes -->			 										
+					</div> <!-- close Pick5 Subcolumn 1 - Display Output Balls / Includes / Excludes -->
+
+					<div class=""> <!-- Pick 4 Subcolumn 2  - Display Buttons -->		
+						<div class="" style="clear: left; float: left;"><!-- Pick 5 Subcolumn 2, row 1 - Display Mix Button -->
+							<button id="btnMix5" class="button BalooDa20" onclick="funMix(p5LottoBalls, p5ControlButtons, 'pick5sysMes')">Mix</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 1 - Display Mix Button -->
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 5 Subcolumn 2, row 2 - Display Draw Button -->
+							<button id="btnDraw5" class="button buttonDisable BalooDa20" onclick="funDraw(p5LottoBalls, p5ControlButtons, p5Inc, p5Exc, p5CurrentPicks, 'pick5sysMes')">Draw</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 2 - Display Draw Button -->
+							
+						<div class=" negTopMargin" style="float: left;" ><!-- Pick 5 Subcolumn 2, row 3 - Display Save Button -->
+							<button id="btnSave5" class="button buttonDisable BalooDa20" onclick="funSave(p5Saved, p5ControlButtons, 'p5Display', p5CurrentPicks, 'pick5sysMes')">Save</button>
+						</div> <!-- close Pick 5 Subcolumn 2, row 3 - Display Save Button -->
+				
+						<div class=" negTopMargin" style="float: left;"><!-- Pick 5 Subcolumn 2, row 4 - Display Reset Button -->
+							<button id="btnReset5" class="button buttonDisable BalooDa20" onclick="funReset(p5LottoBalls, p5ControlButtons, p5IncludedBalls, p5ExcludedBalls, p5Inc, p5Exc, p5CurrentPicks, 'pick5sysMes')">Reset</button>
+						</div> <!-- close Pick 2 Subcolumn 2, row 4 - Display Reset Button -->						
+					</div> <!-- close Pick 5 Subcolumn 2 - Display Buttons -->		
+			
+   			</div> <!-- close Pick 5 Balls Column -->						
+			</div>
+
+
+
+			<div class="Pick5DisplayCol BalooDa36">
+				  		<div class=""> <!-- Pick 5 Text Area, row 1 -->
+    			<div id="pick5Output" class="pickOutArea boxExpand"> <!-- Pick 5 Text Area -->
+    				<p>My numbers:</p>
+    				<p id="p5Display"> &nbsp; </p>
+    			</div> <!-- close Pick 5 Text Area -->
+    			<div class=""> <!-- Pick 5 TextArea Column, Button Column --> 
+ 					<div class="" > <!-- Display Print Button -->
+    					<button class="button BalooDa20 invBtn" style="clear: left; float: left;" onclick="funPrint('#pick5Output')">Print</button>
+    				</div> <!-- close Display Print Button -->
+    				<div class="negTopMargin" > <!-- Display Clear Button -->
+    					<button class="button BalooDa20 invBtn" style="float: left;" onclick="funClear(p5Saved, 'p5Display', 'btnSave5')">Clear</button>
+    				</div> <!-- close Display Clear Button -->
+    			</div> <!-- close Pick 5 TextArea Column, Button Column -->
+    		</div> <!-- close Pick 5 Text Area, row 1 -->
+			</div>
+			
+			
+		<div class="Pick5AdvertCol">Pick5AdvertCol</div>
+		<div id="pick5sysMes" class="Pick5SysMes pickSysMes "><p>Choose balls from the Includes row for numbers you want in your draw.</p>
+																				<p>Choose balls from the Excludes row for numbers you don't want in your draw.</p>
+																				<p>Then hit the Mix button to start mixing the balls</p>
+		</div>
+		
+<!-- -------------------------------------------------------------- -->	
+<!-- -------------------- End Pick 5 Block ------------------------ -->	
+<!-- -------------------------------------------------------------- -->
+		
+			<div class="footer">footer</div>
+		</div>		
+	</body>
+</html>

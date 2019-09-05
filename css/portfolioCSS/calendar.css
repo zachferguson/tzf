@@ -1,0 +1,40 @@
+table, th, td {
+    border: 1px solid gray;
+    border-collapse: collapse;
+	text-align: center;
+}
+
+.calNav:hover {
+	color: blue;
+}
+
+.calNav {
+	color: royalblue;
+	cursor: pointer;
+}
+
+table th {
+	width: 14.28%;
+}
+
+.currentMonth {
+	color: royalblue;
+}
+
+.otherMonth {
+	color: gray;
+}
+
+.currentDay {
+	color: blue;
+	font-weight: bolder;
+}
+
+body {
+	margin: 1em auto 0 auto;
+}
+
+.grid {
+	width: 245px;
+	margin: 1em auto 0 auto;
+}

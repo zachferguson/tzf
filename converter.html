@@ -1,0 +1,217 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Cost per Unit Converter</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<style>
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body{
+	min-height: 100%;
+	height: 100vh;
+    background-color: midnightblue;
+}
+#page-wrapper{
+	max-width: 1366px;
+	min-height: 100%;
+	display: grid;
+	grid-template-areas:
+		'header'
+		'from'
+		'to'
+        'clear'
+		'footer';
+	grid-template-rows: auto 2fr 2fr 1fr 2rem;
+	grid-template-columns: 1fr;
+	background-color: midnightblue;
+	color: whitesmoke;
+	font-family: roboto;
+}
+
+#head{
+	grid-area: header;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+#from{
+	grid-area: from;
+    text-align: center;
+}
+
+#to{
+	grid-area: to;
+    text-align: center;
+}
+
+#clear{
+    grid-area: clear;
+    text-align: center;
+}
+
+#footer{
+	grid-area: footer;
+    text-align: center;
+}
+
+#converted{
+	background-color: whitesmoke;
+	color: midnightblue;
+	border: 1px solid whitesmoke;
+	border-radius: 5px;
+}
+
+#btn-clear{
+    background-color: whitesmoke;
+    color: midnightblue;
+    font-size: 2.5rem;
+    border-radius: 5px;
+    height: 3rem;
+    width: 40%;
+}
+
+.currency-field{
+	font-size: 3rem;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+    background-color: whitesmoke;
+    color: royalblue;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+}
+input{
+	height: 100%!important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.currency-label{
+	margin: 0.5rem auto 0.25rem auto;
+}
+
+.display-field{
+	height: 4rem;
+}
+
+.info{
+    font-size: 1.5rem;
+}
+
+</style>
+
+
+</head>
+<body>
+<div id="page-wrapper">
+	<div id="head">
+		<header id="header"><h1>Converter</h1></header>
+		<p id="instructions" class="info"></p>
+		<p id="rate" class="info"></p>
+	</div> <!-- end head div -->
+	<div id="from">
+		<h2 id="label-from" class="currency-label"></h2>
+		<!-- <p id="convert-from" class="currency-field">&#8203;</p> -->
+        <p id="convert-from">&#8203;</p>
+	</div> <!-- end from div -->
+	<div id="to">
+		<h2 id="label-to" class="currency-label"></h2>
+		<p class="currency-field"><span id="converted">&#8203;</span></p>
+	</div> <!-- end to div -->
+    <div id="clear">
+        <button id="btn-clear" type="button">Clear</button>
+    </div> <!-- end clear div -->
+	<footer id="footer">
+		<p>Inspired by Sonia and Tomatoes.</p>
+	</footer>
+</div>
+</body>
+<script type="application/javascript">
+	let lbsToKg = 0.454;
+	let kgToLbs = 2.20462;
+	let country = "";
+	let conversion = 0;
+	let usdInstructions = `Input the dollar per pound cost of an item, and it will convert to Euro per kilogram.`;
+	let euroInstructions = `Input the Euro per kilogram cost of an item, and it will convert to dollars per pound.`;
+	async function gather() {
+		try{
+			/* GETS IP ADDRESS https://ipinfo.io/developers */
+			let dataIP = await fetch("https://ipinfo.io/json");
+			dataIP = await dataIP.json();
+			country = dataIP.country;
+
+			/* GETS current currency exchange rates */
+			let currencyRates = await fetch(`http://apilayer.net/api/live?access_key=2032a3266876b713ab96e1784a8e60b3`);
+			currencyRates = await currencyRates.json();
+			conversion = currencyRates.quotes.USDEUR;
+
+			populator(country, conversion);
+		}
+		catch(e){
+			console.log("Error: ", e);
+		}
+		finally{
+
+		}
+
+	}
+
+    document.getElementById('btn-clear').addEventListener('click', () => {
+        document.getElementById('from-units').value = "";
+        document.getElementById('converted').innerHTML = '&#8203';
+    });
+
+	function converter() {
+		let suppliedValue = document.getElementById('from-units').value;
+		if (country == "US"){
+			document.getElementById('converted').innerHTML = ((suppliedValue/lbsToKg)*conversion).toFixed(2);
+		}
+		else{
+			document.getElementById('converted').innerHTML = ((suppliedValue/kgToLbs)/conversion).toFixed(2);
+		}
+	}
+
+	function fromHTML(currency,mass){
+		return `
+		<input type="number"  class="currency-field" step="0.01" id="from-units" oninput="converter()"/>
+		`;
+	}
+
+	function toHTML(currency,mass){
+		return `
+
+		`;
+	}
+
+	function populator(location, conversion) {
+		if (location == "US") {
+			document.getElementById('instructions').innerHTML = usdInstructions;
+			document.getElementById('rate').innerHTML = `Exchange rate: &#8364;${conversion.toFixed(2)} = $1.00.`;
+			document.getElementById('convert-from').innerHTML = fromHTML("dollars", "pound");
+			document.getElementById('label-from').innerHTML = "Dollars per Pound";
+			document.getElementById('label-to').innerHTML = "Euro per Kilogram";
+		}
+		else{
+			document.getElementById('instructions').innerHTML = euroInstructions;
+			document.getElementById('rate').innerHTML = `Exchange rate: &#8364;${conversion.toFixed(2)} = $1.00.`;
+			document.getElementById('convert-from').innerHTML = fromHTML("Euro", "kilogram");
+			document.getElementById('label-from').innerHTML = "Euro per Kilogram";
+			document.getElementById('label-to').innerHTML = "Dollars per Pound";
+		}
+	}
+
+	gather();
+</script>
+</html>

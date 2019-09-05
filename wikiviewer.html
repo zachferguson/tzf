@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .grid {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            grid-template-areas:
+                    "main"
+                    "results";
+            margin: 0;
+            column-count: 2;
+            column-gap: 0.1em;
+            height: auto;
+        }
+
+        #main {
+            grid-area: main;
+            margin-top: 2em;
+            text-align: center;
+        }
+
+        #results {
+            grid-area: results;
+            vertical-align: top;
+            height: auto;
+        }
+
+        #results div {
+            padding: 0.5em;
+            border-style: solid;
+            border-radius: 10px;
+            margin: 2em auto 1em auto;
+            box-shadow: inset 0 0 0.5em black, inset 0 0 0.5em black;
+        }
+
+        #main h3 {
+            margin-bottom: 1em;
+        }
+
+        #main button {
+            margin-bottom: 1em;
+        }
+
+        #searchBtn {
+            margin: 0;
+            position: relative;
+            top: 1px;
+        }
+
+        .singleLine {
+            display: inline;
+        }
+
+        #searchbox {
+            height: 10rem;
+        }
+
+    </style>
+
+    <script>
+        $(document).ready(function() {
+
+            var searchterms = "";
+
+            $('#searchBtn').on('click', function () {
+                console.log("search button has been clicked.");
+                searchterms = $('#searchbox').find('input[name="searchboxvals"]').val();
+                $('#results').stop().fadeTo(1000, 0).empty();
+                //$('#results').empty();
+                wikipull(searchterms);
+            });
+
+            $("input").keydown(function(event){
+                if (event.keyCode === 13) {
+                    $(this).attr("disabled", "disabled");
+                    var tempvar = $('#searchbox').find('input[name="searchboxvals"]').val();
+                    $('#results').stop().fadeTo(1000, 0).empty();
+                    wikipull(tempvar);
+                    $(this).removeAttr("disabled");
+                }
+            });
+
+            $('#randomBtn').on('click', function() {
+                randompull();
+            });
+
+            function randompull () {
+                // ---- WORKS WRONG INFO ---- var randomwiki =  "https://en.wikipedia.org/w/api.php?action=query&list=random&rnlimit=1&format=json&origin=*"
+                var randomwiki =  "https://en.wikipedia.org/w/api.php?action=query&generator=random&rnlimit=1&grnnamespace=0&prop=extracts&exintro=&rvprop=content&rvsection=0&format=json&origin=*"
+                //var searchval = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + tempstr + "&limit=10&namespace=0&format=json&origin=*"
+                $.getJSON(randomwiki, function(randomdata) {
+                    console.log("randomdata:");
+                    console.log(randomdata);
+                    var objstr = Object.keys(randomdata['query']['pages']);
+                    var titlestr = linkmaker(randomdata['query']['pages'][objstr]['title']);
+                    $('#results').empty();
+                    $('#results').append("<div id='randtemp'><h3>" + randomdata['query']['pages'][objstr]['title'] + "</h3></div>");
+                    $('#randtemp').append(randomdata['query']['pages'][objstr]['extract']);
+                    $('#randtemp').append("</p><a href='" + "https://en.wikipedia.org/wiki/" + titlestr + "'>Wikipedia page for " + randomdata['query']['pages'][objstr]['title'] + "</a></p>")
+
+                    //$('#results').append("<div><h3>" + inputdata[1][i] + "</h3><p>" + inputdata[2][i] + "</p><a href='" + inputdata[3][i] + "'>Wikipedia page for " + inputdata[1][i] + "</a></p></div>").stop().fadeTo(1000, 1);
+
+                });
+
+            }
+
+            function linkmaker (inputstr) {
+                var temparr = inputstr.split(' ')
+                for (var c = 0; c < temparr.length; c++) {
+                    temparr[c] = temparr[c] + "_"
+                }
+                return temparr.join('');
+            }
+
+            function wikipull(searchStr) {
+                console.log("wikipull called");
+
+                tempstr = linkmaker(searchStr);
+                var searchval = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + tempstr + "&limit=10&namespace=0&format=json&origin=*"
+                function publisher(inputdata) {
+                    console.log("publisher called");
+                    for (var i = 0; i < inputdata[3].length; i++) {
+                        if (inputdata[0][i] != "") {
+                            $('#results').append("<div><h3>" + inputdata[1][i] + "</h3><p>" + inputdata[2][i] + "</p><a href='" + inputdata[3][i] + "'>Wikipedia page for " + inputdata[1][i] + "</a></p></div>").stop().fadeTo(1000, 1);
+                        }
+                    }
+
+                    // $('#results').html('"' + inputdata + '"');
+                }
+
+                $.getJSON(searchval, function (wikidata) {
+                    console.log("wikidata");
+                    console.log(wikidata);
+                    publisher(wikidata);
+                    //$('#results').html(wikidata['parse']['text']);
+                    /*
+                alert(wikidata.query.pages[204126].revisions[0]["*"]);
+                setTimeout(publisher(wikidata['parse']['text']), 2000);
+            });
+            */
+            });
+        }
+        });
+
+    </script>
+    <title>Wikipedia Viewer</title>
+</head>
+<body>
+<div class="grid">
+    <div id="main">
+        <h3>Search WikiPedia for:</h3>
+            <form id="searchbox" class="singleLine">
+                <input type="text" name="searchboxvals">
+                <button id="searchBtn" class="fa fa-search singleLine" type="button"></button>
+            </form>
+            <br>
+        <button id="randomBtn" type="button">Click here for a random article.</button>
+    </div>
+    <div id="results">
+
+    </div>
+</div>
+
+</body>
+</html>

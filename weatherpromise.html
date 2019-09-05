@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+        .grid {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1em 2fr 0.5fr 3fr 4fr 1em;
+            grid-template-areas:
+				"tspacer tspacer tspacer"
+                "wheader wheader wheader"
+                "wbuttons wbuttons wbuttons"
+                "wcurrent wtoday wtoday"
+                "wforecast wforecast wforecast"
+                "bspacer bspacer bspacer";
+            height: 100vh;
+            margin: 0;
+			background-color: blue;
+        }
+
+        .wccontent{
+            grid-area: wcurrent;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+                "wchead"
+                "wcdata";
+        }
+
+        #wcimg {
+            grid-area: wcimg;
+        }
+
+        #wchead {
+            grid-area: wchead;
+        }
+
+        #wcdata {
+            grid-area: wcdata;
+        }
+
+        .gi {
+            border-radius: 5px;
+        }
+
+        .daytimeHeader {
+            /*background-color: #00BFFF; <!-- deepskyblue --> */
+            background-image: url("images/forecast/headerday.jpg");
+            background-repeat: no-repeat;
+        }
+
+        .daytime {
+            background-color: #1e90ff; /* dodgerblue  */
+        }
+
+        .nighttimeHeader {
+            background-image: url("images/forecast/headernight.jpg");
+            background-repeat: no-repeat;
+            color: whitesmoke;
+        }
+
+        .nighttime {
+            background-color: #191970;
+            color: whitesmoke;
+        }
+
+        .button {
+            margin: auto;
+            text-align: center;
+            width: 15%;
+            outline: none !important;
+        }
+
+        .buttonActive {
+            background-color: #65c199;
+            color: whitesmoke;
+            border-radius: 5px;
+        }
+
+        .buttonInactive {
+            background-color: grey;
+            color: whitesmoke;
+            border-radius: 5px;
+        }
+        #cwtable td {
+            border-style: none;
+        }
+
+        #cwtable {
+            border-style: none;
+        }
+        #cwtable tr td:nth-child(2) {
+            text-align: left;
+            padding-left: 5em;
+        }
+
+        #cwtable tr td:nth-child(1) {
+            text-align: right;
+            padding-right: 5em;
+        }
+
+        #wheader {
+            grid-area: wheader;
+        }
+
+        #wheader h1 {
+            float: right;
+            text-align: center;
+            padding-right: 5em;
+        }
+
+        #wbuttons {
+            width: 100%;
+            grid-area: wbuttons;
+            margin: auto;
+            display: inline-block;
+            text-align: center;
+            outline: none !important;
+        }
+
+        #wcurrent {
+            grid-area: wcurrent;
+            text-align: center;
+        }
+
+        #wcurrent img {
+            width:10em;
+            height: 10em;
+            padding: 0;
+            margin: 0;
+        }
+
+        #wcurrent p {
+            position: relative;
+            top: 35%;
+        }
+
+        #wtoday {
+            grid-area: wtoday;
+            text-align: center;
+        }
+
+        #wforecast {
+            grid-area: wforecast;
+            overflow: auto;
+            text-align: center;
+        }
+
+        #tspacer {
+            grid-area: tspacer;
+        }
+		
+		#bspacer {
+			grid-area: bspacer;
+		}
+		
+        body {
+            background-color: blue;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        td {
+            padding-left: 1em;
+        }
+        td img {
+            width: 2em;
+            height: 2em;
+            float: left;
+        }
+
+        th {
+            padding: .5em;
+        }
+
+
+
+        @media only screen and (max-width: 1080px) {
+            /* For mobile phones: */
+            .grid {
+                display: grid;
+                grid-gap: 5px;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto auto auto auto;
+                grid-template-areas:
+                        "tspacer"
+                        "wheader"
+                        "wbuttons"
+                        "wcurrent"
+                        "wtoday"
+                        "wforecast"
+                        "bspacer";
+                height: auto;
+                width: 900px;
+                margin-left: auto;
+				margin-right: auto;
+                background-color: blue;
+            }
+
+            div {
+                width: auto;
+            }
+
+            p, th, td {
+                font-weight: bold;
+            }
+        }
+    </style>
+
+    <script>
+        //api.openweathermap.org/data/2.5/forecast?id={city ID}
+        //api.openweathermap.org/data/2.5/weather?lat=35&lon=139
+        //http://api.openweathermap.org/data/2.5/forecast?id={}&APPID={5d868cd94808acbf14ad297f46b257a7}
+        $(document).ready(function(){
+
+            // variables
+            var userLat, userLon, weatherCall, forecastCall, locCall;
+            var state = "";
+            var units = "imperial";
+            var tempu = "farenheit";
+            var speed = "mph";
+            var weatherData = [];
+            var clockf = "12";
+            var forecastData = [];
+            var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var month = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+
+            $('#biu').click(function() {
+                units = "imperial";
+                speed = "mph";
+                populate(weatherData, forecastData);
+            });
+            $('#bmu').click(function() {
+                units = "metric";
+                speed = "kph";
+                populate(weatherData, forecastData);
+            });
+            $('#bf').click(function() {
+                tempu = "farenheit";
+                populate(weatherData, forecastData);
+            });
+            $('#bc').click(function() {
+                tempu = "celcius";
+                populate(weatherData, forecastData);
+            });
+            $('#bst').click(function() {
+                clockf = "12";
+                populate(weatherData, forecastData);
+            });
+            $('#bmt').click(function() {
+                clockf = "24";
+                populate(weatherData, forecastData);
+            });
+
+            function back (icon) {
+                var split = icon.slice(-1);
+
+                $('#wbuttons').children().removeClass('buttonActive buttonInactive');
+
+                /* imperial metric farenheit celcius 24Hour 12Hour - units(imperial/metric) clockf(12/24) speed(mph/kph) tempu(farenheit/celcius*/
+                /* biu bmu bf bc bmt bst */
+                switch (tempu) {
+                    case "farenheit":
+                        $('#bf').addClass('buttonActive');
+                        $('#bc').addClass('buttonInactive');
+                        break;
+                    case "celcius":
+                        $('#bf').addClass('buttonInactive');
+                        $('#bc').addClass('buttonActive');
+                        break;
+                }
+                switch (clockf) {
+                    case "12":
+                        $('#bmt').addClass('buttonInactive');
+                        $('#bst').addClass('buttonActive');
+                        break;
+                    case "24":
+                        $('#bmt').addClass('buttonActive');
+                        $('#bst').addClass('buttonInactive');
+                        break;
+                }
+                switch (units) {
+                    case "imperial":
+                        $('#biu').addClass('buttonActive');
+                        $('#bmu').addClass('buttonInactive');
+                        break;
+                    case "metric":
+                        $('#biu').addClass('buttonInactive');
+                        $('#bmu').addClass('buttonActive');
+                        break;
+                }
+
+                if (split == "d") {
+                    $('#wheader').removeClass('nighttimeHeader');
+                    $('#wbuttons').removeClass('nighttime');
+
+                    $('#wcurrent').removeClass('nighttime');
+                    $('#wtoday').removeClass('nighttime');
+                    $('#wforecast').removeClass('nighttime');
+
+                    $('#wheader').addClass('daytimeHeader');
+                    $('#wbuttons').addClass('daytime');
+                    $('#wcurrent').addClass('daytime');
+                    $('#wtoday').addClass('daytime');
+                    $('#wforecast').addClass('daytime');
+
+                }
+                if (split == "n") {
+                    $('#wheader').removeClass('daytimeHeader');
+                    $('#wbuttons').removeClass('daytime');
+                    $('#wcurrent').removeClass('daytime');
+                    $('#wtoday').removeClass('daytime');
+                    $('#wforecast').removeClass('daytime');
+
+                    $('#wheader').addClass('nighttimeHeader');
+                    $('#wbuttons').addClass('nighttime');
+                    $('#wcurrent').addClass('nighttime');
+                    $('#wtoday').addClass('nighttime');
+                    $('#wforecast').addClass('nighttime');
+
+                }
+            }
+
+            function tempconv (temp, unit) {
+                returnstr = "";
+                if (unit == "farenheit") {
+                    returnstr = Math.floor(temp) + "&deg;&nbsp;F";
+                    return returnstr;
+                }
+                if (unit == "celcius") {
+                    returnstr = Math.floor((temp - 32) * .5556) + "&deg;&nbsp;C";
+                    return returnstr;
+                }
+            }
+
+            function AMPM (timeh, timem, M) {
+                var returnstr = "";
+                if (timem == 0) {
+                    timem = "00";
+                }
+                if (M == "12") {
+                    if (timeh <= 12) {
+                        if (timeh < 10) {
+                            returnstr = "0" + timeh + ":" + timem + " AM";
+                        }
+                        else {
+                            returnstr = timeh + ":" + timem + " AM";
+                        }
+                    }
+                    if (timeh > 12) {
+                        returnstr = (timeh - 12) + ":" + timem + " PM"
+                    }
+                }
+                if (M == "24") {
+                    if (timeh < 10) {
+                        returnstr = "0" + timeh + ":" + timem;
+                    }
+                    else {
+                        returnstr = timeh + ":" + timem;
+                    }
+                }
+                return returnstr;
+            }
+
+            function wind (speedval, sv, dir) {
+                returnspd = "";
+                var returnval = "";
+                if (sv == "mph") {
+                    returnspd = speedval + " MPH, "
+                }
+                if (sv == "kph") {
+                    returnspd = Math.floor(speedval * 1.609344) + "KPH, "
+                }
+                if (dir >= 349 && dir <= 11) {
+                    returnval = returnspd + " N";
+                    return returnval;
+                }
+                if (dir >= 12 && dir <= 33) {
+                    returnval = returnspd + " NNE";
+                    return returnval;
+                }
+                if (dir >= 34 && dir <= 56) {
+                    returnval = returnspd + " NE";
+                    return returnval;
+                }
+                if (dir >= 57 && dir <= 78) {
+                    returnval = returnspd + " ENE";
+                    return returnval;
+                }
+                if (dir >= 79 && dir <= 101) {
+                    returnval = returnspd + " E";
+                    return returnval;
+                }
+                if (dir >= 102 && dir <= 123) {
+                    returnval = returnspd + " ESE";
+                    return returnval;
+                }
+                if (dir >= 124 && dir <= 146) {
+                    returnval = returnspd + " SE";
+                    return returnval;
+                }
+                if (dir >= 147 && dir <= 168) {
+                    returnval = returnspd + " SSE";
+                    return returnval;
+                }
+                if (dir >= 169 && dir <= 191) {
+                    returnval = returnspd + " S";
+                    return returnval;
+                }
+                if (dir >= 192 && dir <= 213) {
+                    returnval = returnspd + " SSW";
+                    return returnval;
+                }
+                if (dir >= 214 && dir <= 236) {
+                    returnval = returnspd + " SW";
+                    return returnval;
+                }
+                if (dir >= 237 && dir <= 258) {
+                    returnval = returnspd + " WSW";
+                    return returnval;
+                }
+                if (dir >= 259 && dir <= 281) {
+                    returnval = returnspd + " W";
+                    return returnval;
+                }
+                if (dir >= 282 && dir <= 303) {
+                    returnval = returnspd + " WNW";
+                    return returnval;
+                }
+                if (dir >= 304 && dir <= 326) {
+                    returnval = returnspd + " NW";
+                    return returnval;
+                }
+                if (dir >= 327 && dir <= 348) {
+                    returnval = returnspd + " NNW";
+                    return returnval;
+                }
+            }
+
+            function populate (weatherData, forecastData) {
+                // populate the wcurrent area
+                $('#wcurrent').empty();
+                $('#wcurrent').append("<div id='wchead'><h3>Current weather in " + weatherData[0] + ", " + state + "</h3></div>");
+                $('#wcurrent').append("<div id='wcdata'><p>Temperature: " + tempconv(weatherData[4], tempu) + "</p></div>");
+                $('#wcurrent').css({"background-image" : "url('http://openweathermap.org/img/w/" + weatherData[3] + ".png')", "background-size" : "contain", "background-repeat": "no-repeat", "background-position": "center"});
+                $('#wtoday').empty();
+                $('#wtoday').append("<h3>Detailed Current Weather</h3>");
+                $('#wtoday').append("<p>as of: <strong>" +  weekday[weatherData[1].getDay()] + ", " + month[weatherData[1].getMonth()] + " " + weatherData[1].getDate() + ", " + AMPM(weatherData[1].getHours(), weatherData[1].getMinutes(), clockf) + "</strong></p>");
+                $('#wtoday').append("<table id='cwtable'><tbody><tr><td>Weather: </td><td>" + weatherData[2] + "</td></tr><tr><td>Temperature:</td><td>" + tempconv(weatherData[7], tempu) + "</td></tr>");
+                $('#cwtable').append("<tr><td>Humidity:</td><td>" + weatherData[5] + " % </td></tr>");
+                $('#cwtable').append("<tr><td>Pressure:</td><td>" + weatherData[6] + " hPa </td></tr>");
+                $('#cwtable').append("<tr><td>Wind:</td><td>" + wind(weatherData[8], speed, weatherData[9]) + "</td></tr>");
+                $('#wtoday').append("</tbody></table>");
+
+                //forecast populate
+                $('#wforecast').empty();
+                $('#wforecast').append("<h3>Detailed Forecast Data</h3>");
+                $('#wforecast').append("<table id='forecastTable'></table>");
+                $('#forecastTable').append("<tr><th colspan='7'>" + weekday[forecastData[0][0].getDay()] + ", " + month[forecastData[0][0].getMonth()] + " " + forecastData[0][0].getDate() + "</th></tr>");
+                $('#forecastTable').append("<tr></tr><th>Time</th><th>Weather</th><th>Low</th><th>High</th><th>Humidity</th><th>Pressure</th><th>Wind</th></tr>");
+                for (var tcount = 0; tcount < forecastData.length; tcount++) {
+
+                    var wh = forecastData[tcount][0].getHours();
+                    var wm = forecastData[tcount][0].getMinutes();
+                    var curday = forecastData[tcount][0].getDay();
+                    var dstr = weekday[forecastData[tcount][0].getDay()] + ", " + month[forecastData[tcount][0].getMonth()] + " " + forecastData[tcount][0].getDate();
+
+                    $('#forecastTable').append("<tr><td>" + AMPM(wh, wm, clockf) + "</td><td><img src='http://openweathermap.org/img/w/" + forecastData[tcount][2] + ".png'>" + forecastData[tcount][1] + "</td><td>" + tempconv(forecastData[tcount][3], tempu) + "</td><td>" + tempconv(forecastData[tcount][4], tempu) + "</td><td>" + forecastData[tcount][5] + " % </td><td>" + forecastData[tcount][6] + " hPa</td><td>" + wind(forecastData[tcount][7], speed, forecastData[tcount][8]) + "</td></tr>");
+                    if (tcount + 1 < forecastData.length && forecastData[tcount + 1][0].getDate() != forecastData[tcount][0].getDate()) {
+                        $('#forecastTable').append("<tr><th colspan='7'>" + weekday[forecastData[tcount + 1][0].getDay()] + ", " + month[forecastData[tcount + 1][0].getMonth()] + " " + forecastData[tcount + 1][0].getDate() + "</th></tr>");
+                        $('#forecastTable').append("<tr></tr><th>Time</th><th>Weather</th><th>Low</th><th>High</th><th>Humidity</th><th>Pressure</th><th>Wind</th></tr>");
+                    }
+                }
+				$('#wforecast').append("<p>Page designed & built by Zach Ferguson.</p>");
+                back(weatherData[3]);
+            }
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        userLat = (position.coords.latitude);
+                        userLon = (position.coords.longitude);
+                        locCall = "https://freegeoip.net/json/";
+                        weatherCall = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=" + userLat + "&lon=" + userLon + "&units=imperial"
+                        forecastCall = "https://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=" + userLat + "&lon=" + userLon + "&units=imperial"
+
+                        $.getJSON("https://jsonip.com/?callback=?", function (ipdata) {
+                            locCall += ipdata["ip"];
+                        });
+
+                        $.getJSON(locCall, function(locdata){
+                            state = locdata["region_code"];
+                        });
+
+                        $.getJSON(forecastCall, function(fdata){
+
+                            for (var fcount = 0; fcount < fdata['cnt']; fcount++) {
+                                var d = new Date(fdata['list'][fcount]['dt_txt']);
+
+                                var tempArr = [];
+                                tempArr.push(d);
+                                tempArr.push(fdata['list'][fcount]['weather'][0]['description'].slice(0, 1).toUpperCase() + fdata['list'][fcount]['weather'][0]['description'].slice(1) + ".");
+                                tempArr.push(fdata['list'][fcount]['weather'][0]['icon']);
+                                tempArr.push(Math.floor(fdata['list'][fcount]['main']['temp_min']));
+                                tempArr.push(Math.floor(fdata['list'][fcount]['main']['temp_max']));
+                                tempArr.push(Math.floor(fdata['list'][fcount]['main']['humidity']));
+                                tempArr.push(Math.floor(fdata['list'][fcount]['main']['pressure']));
+                                tempArr.push(Math.floor(fdata['list'][fcount]['wind']['speed']));
+                                tempArr.push(Math.floor(fdata['list'][fcount]['wind']['deg']));
+                                forecastData.push(tempArr);
+                            }
+
+                        });
+
+                        $.getJSON(weatherCall, function(wdata){
+                            var wd = new Date(wdata['dt'] * 1000);
+                            var wdesc = wdata['weather'][0]['description'].slice(0, 1).toUpperCase() + wdata['weather'][0]['description'].slice(1);
+                            weatherData.push(wdata['name']);
+                            weatherData.push(wd);
+                            weatherData.push(wdesc);
+                            weatherData.push(wdata['weather'][0]['icon']);
+                            weatherData.push(Math.floor(wdata['main']['temp']));
+                            weatherData.push(Math.floor(wdata['main']['humidity']));
+                            weatherData.push(Math.floor(wdata['main']['pressure']));
+                            weatherData.push(Math.floor(wdata['main']['temp']));
+                            weatherData.push(Math.floor(wdata['wind']['speed']));
+                            weatherData.push(Math.floor(wdata['wind']['deg']));
+                        });
+                        setTimeout(function(){
+                            populate(weatherData, forecastData);
+                        }, 2000);
+                    });
+                } else {
+                    x.innerHTML = "Geolocation is not supported or enabled.";
+                }
+            }
+        getLocation();
+        });
+    </script>
+    <title>Local Weather and Forecast</title>
+</head>
+<body>
+    <div class="grid">
+		<div id="tspacer"></div>
+        <div class="gi daytime dayheader" id="wheader">
+            <h1>Local Weather <br>& Forecast</h1>
+        </div>
+        <div class="gi daytime" id="wbuttons">
+            <button id="biu" class="button">Imperial Units</button>
+            <button id="bmu" class="button">Metric Units</button>
+            <button id="bf" class="button">Fahrenheit</button>
+            <button id="bc" class="button">Celcius</button>
+            <button id="bst" class="button">12 Hour Clock</button>
+            <button id="bmt" class="button">24 Hour Clock</button>
+        </div>
+        <div class="gi daytime wccontent" id="wcurrent">
+        </div>
+        <div class="gi daytime" id="wtoday">
+        </div>
+        <div class="gi daytime" id="wforecast">
+
+        </div>
+        <div id="bspacer"></div>
+    </div>
+
+</body>
+</html>

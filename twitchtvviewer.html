@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Twitch.tv Viewer</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: 1fr;
+            grid-template-rows: 7em auto;
+            grid-template-areas:
+                    "ctheader"
+                    "ctbody";
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #ctheader {
+            grid-area: ctheader;
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: 2fr 7fr 1.5fr 1.5fr 1.5fr;
+            grid-template-rows: 1fr 1fr 0.1fr;
+            grid-template-areas:
+                    "logoImg spacer1 spacer1 spacer1 spacer1"
+                    "logoImg spacer2 btnAllDiv btnActiveDiv btnInactiveDiv"
+                    "sep sep sep sep sep";
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #sep {
+            grid-area: sep;
+        }
+
+        #logoImg {
+            grid-area: logoImg;
+            background-image: url("img/twitch/Combo_Purple_RGB_sm.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        #spacer1 {
+            grid-area: spacer1;
+        }
+
+        #spacer2 {
+            grid-area: spacer2;
+        }
+
+
+        #btnAllDiv {
+            grid-area: btnAllDiv;
+        }
+
+        #btnActiveDiv {
+            grid-area: btnActiveDiv;
+        }
+
+        #btnInactiveDiv {
+            grid-area: btnInactiveDiv;
+        }
+
+        #ctbody {
+            grid-area: ctbody;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+      #headerIcon {
+          font-size: 3em;
+      }
+
+      #headerImg {
+        height: auto;
+
+
+      }
+
+	  .active {
+		background-color: #81a441;
+		width: 100%;
+	  }
+
+      .active a {
+          color: #2E2E2E;
+      }
+
+	  .inactive {
+		background-color: #a4414f;
+        color: whitesmoke;
+		margin-left: 0;
+		margin-right: 0;
+	  }
+
+      .inactive a {
+          color: #E0E0FF;
+      }
+
+        body {
+            background-color: #41a496;
+        }
+
+		.sdisplay {
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+			border-radius: 10px;
+			padding: 0.25em;
+			margin-top: 0.5em;
+			width: 100%;
+		}
+
+		h3 {
+			padding: 0;
+			margin: 0;
+		}
+
+		p {
+			padding: 0;
+			margin: 0;
+		}
+
+		button {
+			width: 100%;
+		}
+
+        div {
+            border: 1px solid white;
+        }
+    </style>
+
+    <script>
+      $(document).ready(function(){
+          var userList = ["freecodecamp", "ESL_SC2", "OgamingSC2", "cretetion", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+          var activityList = [];
+		  var activeWidth;
+
+		  $('#btnAll').click(function() {
+				$('.sdisplay').fadeIn(1000);
+				//$('.sdisplay').show(1);
+		  });
+
+		  $('#btnActive').click(function() {
+				$('.inactive').fadeOut(1000);
+				$('.active').fadeIn(1000);
+				//$('.inactive').hide(1);
+				//$('.active').show(1);
+		  });
+
+		  $('#btnInactive').click(function() {
+				$('.active').fadeOut(1000);
+				$('.inactive').fadeIn(1000);
+				//$('.active').hide(1);
+				//$('.inactive').show(1);
+		  });
+
+
+          function populate () {
+			  console.log("populate function called");
+			  console.log("array:");
+			  console.log(activityList);
+              for (var i = 0; i < 8; i++) {
+                  if (activityList[i].length === 6) {
+				    //const activeHTML = "<div class='active sdisplay'><h3>" + activityList[i][0] + "</h3><p>Currently playing " + activityList[i][3] + ", " + activityList[i][4] + "</p><p>Link to <a href='" + activityList[i][1] + "'>" + activityList[i][0] +"</a> archived content.</p></div>";
+                      const activeHTML = "<div class='active sdisplay'><p><a href='" + activityList[i][1] + "'>" + activityList[i][0] +"</a> Currently playing: " + activityList[i][3] + ", " + activityList[i][4] + "</p></div>";
+                      $('#ctbody').append(activeHTML);
+					  activeWidth = $('.active').outerWidth();
+                      $('.active').width(activeWidth);
+                  }
+                  if (activityList[i].length === 2) {
+					  const inactiveHTML = "<div class='inactive sdisplay'><p><a href='" + activityList[i][1] + "'><strong>" + activityList[i][0] + "</strong></a> Status: Inactive</p></div>";
+                      $('#ctbody').append(inactiveHTML);
+                      $('.inactive').width(activeWidth);
+                  }
+              }
+
+          }
+
+        function reqData () {
+          const apicall = "https://wind-bow.glitch.me/twitch-api/streams/";
+          const callback = "?callback=?";
+
+          for (var c = 0; c < userList.length; c++) {
+			let user = userList[c];
+            tempURL = apicall + user + callback;
+            $.getJSON(tempURL, function(tdata){
+				if (tdata['stream'] == null) {
+					activityList.push([user, "https://go.twitch.tv/" + user]);
+				}
+				if (tdata['stream'] != null) {
+				activityList.unshift([user, "https://go.twitch.tv/" + user, tdata['stream']['channel']['logo'], tdata['stream']['channel']['game'], tdata['stream']['channel']['status'], tdata['stream']['preview']['medium']]);
+				}
+            });
+          }
+        }
+
+        function starter () {
+            reqData();
+            setTimeout(function(){
+                populate();
+            }, 2000);
+        }
+        //reqData();
+        starter();
+      });
+
+    </script>
+</head>
+<body>
+    <div class="grid">
+        <div id="ctheader">
+            <div id="logoImg">
+                <!-- <img id= "headerImg" src="images/twitch/Combo_Purple_RGB.png"> -->
+            </div>
+            <div id="spacer1"><p>Spacer1...</p></div>
+            <div id="spacer2"><p>Spacer2...</p></div>
+            <div id="btnAllDiv">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <button id="btnAll" type="button">Display All</button>
+            </div>
+            <div id="btnActiveDiv">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <button id="btnActive" type="button">Display Active</button>
+            </div>
+            <div id="btnInactiveDiv">
+
+                <button id="btnInactive" type="button">Display Inactive</button>
+            </div>
+            <div id="sep"><hr></div>
+        </div>
+        <div id="ctbody">
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>

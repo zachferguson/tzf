@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+    <link href='https://fonts.googleapis.com/css?family=Alfa Slab One' rel='stylesheet'>
+    <style>
+        .grid {
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: 1fr;
+            grid-template-rows: 15em auto;
+            grid-template-areas:
+                    "ctheader"
+                    "ctbody";
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #ctheader {
+            grid-area: ctheader;
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: auto;
+            grid-template-rows: auto auto auto;
+            grid-template-areas:
+                    "scttitle"
+                    "sctinstructions"
+                    "sctbuttons";
+            margin: auto auto 0.5em auto;
+            text-align: center;
+            align-content: center;
+        }
+
+        #scttitle {
+            grid-area: scttitle;
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #scttitle h1 {
+            margin: 0 auto 0 auto;
+        }
+
+        #sctinstructions {
+            grid-area: sctinstructions;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            height: 7em;
+          }
+		  
+		#sctinstructions p {
+			padding: 0;
+			margin: 0;
+		}
+		
+		#sctinstructions h4 {
+			padding: 0.75em;
+			margin: 0;
+		}
+
+        #sctbuttons {
+            grid-area: sctbuttons;
+            text-align: center;
+            display: inline;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #ctbody {
+            grid-area: ctbody;
+            display: grid;
+            grid-gap: 3px;
+            grid-template-columns: 7em 7em 7em;
+            grid-template-rows: 7em 7em 7em;
+            grid-template-areas:
+                    "g0 g1 g2"
+                    "g3 g4 g5"
+                    "g6 g7 g8";
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #g0 {
+            grid-area: g0;
+        }
+
+        #g1 {
+            grid-area: g1;
+        }
+
+        #g2 {
+            grid-area: g2;
+        }
+
+        #g3 {
+            grid-area: g3;
+        }
+
+        #g4 {
+            grid-area: g4;
+        }
+
+        #g5 {
+            grid-area: g5;
+        }
+
+        #g6 {
+            grid-area: g6;
+        }
+
+        #g7 {
+            grid-area: g7;
+        }
+
+        #g8 {
+            grid-area: g8;
+        }
+
+        body {
+        }
+
+        .playDiv {
+            background-color: lightgrey;
+            border-radius: 7px;
+        }
+		
+		.playDiv:hover {
+			background-color: lightgreen;
+		}
+
+        button {
+            border-radius: 5px;
+        }
+
+        .btnSelected {
+            background-color: lightgreen;
+        }
+
+        .btnUnselected {
+            background-color: lightgrey;
+        }
+
+        .btnInUse {
+        background-color: darkgrey;
+        color: whitesmoke;
+        }
+
+        .player1 {
+            background-color: dodgerblue;
+            border-radius: 7px;
+        }
+
+        .player2 {
+            background-color: slateblue;
+            border-radius: 7px;
+        }
+
+        .ai {
+            background-color: red;
+            border-radius: 7px;
+        }
+
+        .gridLabel {
+            font-size: 6em;
+            text-align: center;
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        @media (max-width: 800px) {
+            #scttitle {
+                grid-area: scttitle;
+                text-align: center;
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            #scttitle h1 {
+                margin: 0 auto 0 auto;
+            }
+
+            #sctinstructions {
+                grid-area: sctinstructions;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+                height: 7em;
+            }
+
+            #sctinstructions p {
+                padding: 0;
+                margin: 0;
+            }
+
+            #sctinstructions h4 {
+                padding: 0.75em;
+                margin: 0;
+            }
+
+            #sctbuttons {
+                grid-area: sctbuttons;
+                text-align: center;
+                display: inline;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #ctbody {
+                grid-area: ctbody;
+                display: grid;
+                grid-gap: 3px;
+                grid-template-columns: 7em 7em 7em;
+                grid-template-rows: 7em 7em 7em;
+                grid-template-areas:
+                        "g0 g1 g2"
+                        "g3 g4 g5"
+                        "g6 g7 g8";
+                margin-left: auto;
+                margin-right: auto;
+        }
+
+
+    </style>
+
+
+
+    <script>
+	let moves = 0;  // to keep track of how many moves have been made.
+	let turn = "p1"  // 2 player, player1 goes first, if vs AI, randomly change this to start, also tracks whose turn.
+	var vs = "ai"  // Default set to play against AI, change if 2 player selected.
+	let p1Symbol = "X";  // default p1 symbol is x, change if y button is selected.
+	let p2Symbol = "O";
+	let board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
+	let won = false;
+	const wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]];
+	const nearWins = [[0, 1], [0, 2], [1, 2], [3, 4], [4, 5], [3, 5], [6, 7], [7, 8], [6, 8], [0, 4], [4, 8], [0, 8],
+    [2, 4], [4, 6], [2, 6], [0, 3], [3, 6], [0, 6], [1, 4], [4, 7], [1, 7], [2, 5], [5, 8], [2, 8]];
+    let p1Arr = [];  // array of cells p1 selected, makes it easier to track wins
+    let p2Arr = [];
+    const sysMessages = {start: '<h4>Welcome to Tic Tac Toe.</h4><p>Please select "One Player" to play against the computer,</p><p>or "Two Players" to play against a friend. Then choose</p> <p>"X" or "O", which is the playing piece for player 1.</p>',
+                        p1Turn: '<h4>Ready Player 1</h4><p>Please click on the board below.</p>',
+                        p1Win: '<h4>Player 1 Wins!</h4><p>Congratulations!</p><p>Click <em>Start Game</em> to play again.</p>',
+                        p2Turn: '<h4>Ready Player 2</h4><p>Please click on the board below.</p>',
+                        p2Win: '<h4>Player 2 Wins!</h4><p>Congratulations!</p><p>Click <em>Start Game</em> to play again.</p>',
+                        aiTurn: '<h4>AI is calculating its move.</h4>',
+                        aiWin: '<h4>The computer Wins!</h4><p>Sorry. Please play again.</p>',
+                        tie: '<h4>Its a Tie!</h4><p>Please click <em>Start Game</em> to play again.</p>'};
+
+    function startGame() {
+        moves = 0;  // to keep track of how many moves have been made.
+        let turns = ["p1", vs];
+        turn = turns[Math.floor(Math.random() * 2)];  // randomly determines who moves first.
+        board = ["e", "e", "e", "e", "e", "e", "e", "e", "e"];
+        p1Arr = [];  // array of cells p1 selected, makes it easier to track wins
+        p2Arr = [];
+        won = false;
+        document.getElementById("onePlayer").onclick = null;
+        document.getElementById("twoPlayer").onclick = null;
+        document.getElementById("xes").onclick = null;
+        document.getElementById("os").onclick = null;
+        document.getElementById("play").onclick = null;
+        document.getElementById("play").className = "btnInUse";
+        gameUpdate();
+        if (turn == "ai") {
+            document.getElementById("sctinstructions").innerHTML = sysMessages.aiTurn;
+            enemyAI();
+        }
+        if (turn == "p1") {
+            document.getElementById("sctinstructions").innerHTML = sysMessages.p1Turn;
+        }
+        if (turn == "p2") {
+            document.getElementById("sctinstructions").innerHTML = sysMessages.p2Turn;
+        }
+    }
+
+    function gameUpdate() {
+        for (let c = 0; c < board.length; c++) {
+            let tempID = "g" + c;
+            if (board[c] == "e") {
+                document.getElementById(tempID).innerHTML = "";
+                document.getElementById(tempID).className = "playDiv";
+                document.getElementById(tempID).onclick = function() { playerClick(c); };
+            }
+            if (board[c] == "p1") {
+                document.getElementById(tempID).innerHTML = "<p class='gridLabel'>" + p1Symbol + "</p>";
+                document.getElementById(tempID).className = "player1";
+                document.getElementById(tempID).onclick = null;
+            }
+            if (board[c] == "p2") {
+                document.getElementById(tempID).innerHTML = "<p class='gridLabel'>" + p2Symbol + "</p>";
+                document.getElementById(tempID).className = "player2";
+                document.getElementById(tempID).onclick = null;
+            }
+            if (board[c] == "ai") {
+                document.getElementById(tempID).innerHTML = "<p class='gridLabel'>" + p2Symbol + "</p>";
+                document.getElementById(tempID).className = "ai";
+                document.getElementById(tempID).onclick = null;
+            }
+        }
+        winCheck();
+    }
+    
+
+    function gameTypeChange () {
+
+        if (vs == "ai") {
+            vs = "p2";
+            document.getElementById("onePlayer").className = "btnUnselected";
+            document.getElementById("twoPlayer").className = "btnSelected";
+            return;
+        }
+
+        if (vs == "p2") {
+            vs = "ai";
+            document.getElementById("onePlayer").className = "btnSelected";
+            document.getElementById("twoPlayer").className = "btnUnselected";
+            return;
+        }
+    }
+	
+    function symbolChange (symbol) {
+        if (symbol == "X") {
+            p1Symbol = "X";
+            p2Symbol = "O";
+            document.getElementById("xes").className = "btnSelected";
+            document.getElementById("os").className = "btnUnselected";
+            return;
+        }
+        if (symbol == "O") {
+            p1Symbol = "O";
+            p2Symbol = "X";
+            document.getElementById("os").className = "btnSelected";
+            document.getElementById("xes").className = "btnUnselected";
+            return;
+        }
+    }
+
+    function winCheck() {
+        function boardFinalizer() {
+            turn = "";
+            document.getElementById("onePlayer").onclick = function() { gameTypeChange(); };
+            document.getElementById("twoPlayer").onclick = function() { gameTypeChange(); };
+            document.getElementById("xes").onclick = function() { symbolChange('X'); };
+            document.getElementById("os").onclick = function() { symbolChange('O'); };
+            document.getElementById("play").onclick = function() { startGame(); };
+            document.getElementById("play").className = "";
+            for (let c = 0; c < board.length; c++) {
+                let tempID = "g" + c;
+                document.getElementById(tempID).onclick = null;
+            }
+        }
+        if (moves == 9) {
+            document.getElementById("sctinstructions").innerHTML = sysMessages.tie;
+            boardFinalizer();
+        }
+        for (let c = 0; c < wins.length; c++) {
+            if (p1Arr.includes(wins[c][0])  && p1Arr.includes(wins[c][1]) && p1Arr.includes(wins[c][2])) {
+                document.getElementById("sctinstructions").innerHTML = sysMessages.p1Win;
+                document.getElementById("play").onclick = function() { startGame(); };
+                document.getElementById("play").className = "";
+                won = true;
+                boardFinalizer();
+            }
+            if (p2Arr.includes(wins[c][0]) &&  p2Arr.includes(wins[c][1]) &&  p2Arr.includes(wins[c][2])) {
+                won = true;
+                if (vs == "ai") {
+                    document.getElementById("sctinstructions").innerHTML = sysMessages.aiWin;
+                }
+                if (vs == "p2") {
+                    document.getElementById("sctinstructions").innerHTML = sysMessages.p2Win;
+                }
+                document.getElementById("play").onclick = function() { startGame(); };
+                document.getElementById("play").className = "";
+                boardFinalizer();
+            }
+        }
+
+
+    }
+
+	function enemyAI () {
+
+        if (moves == 9) {
+            winCheck();
+            return;
+        }
+
+        function aiMove (gridSQ) {
+            board[gridSQ] = "ai";
+            p2Arr.push(gridSQ);
+            moves += 1;
+            turn = "p1";
+            let waiter = Math.floor(Math.random() * 1000);
+            setTimeout(function() { document.getElementById("sctinstructions").innerHTML = sysMessages.p1Turn;}, waiter);
+            setTimeout(function(){ gameUpdate(); }, waiter);
+            return;
+        }
+
+        // check for winning moves
+        for (let c = 0; c < nearWins.length; c++) {
+            // if ai has played t of 3 of a winning combination
+            if (p2Arr.includes(nearWins[c][0]) && p2Arr.includes(nearWins[c][1])) {
+                for (let i = 0; i < wins.length; i++) {
+                    let tempArr = wins[i].slice(0);  // set a temp array that's equal to the current winning 3some
+                    // if the current potential 2 winning #s that the AI already played are also in the current winning 3some,
+                    if (tempArr.includes(nearWins[c][0]) && tempArr.includes(nearWins[c][0])) {
+                        let tempA = tempArr.indexOf(nearWins[c][0]);
+                        tempArr.splice(tempA, 1);
+                        let tempB = tempArr.indexOf(nearWins[c][1])
+                        tempArr.splice(tempB, 1);
+                        // if the remaining number in the winning 3some that the ai didn't play is not occupied...
+                        if (board[tempArr[0]] == "e") {
+                            aiMove(tempArr[0]);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        // block player wins
+        // for length of near wins, to check if the player has 2 of 3 to make a winning move
+
+        for (let c = 0; c < nearWins.length; c++) {
+            // if the two nearWins values are in the p1 moves array
+            if (p1Arr.includes(nearWins[c][0]) && p1Arr.includes(nearWins[c][1])) {
+                // for the length of the wins combinations array
+                for (let i = 0; i < wins.length; i++) {
+                    // set a temporary array equal to this iteration of the wins array subarrays
+                    let tempArr = wins[i].slice(0);
+                    // if the current nearWins values are in the wins array values
+                    if (tempArr.includes(nearWins[c][0]) && tempArr.includes(nearWins[c][1])) {
+                        // remove those values from the tempArray
+                        let tempA = tempArr.indexOf(nearWins[c][0]);
+                        tempArr.splice(tempA, 1);
+                        let tempB = tempArr.indexOf(nearWins[c][1]);
+                        tempArr.splice(tempB, 1);
+                        // check if the last value in the array is empty on the board
+                        if (board[tempArr[0]] == "e" ) {
+                            // call the aiMove function on that grid to block the player
+                            aiMove(tempArr[0]);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        // make a move if not blocking the player or winning the game
+        // move in the center square if possible, 70% of the time
+        if (board[4] == "e" && Math.floor(Math.random() * 10) < 7) {
+            aiMove(4);
+            return;
+        }
+
+        while (turn == "ai") {
+            let gridSQ = Math.floor(Math.random() * 10);
+
+            if (board[gridSQ] == "e") {
+                aiMove(gridSQ);
+                return;
+            }
+        }
+	}
+
+    function playerClick (gridLoc) {
+        function updater () {
+            moves += 1;
+            if (turn == "p1") {
+                winCheck();
+                turn = vs;
+                if (turn == "ai") {
+                    if (won == true) {
+                        return;
+                    }
+                    document.getElementById("sctinstructions").innerHTML = sysMessages.aiTurn;
+                }
+                if (turn == "p2") {
+                    if (won == true) {
+                        return;
+                    }
+                    document.getElementById("sctinstructions").innerHTML = sysMessages.p2Turn;
+                }
+                if (moves == 9) {
+                    winCheck();
+                    return;
+                }
+                return;
+            }
+            else {
+                winCheck();
+                if (won == true) {
+                    turn = "";
+                    return;
+                }
+                turn = "p1";
+                document.getElementById("sctinstructions").innerHTML = sysMessages.p1Turn;
+                return;
+            }
+        }
+
+        if (turn == "p1") {
+            p1Arr.push(gridLoc);
+            board[gridLoc] = "p1";
+            gameUpdate();
+            updater();
+            if (turn == "ai" && won == false) {
+                enemyAI();
+            }
+            return;
+        }
+
+        if (turn == "p2") {
+            p2Arr.push(gridLoc);
+            board[gridLoc] = "p2";
+            gameUpdate();
+            updater();
+            return;
+        }
+
+        if (turn == "ai") {
+            p2Arr.push(gridLoc);
+            board[gridLoc] = "ai";
+            setTimeout(function(){ gameUpdate(); }, Math.floor((Math.random() * 3) + 0.5).toFixed(2));
+            updater();
+            return;
+        }
+    }
+
+    </script>
+</head>
+<body>
+    <div class="grid">
+        <div id="ctheader">
+            <div id="scttitle">
+                <h1>Tic Tac Toe</h1>
+            </div>
+            <div id="sctinstructions">
+                <h4>Welcome to Tic Tac Toe.</h4>
+                <p>Please select "One Player" to play against the computer,</p>
+				<p>or "Two Players" to play against a friend. Then choose</p>
+				<p>"X" or "O", which is the playing piece for player 1.</p>
+            </div>
+            <div id="sctbuttons">
+                <button id="onePlayer" type="button" class="btnSelected" onclick="gameTypeChange()">One Player</button>
+                <button id="twoPlayer" type="button" class="btnUnselected" onclick="gameTypeChange()">Two Players</button>
+                <button id="xes" type="button" class="btnSelected" onclick="symbolChange('X')">X</button>
+                <button id="os" type="button" class="btnUnselected" onclick="symbolChange('O')">O</button>
+                <button id="play" type="button" onclick="startGame()">Start Game</button>
+            </div>
+        </div>
+
+        <div id="ctbody">
+
+            <div id="g0" class="playDiv"></div>
+            <div id="g1" class="playDiv"></div>
+            <div id="g2" class="playDiv"></div>
+            <div id="g3" class="playDiv"></div>
+            <div id="g4" class="playDiv"></div>
+            <div id="g5" class="playDiv"></div>
+            <div id="g6" class="playDiv"></div>
+            <div id="g7" class="playDiv"></div>
+            <div id="g8" class="playDiv"></div>
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>

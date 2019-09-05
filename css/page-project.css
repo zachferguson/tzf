@@ -1,0 +1,151 @@
+#page-content{
+	display: grid;
+	grid-template-areas:
+		"ptitle"
+		"pabout"
+		"ptags"
+		"pgal"
+		"pcapt"
+		"ptech"
+		"pres";
+	grid-gap: 0.5rem;
+}
+
+#project-title{
+	grid-area: ptitle;
+}
+
+#project-about{
+	grid-area: pabout;
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+#project-tags{
+	grid-area: ptags;
+}
+
+#project-gallery{
+	grid-area: pgal;
+}
+
+#project-caption{
+	grid-area: pcapt;
+	text-align: center;
+	padding: 0!important;
+}
+
+#project-tech{
+	grid-area: ptech;
+}
+
+#project-resources{
+	grid-area: pres;
+}
+
+#page-content section{
+	border-bottom: 1px solid var(--color-primary-text);
+	padding-top: 1em;
+}
+
+#tags-list{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+#project-links{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+section ul{
+	list-style: none;
+	text-align: center;
+}
+
+.tag{
+}
+.project-label{
+	text-align: center;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+.project-img{
+	display: block;
+	margin: 0.5rem auto;
+}
+.completed{
+	color: lightgreen;
+}
+.inprogress{
+	color: var(--color-accent);
+}
+
+#gallery-wrapper{
+	display: grid;
+	grid-template-areas:
+		"left center right";
+	grid-template-columns: 1fr 4fr 1fr;
+	grid-template-rows:50vw;
+	min-width: 100%;
+	min-height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	transition: opacity var(--transition-speed) ease-in-out;
+}
+#scroll-left{
+	grid-area: left;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	background-image: linear-gradient(to right, var(--color-primary-background), rgba(0,0,0,0));
+	width: 100%;
+	color: var(--color-primary-text);
+	transition-duration: var(--transition-speed);
+}
+#scroll-left:hover{
+	color: var(--color-accent);
+	transition-duration: var(--search-transition-speed);
+}
+
+#center{
+	grid-area: center;
+}
+#scroll-right{
+	grid-area: right;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--color-primary-text);
+	background-image: linear-gradient(to left, var(--color-primary-background), rgba(0,0,0,0));
+}
+#scroll-right:hover{
+	color: var(--color-accent);
+	transition-duration: var(--search-transition-speed);
+}
+
+.nav-chevron{
+	padding: 45% 0;
+	text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+  #page-content{
+    margin: 1rem 5%;
+	grid-template-areas:
+		"ptitle ptitle"
+		"pabout pabout"
+		"ptags ptags"
+		"pgal pgal"
+		"pcapt pcapt"
+		"ptech pres";
+  }
+  #project-caption{
+	  font-size: .8rem;
+  }
+}

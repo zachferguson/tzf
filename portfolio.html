@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+
+  <title>Zach Ferguson - Portfolio</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes|Cormorant|Roboto">
+
+  <!-- custom stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/layout.css">
+  <link id="menu-css" rel="stylesheet" type="text/css" href="css/menu.css">
+  <link rel="stylesheet" type="text/css" href="css/page-portfolio.css">
+
+</head>
+
+<body>
+  <a name="page-top"></a>
+  <div id="page-container">
+    <div id="header-container">
+      <nav id="menu">
+        <input type="checkbox" class="hamburger-toggle">
+        <div class="hamburger"><div></div></div>
+        <div id="menu-items">
+          <div>
+            <div>
+                <ul>
+                  <li><button id="nav-button-home" class="nav-button" onclick="window.location.href='index.html';"><i class="navicon fas fa-home fa-2x"></i> <i class="nav-button-text">Home</i></button></li>
+                  <li><button id="nav-button-about" class="nav-button" onclick="window.location.href='about.html';"><i class="navicon fas fa-book fa-2x"></i> <i class="nav-button-text">About</i></button></li>
+                  <li><button id="nav-button-projects" class="nav-button" onclick="window.location.href='portfolio.html';"><i class="navicon fas fa-rocket fa-2x"></i> <i class="nav-button-text">Projects</i></button></li>
+                  <li><button id="nav-button-articles" class="nav-button" onclick="window.location.href='articles.html';"><i class="navicon fas fa-newspaper fa-2x"></i> <i class="nav-button-text">Articles</i></button></li>
+                  <li><button id="nav-button-contact" class="nav-button" onclick="window.location.href='contact.html';"><i class="navicon fas fa-envelope fa-2x"></i> <i class="nav-button-text">Contact</i></button></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <header id="logo">
+        <p>Zach Ferguson</p>
+      </header>
+    </div>
+    <div id="page-body-container">
+
+      <content id="page-content">
+        <h2 class="section-head-text">Portfolio</h2>
+		<div id="filter-toggle">
+            <h3 class="centered-text">* CLICK HERE TO FILTER DISPLAYED PROJECTS *</h3>
+		</div>
+        <div id="master-toggle" class="hidden">
+            <div id="all-on" class="selection-box checked"><p>Select All</p></div>
+            <div id="all-off" class="selection-box checked"><p>Deelect All</p></div>
+            <div id="invert" class="selection-box checked"><p>Invert Selection</p></div>
+        </div>
+        <div id="container-filter" class="hidden">
+        </div> <!-- end container-filter -->
+
+        <div id="container-portfolio">
+        </div>
+      </content>
+      <footer id="page-footer">
+          <div><h5><a href="index.html">Home</a></h5></div>
+          <div><h5><a href="#page-top">Return to Top</a></h5></div>
+          <div><h5><a href="contact.html">Contact Page</a></h5></div>
+      </footer>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/portfolioData.js"></script>
+  <script type="text/javascript" src="js/portfolio.js"></script>
+</body>
+</html>

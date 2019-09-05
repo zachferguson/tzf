@@ -1,0 +1,128 @@
+:root {
+  --color-secondary-background: rgba(4, 15, 22, 0.75); /*#040f16; #000000 !rich black, black*/
+  --color-primary-text: rgb(251,251,255); /* #fbfbff, #ffffff  !ghost white, white*/
+  --color-primary-background: rgba(12, 21, 39, 1); /*rgba(20, 33, 61, 1); #0b4f6c; #14213D !dark imperial blue, yankees blue*/
+  --color-primary-background-solid: rgb(12, 21, 39); /*rgb(20, 33, 61);*/
+  --color-secondary-text: #01baef; /*#e5e5e5 !cyan, platinum*/
+  --color-accent: rgb(82, 119, 199); /* 31, 52, 96 slightly lighter blue for text-shadow effects, etc.*/
+  --color-link: rgb(197, 209, 236);
+  /*--color-accent: rgb(184,012,009); /* #b80c09, #fca311  !international orange, dark tangerine*/
+  --font-header: Cormorant;
+  --font-content: Roboto;
+  --font-labels: "Press Start 2P"; /*Great Vibes*/
+  --search-transition-speed: 0.5s;
+
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+    background-color: rgb(24, 42, 78);
+}
+
+body {
+  font-family: var(--font-content);
+  line-height: 1.4;
+  min-width: 360px;
+}
+
+p {
+  padding: 0.3rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-secondary-text);
+}
+
+#page-container {
+  max-width: 1024px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0.3rem;
+  background-color: var(--color-primary-background);
+  color: var(--color-primary-text);
+}
+
+header {
+  font-family: var(--font-labels);
+  font-size: 1.25rem;
+  margin: auto;
+}
+
+#header-container {
+	background-color: var(--color-primary-background-solid)
+}
+
+#page-body-container {
+  padding: 0.2rem 0.5rem;
+}
+
+#logo {
+  text-shadow: 2px 2px 8px var(--color-secondary-text);
+  /*text-shadow: 2px 2px 8px var(--color-accent);*/
+}
+
+#page-footer{
+	text-align: center;
+    border-top: 1px solid rgba(251,251,255, 0.5);
+}
+
+.navicon {
+  padding-right: 1rem;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--color-secondary-text);
+  border-style: none none solid none;
+  border-color: var(--color-secondary-text);
+  width: 100%;
+  margin: auto;
+  cursor: pointer;
+}
+
+.nav-button-text {
+  font-family: var(--font-labels);
+  height: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.section-head-text {
+  text-transform: uppercase;
+  /*media query will change below properties*/
+  text-align: center;
+}
+
+.centered {
+    text-align: center;
+}
+
+.vertspaced{
+    padding: 1rem;
+}
+
+.notification{
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: row;
+    flex: space-between;
+}
+.notification h2{
+    flex: 1;
+}
+
+
+
+@media only screen and (min-width: 769px) {
+    .nav-button {
+      border-style: none;
+    }
+}
