@@ -415,7 +415,8 @@ let projectDB = {
       ["lotto-1.jpg", "Select the numbers you want included."],
       ["lotto-2.jpg", "There is a number picker for Pick 2, 3, 4, and 5. Numbers can be saved, and printed."],
       ["lotto-3.jpg", "Part of the JavaScript controlling saving picked nnumbers."],
-      ["lotto-4.jpg", "The HTML for the Pick 3 section of the page."]
+      ["lotto-4.jpg", "The HTML for the Pick 3 section of the page."],
+      ["lotto-5.jpg", "This Pick 4 shows a 7 being required to be one of the numbers, and 2 and 4 not permitted to be in the results."]
     ],
     techblurb: "",
     techlist: [],
