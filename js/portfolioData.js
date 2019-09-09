@@ -376,7 +376,7 @@ let projectDB = {
     projectLink: "#",
     aboutLink: "project-entertainer.html",
     codeLink: "#",
-    image: "placeholder260.png",
+    image: "lasertainer260.png",
     gallery: [
       [
         "chameleon.jpeg",
@@ -500,30 +500,31 @@ let projectDB = {
     status: "",
     blurb:
       "An internet connected trap for catch, fix, and release feral cat population control programs and volunteers. A Pawtomatics project.",
-    about: "",
+    about: "This was a functional proof of concept project. It is an internet connected trap for feral cat 'catch, fix, and release' programs. The purpose is to allow the trapper to see via internet what cat (or other animal) is in the trap, and decide whether to trap it or not; why catch a cat that's lready been fixed? Then, if a cat wasn't trapped, but ate the bait food, the food can be refilled remotely. When an animal breaks the IR LED transmitter//receiver, a picture is uploaded to the server, and a text message and email are sent to the owner of the trap to inform them. From the website, the trapper can trigger the trap, refill the bait, and capture another picture. Unfortunately, this project was completed with CGI scripts, before I discovered websockets, and my server at the time only supported Python 2, so the final version will be completely redone.",
     projectLink: "#",
     aboutLink: "project-cattrap.html",
     codeLink: "#",
-    image: "placeholder260.png",
+    image: "cattrap260.jpg",
     gallery: [
-      [
-        "chameleon.jpeg",
-        "This is a random picture of a chameleon for testing purposes."
+      ["cattrap-1.jpg", "The prototype trap. The food dispenser magazine is at the rear left, and the Raspberry Pi that controls everything is at the front left. This is a top-down view."
       ],
       ["banjorock.jpeg", "They're probably hipsters. Let's move on..."],
-      ["jellyfish.jpeg", "Pretty awesome looking, but don't touch it!"],
-      [
-        "oranges.jpeg",
-        "Some oranges. Why? Because the picture came up when I searched on Pexels, and it looked cool."
+      ["cattrap-3.jpg", "An image of the view the cattrap captured when triggered remotely, but with nothing in it. The top is the 'bait bowl', and the IR proximity detector LEDs are visible at the bottom."],
+      ["cattrap-4.jpg", "A picture of my cat triggering the image capture feature. Here, I discovered the final project would need a different camera position."
       ]
     ],
-    techblurb: "",
+    techblurb: "This project uses a wide variety of libraries and technologies. Text functionality is done with the Twilio API, stepper motor control and other GPIO functionality uses the GPIOZero Raspberry Pi library. The fttlib, smtplib, urllib, and email Python libraries were used to control connection to and data//command receipt from the server.",
     techlist: [],
-    res: [],
+    res: [
+      "<p>The <a href='https://www.twilio.com/'>Twilio API</a>, for texting images of trap occupants.</p>",
+      "<p><a href='#'>The Rambo you Didn't Know</a> by <a href='#'>John Rambo</a>.</p>",
+      "<p>The Zoo Admin Library, a library that lets you blahbitty blah your zoo. <a href='#'>Visit their website</a>.</p>"
+    ],
     tags: [
       "chk-3ddesign",
       "chk-automation",
       "chk-electronics",
+      "chk-fullstack",
       "chk-physical",
       "chk-python",
       "chk-iot",
