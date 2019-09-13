@@ -91,6 +91,9 @@ body{
 	background-color: #003F87;
 	color: whitesmoke;
 }
+.header-img{
+	width: 100%;
+}
 
 @media only screen and (max-width: 600px) {
   .daytime{
@@ -138,86 +141,93 @@ body{
 	// WebCal.fi
 	/* ------- START PROMISE VERSION ------- */
 	//function headerDisplay(currentHour)
+	let weather = {};
+	let forecast = {};
 	async function gather() {
 	/* GETS IP ADDRESS https://ipinfo.io/developers */
-	  let dataIP = await fetch("https://ipinfo.io/json");
-	  dataIP = await dataIP.json();
-	  console.log(dataIP);
-	  let weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-	  weatherData = await weatherData.json();
+		let dataIP = await fetch("https://ipinfo.io/json");
+		dataIP = await dataIP.json();
+		console.log(dataIP);
+		let weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
+		weatherData = await weatherData.json();
+		weather = weatherData;
 		console.log('weatherdata:');
-	  console.log(weatherData);
-	  let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-	  forecastData = await forecastData.json();
+		console.log(weatherData);
+		let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
+		forecastData = await forecastData.json();
+		forecast = forecastData;
 		console.log('forecastdata:');
-	  console.log(forecastData);
-		let sunrise = new Date(weatherData.sys.sunrise * 1000);
-		console.log(`Sunrise - ${sunrise.getHours()}:${sunrise.getMinutes()}`);
-	  let sunset = new Date(weatherData.sys.sunset * 1000);
-	  console.log(`Sunset - ${sunset.getHours()}:${sunset.getMinutes()}`);
-	  //let currentTime = new Date(weatherData.dt * 1000);
-		function screenUpdater() {
-			let currentTime = new Date();
-			console.log(`Current Time - ${currentTime.getHours()}:${currentTime.getMinutes()}`);
-			if (currentTime.getHours() >= sunset.getHours() && currentTime.getMinutes() >= sunset.getMinutes() || currentTime.getHours() <= sunrise.getHours() && currentTime.getMinutes() <= sunrise.getMinutes()) {
-				document.getElementById("page-wrapper").className = "nighttime";
-				document.getElementById("header").innerHTML = `<img class="header-img" src="/img/forecast/headernight.jpg"</img>`;
-				console.log('its nighttime!');
-			}
-			else{
-				document.getElementById("page-wrapper").className = "daytime";
-				document.getElementById("header").innerHTML = `<img class="header-img" src="/img/forecast/headerday.jpg"</img>`;
-				console.log('its daytime!');}
-		}
-
-	  console.log(`Coordinates: ${weatherData.coord.lat}, ${weatherData.coord.lon}`);
-	  let timezone = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=G2MJ9GXGZCGH&format=json&by=position&lat=${weatherData.coord.lat}&lng=${weatherData.coord.lon}`);
-	  timezone = await timezone.json();
-	  console.log(timezone);
+		console.log(forecastData);
+		console.log(`Coordinates: ${weatherData.coord.lat}, ${weatherData.coord.lon}`);
+		let timezone = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=G2MJ9GXGZCGH&format=json&by=position&lat=${weatherData.coord.lat}&lng=${weatherData.coord.lon}`);
+		timezone = await timezone.json();
+		console.log(timezone);
 
 		// !!!!!!! HOLIDAY FINDER
 		let holidayAPI = '3938dd10-e4dd-469f-a785-b127db51ef64';
 		//let holiday = await fetch(`https://getfestivo.com/v1/holidays?api_key=${holidayAPI}&country=US&year=2019&month=7&day=04`)
 
 		//holiday = await holiday.json();
-	  //console.log(holiday);
+		//console.log(holiday);
 
 
 
 
-	  /*
-	  if (nasaMedia.media_type == "image"){
+		/*
+		if (nasaMedia.media_type == "image"){
 		document.getElementById('nasa').innerHTML = `<img src="${nasaMedia.url}">`;
-	  }
-	  else if (nasaMedia.media_type == "video"){
-		  document.getElementById('nasa').innerHTML = `<iframe
-														   width="560"
-														   height="315"
-														   src="${nasaMedia.url}?&autoplay=1"
-														   frameborder="0"
-														   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-														   allowfullscreen>
-													   </iframe>`;
-	  }
-	  */
+		}
+		else if (nasaMedia.media_type == "video"){
+			document.getElementById('nasa').innerHTML = `<iframe
+															 width="560"
+															 height="315"
+															 src="${nasaMedia.url}?&autoplay=1"
+															 frameborder="0"
+															 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+															 allowfullscreen>
+														 </iframe>`;
+		}
+		*/
+		screenUpdater();
 	}
 	gather();
+	function screenUpdater() {
+		let sunrise = new Date(weather.sys.sunrise * 1000);
+		console.log(`Sunrise - ${sunrise.getHours()}:${sunrise.getMinutes()}`);
+		let sunset = new Date(weather.sys.sunset * 1000);
+		console.log(`Sunset - ${sunset.getHours()}:${sunset.getMinutes()}`);
+		let currentTime = new Date();
+		console.log(`Current Time - ${currentTime.getHours()}:${currentTime.getMinutes()}`);
+		if (currentTime.getHours() >= sunset.getHours() && currentTime.getMinutes() >= sunset.getMinutes() || currentTime.getHours() <= sunrise.getHours() && currentTime.getMinutes() <= sunrise.getMinutes()) {
+			document.getElementById("page-wrapper").className = "nighttime";
+			document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headernight.jpg"</img>`;
+			console.log('its nighttime!');
+		}
+		else{
+			document.getElementById("page-wrapper").className = "daytime";
+			document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headerday.jpg"</img>`;
+			console.log('its daytime!');}
+	}
+
+
+	async function nasa () {
+		let nasaMedia = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A`);
+		nasaMedia = await nasaMedia.json();
+		console.log("NASA Data:");
+		console.log(nasaMedia);
+		let { copyright, explanation, media_type, url, date } = nasaMedia;
+		document.getElementById("page-content").innerHTML = `
+			<img class="nasa-img" src="${url}"</img>
+			<p>Copyright: ${copyright}, ${date}</p>
+			<p>${explanation}</p>
+		`;
+	}
+
+
 	document.getElementById("btn-nasa").addEventListener("click", () => {
 		console.log('clicked NASA button!');
-		async function nasa () {
-			let nasaMedia = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A`);
-			nasaMedia = await nasaMedia.json();
-			console.log("NASA Data:");
-			console.log(nasaMedia);
-			let { copyright, explanation, media_type, url, date } = nasaMedia;
-			document.getElementById("page-content").innerHTML = `
-				<img class="nasa-img" src="${url}"</img>
-				<p>Copyright: ${copyright}, ${date}</p>
-				<p>${explanation}</p>
-			`;
-		}
 		nasa();
-
+		screenUpdater();
 	});
 	 /* ------- end PROMISE VERSION ------- */
 </script>
