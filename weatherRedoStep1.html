@@ -220,11 +220,14 @@ body{
 	let userData = {};
 	let weather = {};
 	let forecast = {};
-	let selectorBtns = ["biu", "bmu", "bf", "bc", "bst", "bmt"];
-	let navBtns = ["btn-weather", "btn-forecast", "btn-nasa"];
+	const selectorBtns = ["biu", "bmu", "bf", "bc", "bst", "bmt"];
+	const navBtns = ["btn-weather", "btn-forecast", "btn-nasa"];
 	let selectorUnit = "i"; // i for imperial m for metric
 	let selectorTemp = "f"; // f for farenheit, c for celcius
 	let selectorClock = "12"; // 12 for am/pm, 24 for military time
+	const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	const month = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+
 
 	function selectorCSSAssign(caller) {
 		if (caller = "day") {
@@ -280,12 +283,36 @@ body{
 			}
 		}
 	}
+
+function populateForecast(forecast) {
+	function datediv() {
+		let tempdiv = `
+		<div class='datediv'>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+			<div class='sub-date-div'></div>
+		</div>
+		`;
+		function dayInfo(dateData) {
+			let tempdate = new Date(dateInfo['date_txt']);
+			let infoDate = ``
+			return `
+				<div class='sub-date-div'>
+					<div class='forecast-date sub-date'><p>${weekday[tempdate.getDay()]}, ${month[tempdate.getMonth()]} ${tempdate.getDate()}, ${tempdate.getYear()}</p></div>
+					<div class=
+				</div>
+			`;
+		}
+	}
+}
 async function forecaster() {
 	let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${userData["city"]},${userData["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-	forecastData = await forecastData.json();
-	forecast = forecastData;
-	console.log('forecastdata:');
-	console.log(forecastData);
+	forecast = await forecastData.json();
+	populateForecast(forecast);
 }
 
 	async function gather() {
