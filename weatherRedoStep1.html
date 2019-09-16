@@ -1,14 +1,13 @@
-<!doctype html>
-<html class="no-js" lang="">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Weather & Forecast</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 	div{
-		border: 1px solid red;
+		<!-- border: 1px solid rgba(255,0,0,0.25); -->
 	}
 *{
   box-sizing: border-box;
@@ -47,6 +46,8 @@ body{
 	flex: space-between;
 	flex-grow: 1;
 	flex-basis: 0;
+	padding: 0.1em 0.75em 0.5em 0.75em;
+	border-bottom: 1px solid grey;
 }
 #controlbuttons{
 	grid-area: ctrlbtns;
@@ -75,7 +76,10 @@ body{
 .sub-nav-btn{
 	width: 90%;
 	margin: 0 auto;
-	border-radius: 0.5em;
+	border: 1px solid
+}
+.sub-nav-btn:hover{
+	background-color: red;
 }
 
 .nasa-display{
@@ -85,18 +89,89 @@ body{
 	width: 100%;
 }
 .daytime{
-	background-color: #0276FD;
+	background-color: #87ceeb;
+}
+.daytime-btn{
+	background-color: dodgerblue;
+	border: 1px solid rgba(30,144,255,0.5);
+}
+.daytime-checked-btn{
+	background-color: forestgreen; <!-- #228B22 -->
+}
+.daytime-btn:hover{
+	background-color: rgba(30,144,255,0.5);
+	border: 1px solid rgba(30,144,255,0.25);
+}
+.daytime-nav-btn{
+	background-color: dodgerblue;
+	border: 1px solid rgba(30,144,255,0.5);
+	border-radius: 5px;
+}
+.daytime-nav-btn:hover{
+	background-color: rgba(30,144,255,0.5);
+	border: 1px solid rgba(30,144,255,0.25);
 }
 .nighttime{
-	background-color: #003F87;
+	background-color: midnightblue;
 	color: whitesmoke;
+}
+.nighttime-btn{
+
+}
+.nighttime-checked-btn{
+
+}
+.nighttime-btn:hover{
+
+}
+.nighttime-nav-btn{
+	background-color: darkblue;
+}
+.nighttime-nav-btn:hover{
+
 }
 .header-img{
 	width: 100%;
 }
 
+
+
 @media only screen and (max-width: 600px) {
   .daytime{
+
+	}
+	.daytime-btn{
+
+	}
+	.daytime-checked-btn{
+
+	}
+	.daytime-btn:hover{
+
+	}
+	.daytime-nav-btn{
+
+	}
+	.daytime-nav-btn:hover{
+
+	}
+	.nighttime{
+
+	}
+	.nighttime-btn{
+
+	}
+	.nighttime-checked-btn{
+
+	}
+	.nighttime-btn:hover{
+
+	}
+	.nighttime-nav-btn{
+
+	}
+	.nighttime-nav-btn:hover{
+
 	}
 }
 
@@ -141,26 +216,94 @@ body{
 	// WebCal.fi
 	/* ------- START PROMISE VERSION ------- */
 	//function headerDisplay(currentHour)
+	let currentPage = "w"; // w for weather, f for forecast, n for nasa
+	let userData = {};
 	let weather = {};
 	let forecast = {};
+	let selectorBtns = ["biu", "bmu", "bf", "bc", "bst", "bmt"];
+	let navBtns = ["btn-weather", "btn-forecast", "btn-nasa"];
+	let selectorUnit = "i"; // i for imperial m for metric
+	let selectorTemp = "f"; // f for farenheit, c for celcius
+	let selectorClock = "12"; // 12 for am/pm, 24 for military time
+
+	function selectorCSSAssign(caller) {
+		if (caller = "day") {
+			if (selectorUnit = "i"){
+				document.getElementById("biu").classList.remove("daytime-btn");
+				document.getElementById("biu").classList.add("daytime-checked-btn");
+			}
+			else {
+				document.getElementById("bmu").classList.remove("daytime-btn");
+				document.getElementById("bmu").classList.add("daytime-checked-btn");
+			}
+			if (selectorTemp = "f"){
+				document.getElementById("bf").classList.remove("daytime-btn");
+				document.getElementById("bf").classList.add("daytime-checked-btn");
+			}
+			else {
+				document.getElementById("bc").classList.remove("daytime-btn");
+				document.getElementById("bc").classList.add("daytime-checked-btn");
+			}
+			if (selectorClock = "12"){
+				document.getElementById("bst").classList.remove("daytime-btn");
+				document.getElementById("bst").classList.add("daytime-checked-btn");
+			}
+			else {
+				document.getElementById("bmt").classList.remove("daytime-btn");
+				document.getElementById("bmt").classList.add("daytime-checked-btn");
+			}
+		}
+		if (caller = "night") {
+			if (selectorUnit = "i"){
+				document.getElementById("biu").classList.remove("nighttime-btn");
+				document.getElementById("biu").classList.add("daytime-checked-btn");
+			}
+			else {
+				document.getElementById("bmu").classList.remove("nighttime-btn");
+				document.getElementById("bmu").classList.add("nighttime-checked-btn");
+			}
+			if (selectorTemp = "f"){
+				document.getElementById("bf").classList.remove("nighttime-btn");
+				document.getElementById("bf").classList.add("nighttime-checked-btn");
+			}
+			else {
+				document.getElementById("bc").classList.remove("nighttime-btn");
+				document.getElementById("bc").classList.add("nighttime-checked-btn");
+			}
+			if (selectorClock = "12"){
+				document.getElementById("bst").classList.remove("nighttime-btn");
+				document.getElementById("bst").classList.add("nighttime-checked-btn");
+			}
+			else {
+				document.getElementById("bmt").classList.remove("nighttime-btn");
+				document.getElementById("bmt").classList.add("nighttime-checked-btn");
+			}
+		}
+	}
+async function forecaster() {
+	let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${userData["city"]},${userData["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
+	forecastData = await forecastData.json();
+	forecast = forecastData;
+	console.log('forecastdata:');
+	console.log(forecastData);
+}
+
 	async function gather() {
 	/* GETS IP ADDRESS https://ipinfo.io/developers */
 		let dataIP = await fetch("https://ipinfo.io/json");
 		dataIP = await dataIP.json();
+		userData = dataIP;
 		console.log(dataIP);
 		let weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
 		weatherData = await weatherData.json();
 		weather = weatherData;
 		console.log('weatherdata:');
 		console.log(weatherData);
-		let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-		forecastData = await forecastData.json();
-		forecast = forecastData;
-		console.log('forecastdata:');
-		console.log(forecastData);
+
 		console.log(`Coordinates: ${weatherData.coord.lat}, ${weatherData.coord.lon}`);
 		let timezone = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=G2MJ9GXGZCGH&format=json&by=position&lat=${weatherData.coord.lat}&lng=${weatherData.coord.lon}`);
 		timezone = await timezone.json();
+		console.log('timezone:');
 		console.log(timezone);
 
 		// !!!!!!! HOLIDAY FINDER
@@ -169,25 +312,6 @@ body{
 
 		//holiday = await holiday.json();
 		//console.log(holiday);
-
-
-
-
-		/*
-		if (nasaMedia.media_type == "image"){
-		document.getElementById('nasa').innerHTML = `<img src="${nasaMedia.url}">`;
-		}
-		else if (nasaMedia.media_type == "video"){
-			document.getElementById('nasa').innerHTML = `<iframe
-															 width="560"
-															 height="315"
-															 src="${nasaMedia.url}?&autoplay=1"
-															 frameborder="0"
-															 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-															 allowfullscreen>
-														 </iframe>`;
-		}
-		*/
 		screenUpdater();
 	}
 	gather();
@@ -198,15 +322,41 @@ body{
 		console.log(`Sunset - ${sunset.getHours()}:${sunset.getMinutes()}`);
 		let currentTime = new Date();
 		console.log(`Current Time - ${currentTime.getHours()}:${currentTime.getMinutes()}`);
-		if (currentTime.getHours() >= sunset.getHours() && currentTime.getMinutes() >= sunset.getMinutes() || currentTime.getHours() <= sunrise.getHours() && currentTime.getMinutes() <= sunrise.getMinutes()) {
-			document.getElementById("page-wrapper").className = "nighttime";
-			document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headernight.jpg"</img>`;
-			console.log('its nighttime!');
+		if (currentTime.getHours() >= sunset.getHours() || currentTime.getHours() <= sunrise.getHours()) {
+			if (currentTime.getMinutes() >= sunset.getMinutes() || currentTime.getMinutes() <= sunrise.getMinutes()) {
+				nighttimeify();
+				selectorCSSAssign("night")
+				console.log('its nighttime!');
+			}
 		}
 		else{
-			document.getElementById("page-wrapper").className = "daytime";
-			document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headerday.jpg"</img>`;
+			daytimeify();
+			selectorCSSAssign("day");
 			console.log('its daytime!');}
+	}
+	function nighttimeify() {
+		document.getElementById("page-wrapper").className = "nighttime";
+		document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headernight.jpg"</img>`;
+		for (let btn in navBtns) {
+			document.getElementById(navBtns[btn]).classList.remove("daytime-nav-btn");
+			document.getElementById(navBtns[btn]).classList.add("nighttime-nav-btn");
+		}
+		for (let btn in selectorBtns) {
+			document.getElementById(selectorBtns[btn]).classList.remove("daytime-btn");
+			document.getElementById(selectorBtns[btn]).classList.add("nighttime-btn");
+		}
+	}
+	function daytimeify() {
+		document.getElementById("page-wrapper").className = "daytime";
+		document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headerday.jpg"</img>`;
+		for (let btn in navBtns) {
+			document.getElementById(navBtns[btn]).classList.remove("nighttime-nav-btn");
+			document.getElementById(navBtns[btn]).classList.add("daytime-nav-btn");
+		}
+		for (let btn in selectorBtns) {
+			document.getElementById(selectorBtns[btn]).classList.remove("nighttime-btn");
+			document.getElementById(selectorBtns[btn]).classList.add("daytime-btn");
+		}
 	}
 
 
@@ -216,11 +366,32 @@ body{
 		console.log("NASA Data:");
 		console.log(nasaMedia);
 		let { copyright, explanation, media_type, url, date } = nasaMedia;
+		/*
 		document.getElementById("page-content").innerHTML = `
 			<img class="nasa-img" src="${url}"</img>
 			<p>Copyright: ${copyright}, ${date}</p>
 			<p>${explanation}</p>
 		`;
+		*/
+		if (nasaMedia.media_type == "image"){
+		document.getElementById("page-content").innerHTML = `
+			<img class="nasa-img" src="${url}"</img>
+			<p>Copyright: ${copyright}, ${date}</p>
+			<p>${explanation}</p>
+		`;
+		}
+		else if (nasaMedia.media_type == "video"){
+			document.getElementById("page-content").innerHTML = `
+				<iframe
+				 width="100%"
+				 /*height="315"*/
+				 src="${url}?&autoplay=1"
+				 frameborder="0"
+				 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+				 allowfullscreen>
+				 </iframe>
+			`;
+		}
 	}
 
 
