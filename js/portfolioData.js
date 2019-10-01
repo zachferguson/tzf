@@ -884,7 +884,7 @@ let projectDB = {
       ]
     ],
     techblurb:
-      "This project features a practice implementation of several technologies, and was a practical application for blah development.",
+      "This project features a practice implementation of several technologies, and was a practical application for physical and electronics development. It also leaves open the possibility of adding a future 'car computer' with a Raspberry Pi and touchscreen.",
     techlist: ["Soldering", "Wiring", "Electronics"],
     res: [
       "<p>Bluetooth Speaker from Amazon, available <a href='https://www.amazon.com/gp/product/B00DQ4514M/ref=ppx_yo_dt_b_search_asin_image?ie=UTF8&psc=1'>here</a>.</p>",
