@@ -1,292 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Weather & Forecast</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-	div{
-		<!-- border: 1px solid rgba(255,0,0,0.25); -->
-	}
-*{
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-html{
-	min-height: 100%
-}
-body{
-	min-height: 100%;
-	height: auto;
-	background-color: green;
-}
-#page-wrapper{
-	max-width: 1366px;
-	min-height: 100vh;
-	height: auto;
-	display: grid;
-	grid-template-areas:
-		'header'
-		'navbtns'
-		'ctrlbtns'
-		'content'
-		'footer';
-	grid-template-rows: auto auto auto 1fr 1em;
-	grid-template-columns: 1fr;
+  <head>
+    <meta charset="utf-8" />
+    <title>Weather & Forecast</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      	div{
+      		<!-- border: 1px solid rgba(255,0,0,0.25); -->
+      	}
+      *{
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      html{
+      	min-height: 100%
+      }
+      body{
+      	min-height: 100%;
+      	height: auto;
+      	background-color: green;
+      }
+      #page-wrapper{
+      	max-width: 1366px;
+      	min-height: 100vh;
+      	height: auto;
+      	display: grid;
+      	grid-template-areas:
+      		'header'
+      		'navbtns'
+      		'ctrlbtns'
+      		'content'
+      		'footer';
+      	grid-template-rows: auto auto auto 1fr 1em;
+      	grid-template-columns: 1fr;
 
-}
-#header{
-	grid-area: header;
-}
-#navbuttons{
-	grid-area: navbtns;
-	display: flex;
-	flex: space-between;
-	flex-grow: 1;
-	flex-basis: 0;
-	padding: 0.1em 0.75em 0.5em 0.75em;
-	border-bottom: 1px solid grey;
-}
-#controlbuttons{
-	grid-area: ctrlbtns;
-	display: flex;
-	flex: space-between;
-}
-#page-content{
-	grid-area: content;
-}
-#footer{
-	grid-area: footer;
-}
+      }
+      #header{
+      	grid-area: header;
+      }
+      #navbuttons{
+      	grid-area: navbtns;
+      	display: flex;
+      	flex: space-between;
+      	flex-grow: 1;
+      	flex-basis: 0;
+      	padding: 0.1em 0.75em 0.5em 0.75em;
+      	border-bottom: 1px solid grey;
+      }
+      #controlbuttons{
+      	grid-area: ctrlbtns;
+      	display: flex;
+      	flex: space-between;
+      }
+      #page-content{
+      	grid-area: content;
+      }
+      #footer{
+      	grid-area: footer;
+      }
 
-.sub-btn-div{
-	display: flex;
-	flex-direction: row;
-	flex: space-between;
-	flex: 1;
-}
-.select-btn{
-	flex: 1;
-	margin: 0.25em 0.5em;
-	border-radius: 0.5em;
-}
+      .sub-btn-div{
+      	display: flex;
+      	flex-direction: row;
+      	flex: space-between;
+      	flex: 1;
+      }
+      .select-btn{
+      	flex: 1;
+      	margin: 0.25em 0.5em;
+      	border-radius: 0.5em;
+      }
 
-.sub-nav-btn{
-	width: 90%;
-	margin: 0 auto;
-	border: 1px solid
-}
-.sub-nav-btn:hover{
-	background-color: red;
-}
+      .sub-nav-btn{
+      	width: 90%;
+      	margin: 0 auto;
+      	border: 1px solid
+      }
+      .sub-nav-btn:hover{
+      	background-color: red;
+      }
 
-.nasa-display{
-	height: 100%;
-}
-.nasa-img{
-	width: 100%;
-}
-.daytime{
-	background-color: #87ceeb;
-}
-.daytime-btn{
-	background-color: dodgerblue;
-	border: 1px solid rgba(30,144,255,0.5);
-}
-.daytime-checked-btn{
-	background-color: forestgreen; <!-- #228B22 -->
-}
-.daytime-btn:hover{
-	background-color: rgba(30,144,255,0.5);
-	border: 1px solid rgba(30,144,255,0.25);
-}
-.daytime-nav-btn{
-	background-color: dodgerblue;
-	border: 1px solid rgba(30,144,255,0.5);
-	border-radius: 5px;
-}
-.daytime-nav-btn:hover{
-	background-color: rgba(30,144,255,0.5);
-	border: 1px solid rgba(30,144,255,0.25);
-}
-.nighttime{
-	background-color: midnightblue;
-	color: whitesmoke;
-}
-.nighttime-btn{
+      .nasa-display{
+      	height: 100%;
+      }
+      .nasa-img{
+      	width: 100%;
+      }
+      .daytime{
+      	background-color: #87ceeb;
+      }
+      .daytime-btn{
+      	background-color: dodgerblue;
+      	border: 1px solid rgba(30,144,255,0.5);
+      }
+      .daytime-checked-btn{
+      	background-color: forestgreen; <!-- #228B22 -->
+      }
+      .daytime-btn:hover{
+      	background-color: rgba(30,144,255,0.5);
+      	border: 1px solid rgba(30,144,255,0.25);
+      }
+      .daytime-nav-btn{
+      	background-color: dodgerblue;
+      	border: 1px solid rgba(30,144,255,0.5);
+      	border-radius: 5px;
+      }
+      .daytime-nav-btn:hover{
+      	background-color: rgba(30,144,255,0.5);
+      	border: 1px solid rgba(30,144,255,0.25);
+      }
+      .nighttime{
+      	background-color: midnightblue;
+      	color: whitesmoke;
+      }
+      .nighttime-btn{
 
-}
-.nighttime-checked-btn{
+      }
+      .nighttime-checked-btn{
 
-}
-.nighttime-btn:hover{
+      }
+      .nighttime-btn:hover{
 
-}
-.nighttime-nav-btn{
-	background-color: darkblue;
-}
-.nighttime-nav-btn:hover{
+      }
+      .nighttime-nav-btn{
+      	background-color: darkblue;
+      }
+      .nighttime-nav-btn:hover{
 
-}
-.header-img{
-	width: 100%;
-}
-
-
-
-@media only screen and (max-width: 600px) {
-  .daytime{
-
-	}
-	.daytime-btn{
-
-	}
-	.daytime-checked-btn{
-
-	}
-	.daytime-btn:hover{
-
-	}
-	.daytime-nav-btn{
-
-	}
-	.daytime-nav-btn:hover{
-
-	}
-	.nighttime{
-
-	}
-	.nighttime-btn{
-
-	}
-	.nighttime-checked-btn{
-
-	}
-	.nighttime-btn:hover{
-
-	}
-	.nighttime-nav-btn{
-
-	}
-	.nighttime-nav-btn:hover{
-
-	}
-}
+      }
+      .header-img{
+      	width: 100%;
+      }
 
 
-</style>
 
+      @media only screen and (max-width: 600px) {
+        .daytime{
 
-</head>
-<body>
-<div id="page-wrapper" class="daytime">
-	<header id="header"><h1>Here's the header...</h1></header>
-	<nav id="navbuttons">
-		<div class="sub-btn-div"><button id="btn-weather" class="sub-nav-btn" type="button">Weather</button></div>
-		<div class="sub-btn-div"><button id="btn-forecast" class="sub-nav-btn" type="button">Forecast</button></div>
-		<div class="sub-btn-div"><button id="btn-nasa" class="sub-nav-btn" type="button">Daily NASA</button></div>
-	</nav>
-	<nav id="controlbuttons">
-		<div id="units-btns" class="sub-btn-div">
-			<button id="biu" class="button select-btn">Imperial Units</button>
-			<button id="bmu" class="button select-btn">Metric Units</button>
-		</div>
-		<div id="temp-btns" class="sub-btn-div">
-			<button id="bf" class="button select-btn">Fahrenheit</button>
-			<button id="bc" class="button select-btn">Celcius</button>
-		</div>
-		<div id="time-btns" class="sub-btn-div">
-			<button id="bst" class="button select-btn">12 Hour Clock</button>
-			<button id="bmt" class="button select-btn">24 Hour Clock</button>
-		</div>
-	</nav>
-	<div id="page-content"></div>
-	<footer id="footer"><p>Footer...</p></footer>
-</div>
-</body>
-<script type="application/javascript">
-/* getLocalIP source: https://gist.github.com/hectorguo/672844c319547498dcb569df583f959d */
-	//let ipstackAPIkey = "5562477e39162c7f951fbdf948701771";
-	// nasa api key: WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A
-	// timezonedb api key: G2MJ9GXGZCGH
-	// holidayapi.com api-key: 46511983-44c2-4a93-a79c-41219c6e6919
-	// holidayapi.com only allows last years holidays for free...
-	// WebCal.fi
-	/* ------- START PROMISE VERSION ------- */
-	//function headerDisplay(currentHour)
-	let currentPage = "w"; // w for weather, f for forecast, n for nasa
-	let userData = {};
-	let weather = {};
-	let forecast = {};
-	const selectorBtns = ["biu", "bmu", "bf", "bc", "bst", "bmt"];
-	const navBtns = ["btn-weather", "btn-forecast", "btn-nasa"];
-	let selectorUnit = "i"; // i for imperial m for metric
-	let selectorTemp = "f"; // f for farenheit, c for celcius
-	let selectorClock = "12"; // 12 for am/pm, 24 for military time
-	const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	const month = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+      	}
+      	.daytime-btn{
 
+      	}
+      	.daytime-checked-btn{
 
-	function selectorCSSAssign(caller) {
-		if (caller = "day") {
-			if (selectorUnit = "i"){
-				document.getElementById("biu").classList.remove("daytime-btn");
-				document.getElementById("biu").classList.add("daytime-checked-btn");
-			}
-			else {
-				document.getElementById("bmu").classList.remove("daytime-btn");
-				document.getElementById("bmu").classList.add("daytime-checked-btn");
-			}
-			if (selectorTemp = "f"){
-				document.getElementById("bf").classList.remove("daytime-btn");
-				document.getElementById("bf").classList.add("daytime-checked-btn");
-			}
-			else {
-				document.getElementById("bc").classList.remove("daytime-btn");
-				document.getElementById("bc").classList.add("daytime-checked-btn");
-			}
-			if (selectorClock = "12"){
-				document.getElementById("bst").classList.remove("daytime-btn");
-				document.getElementById("bst").classList.add("daytime-checked-btn");
-			}
-			else {
-				document.getElementById("bmt").classList.remove("daytime-btn");
-				document.getElementById("bmt").classList.add("daytime-checked-btn");
-			}
-		}
-		if (caller = "night") {
-			if (selectorUnit = "i"){
-				document.getElementById("biu").classList.remove("nighttime-btn");
-				document.getElementById("biu").classList.add("daytime-checked-btn");
-			}
-			else {
-				document.getElementById("bmu").classList.remove("nighttime-btn");
-				document.getElementById("bmu").classList.add("nighttime-checked-btn");
-			}
-			if (selectorTemp = "f"){
-				document.getElementById("bf").classList.remove("nighttime-btn");
-				document.getElementById("bf").classList.add("nighttime-checked-btn");
-			}
-			else {
-				document.getElementById("bc").classList.remove("nighttime-btn");
-				document.getElementById("bc").classList.add("nighttime-checked-btn");
-			}
-			if (selectorClock = "12"){
-				document.getElementById("bst").classList.remove("nighttime-btn");
-				document.getElementById("bst").classList.add("nighttime-checked-btn");
-			}
-			else {
-				document.getElementById("bmt").classList.remove("nighttime-btn");
-				document.getElementById("bmt").classList.add("nighttime-checked-btn");
-			}
-		}
-	}
+      	}
+      	.daytime-btn:hover{
 
-function populateForecast(forecast) {
-	function datediv() {
-		let tempdiv = `
+      	}
+      	.daytime-nav-btn{
+
+      	}
+      	.daytime-nav-btn:hover{
+
+      	}
+      	.nighttime{
+
+      	}
+      	.nighttime-btn{
+
+      	}
+      	.nighttime-checked-btn{
+
+      	}
+      	.nighttime-btn:hover{
+
+      	}
+      	.nighttime-nav-btn{
+
+      	}
+      	.nighttime-nav-btn:hover{
+
+      	}
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-wrapper" class="daytime">
+      <header id="header"><h1>Here's the header...</h1></header>
+      <nav id="navbuttons">
+        <div class="sub-btn-div">
+          <button id="btn-weather" class="sub-nav-btn" type="button">
+            Weather
+          </button>
+        </div>
+        <div class="sub-btn-div">
+          <button id="btn-forecast" class="sub-nav-btn" type="button">
+            Forecast
+          </button>
+        </div>
+        <div class="sub-btn-div">
+          <button id="btn-nasa" class="sub-nav-btn" type="button">
+            Daily NASA
+          </button>
+        </div>
+      </nav>
+      <nav id="controlbuttons">
+        <div id="units-btns" class="sub-btn-div">
+          <button id="biu" class="button select-btn">Imperial Units</button>
+          <button id="bmu" class="button select-btn">Metric Units</button>
+        </div>
+        <div id="temp-btns" class="sub-btn-div">
+          <button id="bf" class="button select-btn">Fahrenheit</button>
+          <button id="bc" class="button select-btn">Celcius</button>
+        </div>
+        <div id="time-btns" class="sub-btn-div">
+          <button id="bst" class="button select-btn">12 Hour Clock</button>
+          <button id="bmt" class="button select-btn">24 Hour Clock</button>
+        </div>
+      </nav>
+      <div id="page-content"></div>
+      <footer id="footer"><p>Footer...</p></footer>
+    </div>
+  </body>
+  <script type="application/javascript">
+    /* getLocalIP source: https://gist.github.com/hectorguo/672844c319547498dcb569df583f959d */
+    //let ipstackAPIkey = "5562477e39162c7f951fbdf948701771";
+    // nasa api key: WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A
+    // timezonedb api key: G2MJ9GXGZCGH
+    // holidayapi.com api-key: 46511983-44c2-4a93-a79c-41219c6e6919
+    // holidayapi.com only allows last years holidays for free...
+    // WebCal.fi
+    /* ------- START PROMISE VERSION ------- */
+    //function headerDisplay(currentHour)
+    let currentPage = "w"; // w for weather, f for forecast, n for nasa
+    let userData = {};
+    let weather = {};
+    let forecast = {};
+    const selectorBtns = ["biu", "bmu", "bf", "bc", "bst", "bmt"];
+    const navBtns = ["btn-weather", "btn-forecast", "btn-nasa"];
+    let selectorUnit = "i"; // i for imperial m for metric
+    let selectorTemp = "f"; // f for farenheit, c for celcius
+    let selectorClock = "12"; // 12 for am/pm, 24 for military time
+    const weekday = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    const month = [
+      "Jan.",
+      "Feb.",
+      "Mar.",
+      "Apr.",
+      "May",
+      "June",
+      "July",
+      "Aug.",
+      "Sept.",
+      "Oct.",
+      "Nov.",
+      "Dec."
+    ];
+
+    function selectorCSSAssign(caller) {
+      if ((caller = "day")) {
+        if ((selectorUnit = "i")) {
+          document.getElementById("biu").classList.remove("daytime-btn");
+          document.getElementById("biu").classList.add("daytime-checked-btn");
+        } else {
+          document.getElementById("bmu").classList.remove("daytime-btn");
+          document.getElementById("bmu").classList.add("daytime-checked-btn");
+        }
+        if ((selectorTemp = "f")) {
+          document.getElementById("bf").classList.remove("daytime-btn");
+          document.getElementById("bf").classList.add("daytime-checked-btn");
+        } else {
+          document.getElementById("bc").classList.remove("daytime-btn");
+          document.getElementById("bc").classList.add("daytime-checked-btn");
+        }
+        if ((selectorClock = "12")) {
+          document.getElementById("bst").classList.remove("daytime-btn");
+          document.getElementById("bst").classList.add("daytime-checked-btn");
+        } else {
+          document.getElementById("bmt").classList.remove("daytime-btn");
+          document.getElementById("bmt").classList.add("daytime-checked-btn");
+        }
+      }
+      if ((caller = "night")) {
+        if ((selectorUnit = "i")) {
+          document.getElementById("biu").classList.remove("nighttime-btn");
+          document.getElementById("biu").classList.add("daytime-checked-btn");
+        } else {
+          document.getElementById("bmu").classList.remove("nighttime-btn");
+          document.getElementById("bmu").classList.add("nighttime-checked-btn");
+        }
+        if ((selectorTemp = "f")) {
+          document.getElementById("bf").classList.remove("nighttime-btn");
+          document.getElementById("bf").classList.add("nighttime-checked-btn");
+        } else {
+          document.getElementById("bc").classList.remove("nighttime-btn");
+          document.getElementById("bc").classList.add("nighttime-checked-btn");
+        }
+        if ((selectorClock = "12")) {
+          document.getElementById("bst").classList.remove("nighttime-btn");
+          document.getElementById("bst").classList.add("nighttime-checked-btn");
+        } else {
+          document.getElementById("bmt").classList.remove("nighttime-btn");
+          document.getElementById("bmt").classList.add("nighttime-checked-btn");
+        }
+      }
+    }
+
+    function populateForecast(forecast) {
+      function datediv() {
+        let tempdiv = `
 		<div class='datediv'>
 			<div class='sub-date-div'></div>
 			<div class='sub-date-div'></div>
@@ -297,118 +319,161 @@ function populateForecast(forecast) {
 			<div class='sub-date-div'></div>
 		</div>
 		`;
-		function dayInfo(dateData) {
-			let tempdate = new Date(dateInfo['date_txt']);
-			let infoDate = ``
-			return `
+        function dayInfo(dateData) {
+          let tempdate = new Date(dateInfo["date_txt"]);
+          let infoDate = ``;
+          return `
 				<div class='sub-date-div'>
-					<div class='forecast-date sub-date'><p>${weekday[tempdate.getDay()]}, ${month[tempdate.getMonth()]} ${tempdate.getDate()}, ${tempdate.getYear()}</p></div>
+					<div class='forecast-date sub-date'><p>${weekday[tempdate.getDay()]}, ${
+            month[tempdate.getMonth()]
+          } ${tempdate.getDate()}, ${tempdate.getYear()}</p></div>
 					<div class=
 				</div>
 			`;
-		}
-	}
-}
-async function forecaster() {
-	let forecastData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${userData["city"]},${userData["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-	forecast = await forecastData.json();
-	populateForecast(forecast);
-}
+        }
+      }
+    }
+    async function forecaster() {
+      let forecastData = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${
+          userData["city"]
+        },${
+          userData["country"]
+        }&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`
+      );
+      forecast = await forecastData.json();
+      populateForecast(forecast);
+    }
 
-	async function gather() {
-	/* GETS IP ADDRESS https://ipinfo.io/developers */
-		let dataIP = await fetch("https://ipinfo.io/json");
-		dataIP = await dataIP.json();
-		userData = dataIP;
-		console.log(dataIP);
-		let weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dataIP["city"]},${dataIP["country"]}&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`);
-		weatherData = await weatherData.json();
-		weather = weatherData;
-		console.log('weatherdata:');
-		console.log(weatherData);
+    async function gather() {
+      /* GETS IP ADDRESS https://ipinfo.io/developers */
+      let dataIP = await fetch("https://ipinfo.io/json");
+      dataIP = await dataIP.json();
+      userData = dataIP;
+      console.log(dataIP);
+      let weatherData = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${dataIP["city"]},${
+          dataIP["country"]
+        }&id=524901&APPID=5d868cd94808acbf14ad297f46b257a7&lat=&units=imperial`
+      );
+      weatherData = await weatherData.json();
+      weather = weatherData;
+      console.log("weatherdata:");
+      console.log(weatherData);
 
-		console.log(`Coordinates: ${weatherData.coord.lat}, ${weatherData.coord.lon}`);
-		let timezone = await fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=G2MJ9GXGZCGH&format=json&by=position&lat=${weatherData.coord.lat}&lng=${weatherData.coord.lon}`);
-		timezone = await timezone.json();
-		console.log('timezone:');
-		console.log(timezone);
+      console.log(
+        `Coordinates: ${weatherData.coord.lat}, ${weatherData.coord.lon}`
+      );
+      let timezone = await fetch(
+        `http://api.timezonedb.com/v2.1/get-time-zone?key=G2MJ9GXGZCGH&format=json&by=position&lat=${weatherData.coord.lat}&lng=${weatherData.coord.lon}`
+      );
+      timezone = await timezone.json();
+      console.log("timezone:");
+      console.log(timezone);
 
-		// !!!!!!! HOLIDAY FINDER
-		let holidayAPI = '3938dd10-e4dd-469f-a785-b127db51ef64';
-		//let holiday = await fetch(`https://getfestivo.com/v1/holidays?api_key=${holidayAPI}&country=US&year=2019&month=7&day=04`)
+      // !!!!!!! HOLIDAY FINDER
+      let holidayAPI = "3938dd10-e4dd-469f-a785-b127db51ef64";
+      //let holiday = await fetch(`https://getfestivo.com/v1/holidays?api_key=${holidayAPI}&country=US&year=2019&month=7&day=04`)
 
-		//holiday = await holiday.json();
-		//console.log(holiday);
-		screenUpdater();
-	}
-	gather();
-	function screenUpdater() {
-		let sunrise = new Date(weather.sys.sunrise * 1000);
-		console.log(`Sunrise - ${sunrise.getHours()}:${sunrise.getMinutes()}`);
-		let sunset = new Date(weather.sys.sunset * 1000);
-		console.log(`Sunset - ${sunset.getHours()}:${sunset.getMinutes()}`);
-		let currentTime = new Date();
-		console.log(`Current Time - ${currentTime.getHours()}:${currentTime.getMinutes()}`);
-		if (currentTime.getHours() >= sunset.getHours() || currentTime.getHours() <= sunrise.getHours()) {
-			if (currentTime.getMinutes() >= sunset.getMinutes() || currentTime.getMinutes() <= sunrise.getMinutes()) {
-				nighttimeify();
-				selectorCSSAssign("night")
-				console.log('its nighttime!');
-			}
-		}
-		else{
-			daytimeify();
-			selectorCSSAssign("day");
-			console.log('its daytime!');}
-	}
-	function nighttimeify() {
-		document.getElementById("page-wrapper").className = "nighttime";
-		document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headernight.jpg"</img>`;
-		for (let btn in navBtns) {
-			document.getElementById(navBtns[btn]).classList.remove("daytime-nav-btn");
-			document.getElementById(navBtns[btn]).classList.add("nighttime-nav-btn");
-		}
-		for (let btn in selectorBtns) {
-			document.getElementById(selectorBtns[btn]).classList.remove("daytime-btn");
-			document.getElementById(selectorBtns[btn]).classList.add("nighttime-btn");
-		}
-	}
-	function daytimeify() {
-		document.getElementById("page-wrapper").className = "daytime";
-		document.getElementById("header").innerHTML = `<img class="header-img" src="img/forecast/headerday.jpg"</img>`;
-		for (let btn in navBtns) {
-			document.getElementById(navBtns[btn]).classList.remove("nighttime-nav-btn");
-			document.getElementById(navBtns[btn]).classList.add("daytime-nav-btn");
-		}
-		for (let btn in selectorBtns) {
-			document.getElementById(selectorBtns[btn]).classList.remove("nighttime-btn");
-			document.getElementById(selectorBtns[btn]).classList.add("daytime-btn");
-		}
-	}
+      //holiday = await holiday.json();
+      //console.log(holiday);
+      screenUpdater();
+    }
+    gather();
+    function screenUpdater() {
+      let sunrise = new Date(weather.sys.sunrise * 1000);
+      console.log(`Sunrise - ${sunrise.getHours()}:${sunrise.getMinutes()}`);
+      let sunset = new Date(weather.sys.sunset * 1000);
+      console.log(`Sunset - ${sunset.getHours()}:${sunset.getMinutes()}`);
+      let currentTime = new Date();
+      console.log(
+        `Current Time - ${currentTime.getHours()}:${currentTime.getMinutes()}`
+      );
+      if (
+        currentTime.getHours() >= sunset.getHours() ||
+        currentTime.getHours() <= sunrise.getHours()
+      ) {
+        if (
+          currentTime.getMinutes() >= sunset.getMinutes() ||
+          currentTime.getMinutes() <= sunrise.getMinutes()
+        ) {
+          nighttimeify();
+          selectorCSSAssign("night");
+          console.log("its nighttime!");
+        }
+      } else {
+        daytimeify();
+        selectorCSSAssign("day");
+        console.log("its daytime!");
+      }
+    }
+    function nighttimeify() {
+      document.getElementById("page-wrapper").className = "nighttime";
+      document.getElementById(
+        "header"
+      ).innerHTML = `<img class="header-img" src="img/forecast/headernight.jpg"</img>`;
+      for (let btn in navBtns) {
+        document
+          .getElementById(navBtns[btn])
+          .classList.remove("daytime-nav-btn");
+        document
+          .getElementById(navBtns[btn])
+          .classList.add("nighttime-nav-btn");
+      }
+      for (let btn in selectorBtns) {
+        document
+          .getElementById(selectorBtns[btn])
+          .classList.remove("daytime-btn");
+        document
+          .getElementById(selectorBtns[btn])
+          .classList.add("nighttime-btn");
+      }
+    }
+    function daytimeify() {
+      document.getElementById("page-wrapper").className = "daytime";
+      document.getElementById(
+        "header"
+      ).innerHTML = `<img class="header-img" src="img/forecast/headerday.jpg"</img>`;
+      for (let btn in navBtns) {
+        document
+          .getElementById(navBtns[btn])
+          .classList.remove("nighttime-nav-btn");
+        document.getElementById(navBtns[btn]).classList.add("daytime-nav-btn");
+      }
+      for (let btn in selectorBtns) {
+        document
+          .getElementById(selectorBtns[btn])
+          .classList.remove("nighttime-btn");
+        document.getElementById(selectorBtns[btn]).classList.add("daytime-btn");
+      }
+    }
 
-
-	async function nasa () {
-		let nasaMedia = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A`);
-		nasaMedia = await nasaMedia.json();
-		console.log("NASA Data:");
-		console.log(nasaMedia);
-		let { copyright, explanation, media_type, url, date } = nasaMedia;
-		/*
+    async function nasa() {
+      let nasaMedia = await fetch(
+        `https://api.nasa.gov/planetary/apod?api_key=WUvm5iyIw5AFJ0ahLwYb8Xm63WfkYiT9ChIbTu3A`
+      );
+      nasaMedia = await nasaMedia.json();
+      console.log("NASA Data:");
+      console.log(nasaMedia);
+      let { copyright, explanation, media_type, url, date } = nasaMedia;
+      /*
 		document.getElementById("page-content").innerHTML = `
 			<img class="nasa-img" src="${url}"</img>
 			<p>Copyright: ${copyright}, ${date}</p>
 			<p>${explanation}</p>
 		`;
 		*/
-		if (nasaMedia.media_type == "image"){
-		document.getElementById("page-content").innerHTML = `
+      if (copyright == undefined) {
+        copyright = "";
+      }
+      if (nasaMedia.media_type == "image") {
+        document.getElementById("page-content").innerHTML = `
 			<img class="nasa-img" src="${url}"</img>
 			<p>Copyright: ${copyright}, ${date}</p>
 			<p>${explanation}</p>
 		`;
-		}
-		else if (nasaMedia.media_type == "video"){
-			document.getElementById("page-content").innerHTML = `
+      } else if (nasaMedia.media_type == "video") {
+        document.getElementById("page-content").innerHTML = `
 				<iframe
 				 width="100%"
 				 /*height="315"*/
@@ -418,15 +483,14 @@ async function forecaster() {
 				 allowfullscreen>
 				 </iframe>
 			`;
-		}
-	}
+      }
+    }
 
-
-	document.getElementById("btn-nasa").addEventListener("click", () => {
-		console.log('clicked NASA button!');
-		nasa();
-		screenUpdater();
-	});
-	 /* ------- end PROMISE VERSION ------- */
-</script>
+    document.getElementById("btn-nasa").addEventListener("click", () => {
+      console.log("clicked NASA button!");
+      nasa();
+      screenUpdater();
+    });
+    /* ------- end PROMISE VERSION ------- */
+  </script>
 </html>

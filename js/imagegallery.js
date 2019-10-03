@@ -12,7 +12,6 @@ document.getElementById('scroll-left').addEventListener('click', () => {
         updateImage();
     }
 });
-
 document.getElementById('scroll-right').addEventListener('click', () => {
     if (image + 1 > projectData.gallery.length -1){
         image = 0;
@@ -27,7 +26,7 @@ document.getElementById('scroll-right').addEventListener('click', () => {
 /*create initial gallery background*/
 
 function updateImage(){
-    document.getElementById('gallery-wrapper').style = `background-image:url(img/projects/${projectData.gallery[image][0]});`
+    document.getElementById('gallery-img').src = `img/projects/${projectData.gallery[image][0]}`;
     document.getElementById('caption').innerHTML = projectData.gallery[image][1];
 }
 

@@ -271,15 +271,22 @@ let projectDB = {
       "This is my portfolio website, and was built mobile first, entirely from scratch (the only library used is FontAwesome). The layout was done usign CSS Grid and Flexbox, and all interactivity is done using CSS transitions or vanilla ES6 JavaScript. ",
     blurb:
       "My personal website was designed mobile-first, using CSS Grid, front end vanilla javascript, Flexbox, HTML5, and Photoshop.",
-    about: "My personal website. This site was designed mobile-first, using HTML5, CSS Grid, Flexbox, front end vanilla JavaScript, and lots of Photoshop. The only library used is FontAwesome. The 'Projects' page allows dynamic filtering of displayed projects; any project meeting a criterion highlighted in blue will be displayed, and those criteria can be filtered by individual selection, or three 'mass selection' buttons, 'Select All', 'Deselect All', and 'Invert Selection'.",
+    about:
+      "My personal website. This site was designed mobile-first, using HTML5, CSS Grid, Flexbox, front end vanilla JavaScript, and lots of Photoshop. The only library used is FontAwesome. The 'Projects' page allows dynamic filtering of displayed projects; any project meeting a criterion highlighted in blue will be displayed, and those criteria can be filtered by individual selection, or three 'mass selection' buttons, 'Select All', 'Deselect All', and 'Invert Selection'.",
     projectLink: "project-tzf.html",
     aboutLink: "project-tzf.html",
     codeLink: "#",
     image: "tzf260.png",
     gallery: [
-      ["tzf-1.jpg", "The project filter showing only projects that include jQuery."],
+      [
+        "tzf-1.jpg",
+        "The project filter showing only projects that include jQuery."
+      ],
       ["tzf-2.jpg", "The project filter toggle on mouse-over."],
-      ["tzf-3.jpg", "The mobile sized version of the project gallery, with the hamburger menu opened."],
+      [
+        "tzf-3.jpg",
+        "The mobile sized version of the project gallery, with the hamburger menu opened."
+      ],
       [
         "oranges.jpeg",
         "Some oranges. Why? Because the picture came up when I searched on Pexels, and it looked cool."
@@ -338,8 +345,14 @@ let projectDB = {
     image: "starfield260.jpg",
     gallery: [
       ["starfield-1.jpg", "The desktop view of the randomized starfield."],
-      ["starfield-2.jpg", "The canvas is the only element. The canvas will auto-resize wo the screen size; for a more populous 'sky', use a smaller screen."],
-      ["starfield-3.jpg", "The twinkle function that is applied randomly to 40% of the stars on creation."]
+      [
+        "starfield-2.jpg",
+        "The canvas is the only element. The canvas will auto-resize wo the screen size; for a more populous 'sky', use a smaller screen."
+      ],
+      [
+        "starfield-3.jpg",
+        "The twinkle function that is applied randomly to 40% of the stars on creation."
+      ]
     ],
     techblurb: "",
     techlist: [],
@@ -357,8 +370,14 @@ let projectDB = {
     codeLink: "#",
     image: "tictactoethumb260.jpg",
     gallery: [
-      ["tictactoe-4.jpg","Some of the AI programming; it waits a random amount of time before making a move, to make it seem less mechanical."],
-      ["tictactoe-3.jpg", "The appearance of the board divisions is controlled by CSS class updates."],
+      [
+        "tictactoe-4.jpg",
+        "Some of the AI programming; it waits a random amount of time before making a move, to make it seem less mechanical."
+      ],
+      [
+        "tictactoe-3.jpg",
+        "The appearance of the board divisions is controlled by CSS class updates."
+      ],
       ["tictactoe-1.jpg", "Four moves into a player vs AI game."],
       ["tictactoe-2.jpg", "Win condition for player 1 vs the AI."]
     ],
@@ -372,7 +391,8 @@ let projectDB = {
     status: "",
     blurb:
       "A motion detecting automated laser pointer to play with pets. A Pawtomatics project.",
-    about: "",
+    about:
+      "This project uses cheaply available parts to create a motion activated cat entertainer. When the PIR sensor is triggered, there is a chance that the laser pointer will activate, and be moved randomly on both the horizontal and vertical planes by the controlling servos for a period of time. When that period is over, the laser entertainer will randomly decide to continue operation if motion is still detected (the cat is still chaing the laser). The programming was done with Python, and the microcontroller that handles it all is an Adafruit Trinket running CircuitPython.  The brackets were made with an Anet A8 3D printer, and designed in OpenSCAD. All parts for the project cost less than $20. The future intention for this project is to complete a printable enclosure, and add several potentiometers to allow adjustment of several parameters, such as the likelihood that the motion detector initiates (and continues) play, the length of time the play sequence lasts, and a vertical and horizontal plane upper and lower limiter (so that you can keep the laser from going onto your couch, for example).",
     projectLink: "#",
     aboutLink: "project-entertainer.html",
     codeLink: "#",
@@ -389,7 +409,8 @@ let projectDB = {
         "Some oranges. Why? Because the picture came up when I searched on Pexels, and it looked cool."
       ]
     ],
-    techblurb: "",
+    techblurb:
+      "This project uses both physical technology, including two servos, a PIR sensor, a Trinket M0 microcontroller, a laser diode, and 3D printed parts, and also programming, with CircuitPython to receive and interpret signals from the PIR motion detector, and control the servoes.",
     techlist: [],
     res: [],
     tags: [
@@ -406,17 +427,27 @@ let projectDB = {
       "This project was a collaborative effort between <a href='www.featheredmonkey.com'>Dave Schechterly</a> (design, HTML) and myself (js). The site allows you to randomly generate lottery numbers for Pick 2, 3, 4, and 5, and allows you to force inclusion or exclusion of numbers from the results. The projoct uses CSS Grid, and front-end vanilla javascript.",
     blurb:
       "A collaborative project, created with <a href='www.featheredmonkey.com'>Dave Schechterly</a>, who created the majority of the HTML and CSS, and myself, who did the majority of the Javascript. We created a random lottery number generator for Pick 2, 3, 4, and 5, allowing mandatorily included and excluded numbers, the ability to save numbers and randomly pick more, and to print the saved numbers. This project was updated from Bootstrap 3 to CSS Grid.",
-    about: "A collaborative project, created with <a href='www.featheredmonkey.com'>Dave Schechterly</a>, who created the majority of the HTML and CSS, and myself, who did the majority of the Javascript. We created a random lottery number generator for Pick 2, 3, 4, and 5, allowing mandatorily included and excluded numbers, the ability to save numbers and randomly pick more, and to print the saved numbers. This project was updated from Bootstrap 3 to CSS Grid.",
+    about:
+      "A collaborative project, created with <a href='www.featheredmonkey.com'>Dave Schechterly</a>, who created the majority of the HTML and CSS, and myself, who did the majority of the Javascript. We created a random lottery number generator for Pick 2, 3, 4, and 5, allowing mandatorily included and excluded numbers, the ability to save numbers and randomly pick more, and to print the saved numbers. This project was updated from Bootstrap 3 to CSS Grid.",
     projectLink: "LotteryPicker_CSSGrid_ver_100917.html",
     aboutLink: "project-lotterypicker.html",
     codeLink: "#",
     image: "lottothumb260.jpg",
     gallery: [
       ["lotto-1.jpg", "Select the numbers you want included."],
-      ["lotto-2.jpg", "There is a number picker for Pick 2, 3, 4, and 5. Numbers can be saved, and printed."],
-      ["lotto-3.jpg", "Part of the JavaScript controlling saving picked nnumbers."],
+      [
+        "lotto-2.jpg",
+        "There is a number picker for Pick 2, 3, 4, and 5. Numbers can be saved, and printed."
+      ],
+      [
+        "lotto-3.jpg",
+        "Part of the JavaScript controlling saving picked nnumbers."
+      ],
       ["lotto-4.jpg", "The HTML for the Pick 3 section of the page."],
-      ["lotto-5.jpg", "This Pick 4 shows a 7 being required to be one of the numbers, and 2 and 4 not permitted to be in the results."]
+      [
+        "lotto-5.jpg",
+        "This Pick 4 shows a 7 being required to be one of the numbers, and 2 and 4 not permitted to be in the results."
+      ]
     ],
     techblurb: "",
     techlist: [],
@@ -500,20 +531,28 @@ let projectDB = {
     status: "",
     blurb:
       "An internet connected trap for catch, fix, and release feral cat population control programs and volunteers. A Pawtomatics project.",
-    about: "This was a functional proof of concept project. It is an internet connected trap for feral cat 'catch, fix, and release' programs. The purpose is to allow the trapper to see via internet what cat (or other animal) is in the trap, and decide whether to trap it or not; why catch a cat that's lready been fixed? Then, if a cat wasn't trapped, but ate the bait food, the food can be refilled remotely. When an animal breaks the IR LED transmitter//receiver, a picture is uploaded to the server, and a text message and email are sent to the owner of the trap to inform them. From the website, the trapper can trigger the trap, refill the bait, and capture another picture. Unfortunately, this project was completed with CGI scripts, before I discovered websockets, and although the trap itself uses Python 3, my server at the time only supported Python 2, so the final version will be completely redone.",
+    about:
+      "This was a functional proof of concept project. It is an internet connected trap for feral cat 'catch, fix, and release' programs. The purpose is to allow the trapper to see via internet what cat (or other animal) is in the trap, and decide whether to trap it or not; why catch a cat that's already been fixed? Then, if a cat wasn't trapped, but ate the bait food, the food can be refilled remotely. When an animal breaks the IR LED transmitter//receiver, a picture is uploaded to the server, and a text message and email are sent to the owner of the trap to inform them. From the website, the trapper can trigger the trap, refill the bait, and capture another picture. Unfortunately, this project was completed with CGI scripts, before I discovered websockets, and although the trap itself uses Python 3, my server at the time only supported Python 2, so the final version will be completely redone.",
     projectLink: "#",
     aboutLink: "project-cattrap.html",
     codeLink: "https://github.com/zachferguson/cattrap",
     image: "cattrap260.jpg",
     gallery: [
-      ["cattrap-1.jpg", "The prototype trap. The food dispenser magazine is at the rear left, and the Raspberry Pi that controls everything is at the front left. This is a top-down view."
+      [
+        "cattrap-1.jpg",
+        "The prototype trap. The food dispenser magazine is at the rear left, and the Raspberry Pi that controls everything is at the front left. This is a top-down view."
       ],
-      ["banjorock.jpeg", "They're probably hipsters. Let's move on..."],
-      ["cattrap-3.jpg", "An image of the view the cattrap captured when triggered remotely, but with nothing in it. The top is the 'bait bowl', and the IR proximity detector LEDs are visible at the bottom."],
-      ["cattrap-4.jpg", "A picture of my cat triggering the image capture feature. Here, I discovered the final project would need a different camera position."
+      [
+        "cattrap-3.jpg",
+        "An image of the view the cattrap captured when triggered remotely, but with nothing in it. The top is the 'bait bowl', and the IR proximity detector LEDs are visible at the bottom."
+      ],
+      [
+        "cattrap-4.jpg",
+        "A picture of my cat triggering the image capture feature. Here, I discovered the final project would need a different camera position."
       ]
     ],
-    techblurb: "This project uses a wide variety of libraries and technologies. Text functionality is done with the Twilio API, stepper motor control and other GPIO functionality uses the GPIOZero Raspberry Pi library. The fttlib, smtplib, urllib, and email Python libraries were used to control connection to and data//command receipt from the server.",
+    techblurb:
+      "This project uses a wide variety of libraries and technologies. Text functionality is done with the Twilio API, stepper motor control and other GPIO functionality uses the GPIOZero Raspberry Pi library. The fttlib, smtplib, urllib, and email Python libraries were used to control connection to and data//command receipt from the server.",
     techlist: [],
     res: [
       "<p>The <a href='https://www.twilio.com/'>Twilio API</a>, for texting images of trap occupants.</p>",
@@ -691,7 +730,9 @@ let projectDB = {
       ]
     ],
     techblurb: "",
-    techlist: ["This project was an opportunity to practice using user input, a Python library, and Pythonn string operations."],
+    techlist: [
+      "This project was an opportunity to practice using user input, a Python library, and Pythonn string operations."
+    ],
     res: [],
     tags: ["chk-complete", "chk-python", "chk-desktop"]
   },
@@ -750,12 +791,7 @@ let projectDB = {
     res: [
       "<p><a href='https://github.com/jsvine/markovify'>Markovify</a>, a library that parses text and generates Markov chains. By <a href='https://github.com/jsvine'>Jeremy Singer-Vine</a>.</p>"
     ],
-    tags: [
-      "chk-complete",
-      "chk-analytics",
-      "chk-python",
-      "chk-desktop"
-    ]
+    tags: ["chk-complete", "chk-analytics", "chk-python", "chk-desktop"]
   },
   markovifyonline: {
     title: "MarkovifyThis Online",
@@ -793,35 +829,35 @@ let projectDB = {
       "chk-desktop"
     ]
   },
-  ledlamp: {
-    title: "Driftwood Lamp",
-    status: "",
-    blurb:
-      "A lamp made from a hollow piece of driftwood, using an Adafruid Trinket, CircuitPython, and RGB LED strips, with various settings and adjustments.",
-    about:
-      "This is a project I made after I found a hollow piece of driftwood, and thought it would make a cool lamp. It was made with an Adafruit Trimket, CircuitPython, transistors, and RGB LED strips. There are knobs to set color, brightness, and a knob that will set it to randomly change color and brightness (up to the brightness setting).",
-    projectLink: "https://github.com/zachferguson/markovifythis",
-    aboutLink: "project-ledlamp.html",
-    codeLink: "https://github.com/zachferguson/driftwood",
-    image: "placeholder260.png",
-    gallery: [
-      [
-        "chameleon.jpeg",
-        "This is a random picture of a chameleon for testing purposes."
-      ],
-      ["banjorock.jpeg", "They're probably hipsters. Let's move on..."],
-      ["jellyfish.jpeg", "Pretty awesome looking, but don't touch it!"],
-      [
-        "oranges.jpeg",
-        "Some oranges. Why? Because the picture came up when I searched on Pexels, and it looked cool."
-      ]
-    ],
-    techblurb:
-      "This project uses an Adafruit Trinket and CircuitPython for control of physical elements via GPIO.",
-    techlist: [],
-    res: [],
-    tags: ["chk-3ddesign", "chk-python", "chk-electronics", "chk-physical"]
-  },
+  // ledlamp: {
+  //   title: "Driftwood Lamp",
+  //   status: "",
+  //   blurb:
+  //     "A lamp made from a hollow piece of driftwood, using an Adafruid Trinket, CircuitPython, and RGB LED strips, with various settings and adjustments.",
+  //   about:
+  //     "This is a project I made after I found a hollow piece of driftwood, and thought it would make a cool lamp. It was made with an Adafruit Trimket, CircuitPython, transistors, and RGB LED strips. There are knobs to set color, brightness, and a knob that will set it to randomly change color and brightness (up to the brightness setting).",
+  //   projectLink: "https://github.com/zachferguson/markovifythis",
+  //   aboutLink: "project-ledlamp.html",
+  //   codeLink: "https://github.com/zachferguson/driftwood",
+  //   image: "placeholder260.png",
+  //   gallery: [
+  //     [
+  //       "chameleon.jpeg",
+  //       "This is a random picture of a chameleon for testing purposes."
+  //     ],
+  //     ["banjorock.jpeg", "They're probably hipsters. Let's move on..."],
+  //     ["jellyfish.jpeg", "Pretty awesome looking, but don't touch it!"],
+  //     [
+  //       "oranges.jpeg",
+  //       "Some oranges. Why? Because the picture came up when I searched on Pexels, and it looked cool."
+  //     ]
+  //   ],
+  //   techblurb:
+  //     "This project uses an Adafruit Trinket and CircuitPython for control of physical elements via GPIO.",
+  //   techlist: [],
+  //   res: [],
+  //   tags: ["chk-3ddesign", "chk-python", "chk-electronics", "chk-physical"]
+  // },
   template: {
     title: "Template Project",
     status: "in-progress",
@@ -901,9 +937,9 @@ let projectDB = {
 // - upload musashi code to github
 // - get pictures for car upgrade
 // - get pictures for Caesar Cypher
-// - finish driftwood lamp
-// - get pictures of driftwood Lamp
-// - upload driftwood lamp code to github
+// DELAYED - finish driftwood lamp
+// DELAYED - get pictures of driftwood Lamp
+// DELAYED - upload driftwood lamp code to github
 // - send some trump tweets
 // - get some pictures of trump tweets
 // - clean and upload trump code to github
@@ -911,10 +947,10 @@ let projectDB = {
 // - get preview pic of vDict
 // - get pictures of vDict
 // - upload vDict code to github
-// - get preview pic of feral cat trap
-// - get pictures of feral cat trap
+// DONE - get preview pic of feral cat trap
+// DONE - get pictures of feral cat trap
 // - upload feral cat trap code to github
-// - get preview pic of laser entertainer
+// DONE - get preview pic of laser entertainer
 // - get pictures of laser entertainer
 // - upload laser entertainer code to github
 // - finish equipinspect (react?)
