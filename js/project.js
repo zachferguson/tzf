@@ -22,7 +22,7 @@
         "project-links"
       ).innerHTML += `<p><a href="${projectData.projectLink}">VIEW PROJECT</a></p>`;
     }
-    if (projectData.projectLink != "#") {
+    if (projectData.codeLink != "#") {
       document.getElementById(
         "project-links"
       ).innerHTML += `<p><a href="${projectData.codeLink}">VIEW CODE</a></p>`;
