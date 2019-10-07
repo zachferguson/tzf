@@ -674,7 +674,7 @@ let projectDB = {
   shades: {
     title: "Fifty Shades of Trump",
     status:
-      "Whether you love or hate Trump, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny. For this project, I created several Python 3 programs; one to parse 50 Shades of Grey, one to parse Trumps tweets, one to zip those two together, and finally, one to generate Markov chains from the resulting database. I also used another project, <a href='#'>vDict</a>, to determine whether words were English words.",
+      "Whether you love or hate Trump, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny. For this project, I created several Python 3 programs; one to parse 50 Shades of Grey, one to parse Trumps tweets (and getting it to not crash on some of the characters / emojis was a huge challenge), one to zip those two together, and finally, one to generate Markov chains from the resulting database. I also used another project, <a href='#'>vDict</a>, to determine whether words were English words.",
     blurb:
       "Whether you love him or hate him, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny.",
     about: "",
