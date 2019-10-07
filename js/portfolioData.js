@@ -234,7 +234,7 @@ let projectDB = {
     about:
       "This project is one of the FreeCodeCamp projects required for the Front End Web Development certificate. The user can search Wikipedia, and see the results of the searchm and also select to view a random article.",
     projectLink: "wikiviewer.html",
-    aboutLink: "project-wikiviewer.html",
+    aboutLink: "project-wikisearch.html",
     codeLink: "#",
     image: "wikiviewerthumb260.jpg",
     gallery: [
@@ -616,7 +616,7 @@ let projectDB = {
       "Check Twitch TV channels to see whats playing. Developed for a FreeCodeCamp project using the TwitchTV API.",
     about: "",
     projectLink: "twitchtvviewer.html",
-    aboutLink: "project-twitchviewer.html",
+    aboutLink: "project-twitch.html",
     codeLink: "#",
     image: "twitchthumb260.jpg",
     gallery: [
@@ -679,7 +679,7 @@ let projectDB = {
       "Whether you love him or hate him, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny.",
     about: "",
     projectLink: "https://twitter.com/fiftyshadesoft4",
-    aboutLink: "project-fiftyshades.html",
+    aboutLink: "project-shades.html",
     codeLink: "#",
     image: "shadesoftrump260.jpg",
     gallery: [
@@ -904,7 +904,7 @@ let projectDB = {
     about:
       'In this project, I hacked my car to add Bluetooth audio connectivity, and also to add two USB charging ports, as my car had neither. Using a fuse shunt, I added a always-on 5 port USB charger directly wired to a Bluetooth speaker, which was hacked to output audio into my car stereo aux port. Two more USB ports were extended up into my center console for charging cell phones, and two were left empty as a power source for a future addition of a Raspberry Pi and 7" touchscreen. This project was electrical only.',
     projectLink: "#",
-    aboutLink: "project-carupgrade.html",
+    aboutLink: "project-charger.html",
     codeLink: "#",
     image: "placeholder260.png",
     gallery: [
