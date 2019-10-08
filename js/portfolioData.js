@@ -144,7 +144,7 @@ for (let item in filterIDs) {
 let projectDB = {
   musashi: {
     title: "Musashi Tribute",
-    status: "",
+    status: "inprogress",
     blurb:
       "A tribute page to Miyamoto Musashi for a FreeCodeCamp project, using css gris and jQuery.",
     about:
@@ -184,7 +184,7 @@ let projectDB = {
   },
   weather: {
     title: "Weather App",
-    status: "",
+    status: "completed",
     blurb:
       "A weather forecast page for a FreeCodeCamp project, using Bootstrap and the OpenWeatherMap API.",
     about:
@@ -228,7 +228,7 @@ let projectDB = {
   },
   wikisearch: {
     title: "Wikipedia Viewer",
-    status: "",
+    status: "completed",
     blurb:
       "Based on a FreeCodeCamp project, this page allows other user to search and view WikiPedia articles, or to view a random article. Made using the Wikipedia API.",
     about:
@@ -267,10 +267,9 @@ let projectDB = {
   },
   tzf: {
     title: "theZachFerguson",
-    status:
-      "This is my portfolio website, and was built mobile first, entirely from scratch (the only library used is FontAwesome). The layout was done usign CSS Grid and Flexbox, and all interactivity is done using CSS transitions or vanilla ES6 JavaScript. ",
+    status: "inprogress",
     blurb:
-      "My personal website was designed mobile-first, using CSS Grid, front end vanilla javascript, Flexbox, HTML5, and Photoshop.",
+      "This is my portfolio website, and was built mobile first, entirely from scratch (the only library used is FontAwesome). The layout was done usign CSS Grid and Flexbox, and all interactivity is done using CSS transitions or vanilla ES6 JavaScript. ",
     about:
       "My personal website. This site was designed mobile-first, using HTML5, CSS Grid, Flexbox, front end vanilla JavaScript, and lots of Photoshop. The only library used is FontAwesome. The 'Projects' page allows dynamic filtering of displayed projects; any project meeting a criterion highlighted in blue will be displayed, and those criteria can be filtered by individual selection, or three 'mass selection' buttons, 'Select All', 'Deselect All', and 'Invert Selection'.",
     projectLink: "project-tzf.html",
@@ -306,7 +305,7 @@ let projectDB = {
   },
   bubbles: {
     title: "Canvas Bubbles",
-    status: "",
+    status: "completed",
     blurb:
       "A mouse / touch interactive page resulting from an HTML5 / canvas tutorial by Chris Courses on YouTube.",
     about:
@@ -334,7 +333,7 @@ let projectDB = {
   },
   starfield: {
     title: "Starfield",
-    status: "",
+    status: "completed",
     blurb:
       "A randomized twinkling starfield. This is my adaptation of an HTML5 / canvas tutorial by Chris Courses on YouTube.",
     about:
@@ -361,7 +360,7 @@ let projectDB = {
   },
   tictactoe: {
     title: "Tic Tac Toe",
-    status: "",
+    status: "completed",
     blurb:
       "Play Tic Tac Toe against a simple AI, or with a friend. Made with vanilla Javascript.",
     about: "",
@@ -388,7 +387,7 @@ let projectDB = {
   },
   entertainer: {
     title: "Laser Entertainer",
-    status: "",
+    status: "inprogress",
     blurb:
       "A motion detecting automated laser pointer to play with pets. A Pawtomatics project.",
     about:
@@ -423,8 +422,7 @@ let projectDB = {
   },
   lotterypicker: {
     title: "Lottery Picker",
-    status:
-      "This project was a collaborative effort between <a href='www.featheredmonkey.com'>Dave Schechterly</a> (design, HTML) and myself (js). The site allows you to randomly generate lottery numbers for Pick 2, 3, 4, and 5, and allows you to force inclusion or exclusion of numbers from the results. The projoct uses CSS Grid, and front-end vanilla javascript.",
+    status: "completed",
     blurb:
       "A collaborative project, created with <a href='www.featheredmonkey.com'>Dave Schechterly</a>, who created the majority of the HTML and CSS, and myself, who did the majority of the Javascript. We created a random lottery number generator for Pick 2, 3, 4, and 5, allowing mandatorily included and excluded numbers, the ability to save numbers and randomly pick more, and to print the saved numbers. This project was updated from Bootstrap 3 to CSS Grid.",
     about:
@@ -491,7 +489,7 @@ let projectDB = {
   },
   pawtomatics: {
     title: "Pawtomatics",
-    status: "",
+    status: "inprogress",
     blurb:
       "An ongoing website build for a project to provide open source automated pet and animal care products.",
     about: "",
@@ -528,7 +526,7 @@ let projectDB = {
   },
   cattrap: {
     title: "Feral Cat Trap",
-    status: "",
+    status: "completed",
     blurb:
       "An internet connected trap for catch, fix, and release feral cat population control programs and volunteers. A Pawtomatics project.",
     about:
@@ -573,7 +571,7 @@ let projectDB = {
   },
   equipinspect: {
     title: "EquipInspect.com",
-    status: "",
+    status: "inprogress",
     blurb:
       "An ongoing website build for a project to provide inspection criteria and records for automotive lifts. Lift inspections are currently unregulated, but increasingly more required by garage insurance.",
     about: "",
@@ -611,10 +609,11 @@ let projectDB = {
   },
   twitch: {
     title: "TwitchTV Viewer",
-    status: "",
+    status: "completed",
     blurb:
       "Check Twitch TV channels to see whats playing. Developed for a FreeCodeCamp project using the TwitchTV API.",
-    about: "",
+    about:
+      "This project was a <a href='www.freecodecamp.com'>FreeCodeCamp</a> Front End Developer Certificate required project. It required the developer to use the Twitch API to determine the status of several channels, and display the results.",
     projectLink: "twitchtvviewer.html",
     aboutLink: "project-twitch.html",
     codeLink: "#",
@@ -673,11 +672,11 @@ let projectDB = {
   },
   shades: {
     title: "Fifty Shades of Trump",
-    status:
-      "Whether you love or hate Trump, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny. For this project, I created several Python 3 programs; one to parse 50 Shades of Grey, one to parse Trumps tweets (and getting it to not crash on some of the characters / emojis was a huge challenge), one to zip those two together, and finally, one to generate Markov chains from the resulting database. I also used another project, <a href='#'>vDict</a>, to determine whether words were English words.",
+    status: "completed",
     blurb:
       "Whether you love him or hate him, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny.",
-    about: "",
+    about:
+      "Whether you love or hate Trump, combining Markov analyses of Trump's tweets and Fifty Shades of Gray is fun and funny. For this project, I created several Python 3 programs; one to parse 50 Shades of Grey, one to parse Trumps tweets (and getting it to not crash on some of the characters / emojis was a huge challenge), one to zip those two together, and finally, one to generate Markov chains from the resulting database. I also used another project, <a href='#'>vDict</a>, to determine whether words were English words.",
     projectLink: "https://twitter.com/fiftyshadesoft4",
     aboutLink: "project-shades.html",
     codeLink: "#",
@@ -707,7 +706,7 @@ let projectDB = {
   },
   caesar: {
     title: "Caesar Cypher",
-    status: "",
+    status: "completed",
     blurb:
       "A program that allows the user to encode into a Caesar cypher, or to decode Caesar cypher text with a known OR unknown key.",
     about:
@@ -738,7 +737,7 @@ let projectDB = {
   },
   vdict: {
     title: "vDict",
-    status: "",
+    status: "inprogress",
     blurb:
       "Python programs I used to parse text files of dictionaries to make a replacement (vDict itself) for pyEnchant's 'is it a word' function for my own use in other projects.",
     about: "",
@@ -765,7 +764,7 @@ let projectDB = {
   },
   markovify: {
     title: "MarkovifyThis",
-    status: "",
+    status: "completed",
     blurb:
       "A graphical interface exe file created with Python that returns Markov analysis generated sentences from an input text file.",
     about:
@@ -795,7 +794,7 @@ let projectDB = {
   },
   markovifyonline: {
     title: "MarkovifyThis Online",
-    status: "",
+    status: "completed",
     blurb:
       "A Node site that calls a Python script on the back end, and returns Markov analysis generated sentences from the chosen text.",
     about:
@@ -860,7 +859,7 @@ let projectDB = {
   // },
   template: {
     title: "Template Project",
-    status: "in-progress",
+    status: "inprogress",
     blurb:
       "This is a template project blurb about a thing that doesn't exist, and lots of text, but just for testing purposes.",
     about:
