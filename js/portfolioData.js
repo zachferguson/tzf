@@ -863,7 +863,7 @@ let projectDB = {
     blurb:
       "This is a template project blurb about a thing that doesn't exist, and lots of text, but just for testing purposes.",
     about:
-      "This is a bizarely long explanation of absolutely nothing, because this is an imaginary project. All of the technologies are entirely made up, and don't have real pages. This imaginary project was inspired by another imaginary thing that I just made up fo flesh out this paragraph about nothing. Hello world, hope this works!",
+      "This is a bizarely long explanation of absolutely nothing, because this is an imaginary project. All of the technologies are entirely made up, and don't have real pages. This imaginary project was inspired by another imaginary thing that I just made up fo flesh out this paragraph about nothing. Hello world!",
     projectLink: "projectTemplate.html",
     aboutLink: "projectTemplate.html",
     codeLink: "#",
